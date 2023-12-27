@@ -113,7 +113,9 @@ class ApiService {
     try {
       Response response = await post(
         Uri.parse(
-            'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/create/'),
+            // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/create/'
+            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/create/'
+        ),
         body: serverpayLoad1,
         // headers:  {"Content-Type": "application/json;charset=utf-8"}
         headers: {"Content-Type": "application/json"},
