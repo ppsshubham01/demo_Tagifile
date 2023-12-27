@@ -27,7 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
           body: SingleChildScrollView(
         child: Form(
           key: formKey,
-          // autovalidateMode: AutovalidateMode.onUserInteraction,
+          //autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Stack(
               // resizeToAvoidBottomInset: false,
               children: <Widget>[
@@ -72,6 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding:
                           const EdgeInsets.only(left: 20, top: 40, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _firstNameController,
                         decoration: InputDecoration(
                           labelText: 'FirstName',
@@ -107,6 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding:
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _lastNameController,
                         decoration: InputDecoration(
                           labelText: 'LastName',
@@ -193,6 +195,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding:
                           const EdgeInsets.only(left: 20, top: 5, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _emailController,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -217,8 +220,17 @@ class _SignupScreenState extends State<SignupScreen> {
                         maxLines: 1,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
+                          final RegExp emailRegex = RegExp(
+                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                          bool validateEmail(String email) {
+                            return emailRegex.hasMatch(email);
+                          }
+
                           if (value!.isEmpty) {
-                            return "Please enter email";
+                            return 'Please enter the email';
+                          } else if (!validateEmail(value)) {
+                            //print('Enter valid E-mail');
+                            return 'Enter valid E-mail';
                           }
                         },
                       ),
@@ -227,6 +239,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding:
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _passwordController,
                         obscureText: _isSelected,
                         decoration: InputDecoration(
@@ -263,7 +276,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         // keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Please enter Password";
+                            return "Password is required";
+                          } else if (value.length < 8) {
+                            return ('length should be at-least 8 character');
+                          } else if(!value.contains(RegExp(r'[A-Z]'))){
+                            return "Password not contain at-least one capital letter";
+                          } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
+                            return "Password not contain at-least one special character";
                           }
                         },
                       ),
@@ -276,15 +295,25 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          ApiService().signup(
+                          if (formKey.currentState!.validate()) {
+                            ApiService().signup(
                               firstName: _firstNameController.text,
                               lastName: _lastNameController.text,
                               email: _emailController.text,
                               password: _passwordController.text,
-                            onSuccess: (value) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
-                            },
-                          );
+                              onSuccess: (value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const WelcomeScreen()));
+                              },
+                            );
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (_) => HomePage()));
+                            // print("Validated");
+                          } else {
+                            // print("Not Validated");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color((0xFF1D55A4)),

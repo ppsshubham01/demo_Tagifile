@@ -11,7 +11,7 @@ import 'package:tagifiles/screens/welcome_screen.dart';
 
 class ApiService {
 
-
+//Done
   /// Login
   Future<void> login({
     required String email,
@@ -30,18 +30,19 @@ class ApiService {
     try {
       Response response = await post(
           Uri.parse(
-              'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'),
+              // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
+                  'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'
+          ),
           body: serverPayload,
-          // headers: {"Content-Type": "application/json",});
           headers: {
-            "Authorization": "99bc42d1122355ce54ff030bba148c2772600379",
+            "Content-Type": "application/json",
+            // "Authorization": "99bc42d1122355ce54ff030bba148c2772600379",
           });
 
       if (response.statusCode == 200) {
         final token = jsonDecode(response.body)['token'];
         await saveTokenToPrefs(token);
-        print("Login successfully ${response.statusCode}");
-        print(response.body);
+        print("Login successfully ${response.statusCode} + ${response.body}");
         onSuccess.call(response.body);
         return token;
         var logindata = jsonDecode(response.body.toString());

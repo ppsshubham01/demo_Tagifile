@@ -32,6 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       _emailFocusNode.requestFocus();
     });
   }
+
   void _onPasswordTap() {
     setState(() {
       _passwordFocusNode.requestFocus();
@@ -46,10 +47,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         body: SingleChildScrollView(
           child: Form(
             key: formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Stack(
               children: [
-
                 /// Background ImageBottom
                 Positioned(
                     bottom: 20,
@@ -60,7 +59,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-
                     /// Welcome Text
                     const Padding(
                       padding: EdgeInsets.only(left: 25, top: 80),
@@ -87,8 +85,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                     /// Email
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 40, right: 20),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 40, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: emailController,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -117,8 +117,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         focusNode: _emailFocusNode,
                         onTap: _onEmailTap,
                         validator: (value) {
+                          final RegExp emailRegex = RegExp(
+                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                          bool validateEmail(String email) {
+                            return emailRegex.hasMatch(email);
+                          }
+
                           if (value!.isEmpty) {
                             return 'Please enter the email';
+                          } else if (!validateEmail(value)) {
+                            //print('Enter valid E-mail');
+                            return 'Enter valid E-mail';
                           }
                         },
                       ),
@@ -126,8 +135,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                     /// Password
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: passwordController,
                         obscureText: _isSelected,
                         decoration: InputDecoration(
@@ -166,8 +177,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Password is required";
-                          }else if(value.length<8){
-                            return('lenght should be atleast 8 charater');
+                          } else if (value.length < 8) {
+                            return ('length should be at-least 8 character');
+                          } else if(!value.contains(RegExp(r'[A-Z]'))){
+                            return "Password not contain at-least one capital letter";
+                          } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
+                            return "Password not contain at-least one special character";
                           }
                         },
                       ),
@@ -208,12 +223,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             serviceObject.login(
-                                email: emailController.text,
-                                password: passwordController.text,
-                            onSuccess: (value) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => const HomePage()));
-                            },
-                            context: context,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              onSuccess: (value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const HomePage()));
+                              },
+                              context: context,
                             );
                             // Navigator.push(context,
                             //     MaterialPageRoute(builder: (_) => HomePage()));
@@ -221,7 +239,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           } else {
                             // print("Not Validated");
                           }
-                          },
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color((0xFF1D55A4)),
                           shape: RoundedRectangleBorder(
@@ -242,7 +260,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                     /// Text or sign in with
                     Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20, top: 50),
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 20, top: 50),
                       child: const Row(
                         children: [
                           Expanded(
