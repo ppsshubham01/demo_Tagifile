@@ -132,7 +132,10 @@ class _CollaboratePageState extends State<CollaboratePage> {
           return ListTile(
             leading: GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                 userItem: item,
+networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                ),),);
               },
               child: CircleAvatar(
                 radius: 28,

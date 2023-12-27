@@ -2,9 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tagifiles/model/chatUsersModel.dart';
 
 class SingleUserProfile extends StatefulWidget {
-  const SingleUserProfile({super.key});
+  String userNetworkImage;
+  // String userName;
+  ChatUsers userItem;
+  SingleUserProfile({super.key, required this.userItem,required this.userNetworkImage});
 
   @override
   State<SingleUserProfile> createState() => _SingleUserProfileState();
@@ -44,7 +48,16 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 10,),
+                    Stack(
+                      children: [
+
                     CircleAvatar(radius: 75,backgroundImage: NetworkImage('https://source.unsplash.com/random'),),
+                      Positioned(
+                          bottom: 20,
+                          right: 2,
+                          child: Icon(Icons.edit))
+                      ],
+                    ),
                     Text("Shubham Prajapati",style: TextStyle(color: Color(0xFF566476),fontSize: 16,fontWeight: FontWeight.bold),),
                     SizedBox(height: 5,),
                     Text("number/subName",style: TextStyle(color: Color(0xFFA8A7A7),fontSize: 14),),
@@ -87,7 +100,7 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
 
               Container(
                 color: Colors.white,
-                height: 150,
+                height: 200,
                 width: double.infinity,
                 child: Padding(
                   padding: EdgeInsets.only(top: 18.0,left: 20,bottom: 5,right: 20),
@@ -102,7 +115,10 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                         ],
                       ),
                       // Logic for Media
-                  // media();
+                  Container(
+                      height: 150,
+                      width: double.infinity,
+                      child: media()),
                     ],
                   ),
                 ),
@@ -141,16 +157,16 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
 
   Widget media() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,crossAxisSpacing: 4,mainAxisSpacing: 4),
-        // itemCount: ,
+            crossAxisCount: 3,crossAxisSpacing: 10,mainAxisSpacing: 10),
+        itemCount: 3,
         itemBuilder: (context,index){
 
-          return GridTile(child: InkWell(
-            child: Ink.image(
-              image: const NetworkImage('https://source.unsplasg.com/randon'),
-              fit: BoxFit.fill,),
-
-          ));
+          return  Container(
+              alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: Image.network(widget.userNetworkImage,),);
         });
 
 }

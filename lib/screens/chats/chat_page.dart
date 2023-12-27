@@ -7,7 +7,9 @@ import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/screens/home_screen.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+ String networkImageLink;
+  ChatUsers userItem;
+   ChatPage({super.key, required this.userItem, required this.networkImageLink});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -51,28 +53,33 @@ class _ChatPageState extends State<ChatPage> {
           children: [
             GestureDetector(
                 onTap: (){
-                  // Navigator.of(context).pop();
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
+                  // Navigator.pop(context);
                 },
                 child: const Icon(Icons.arrow_back,color: Colors.white,)),
             const SizedBox(width: 5,),
             GestureDetector(
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const SingleUserProfile()));
+              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>  SingleUserProfile(
+                userItem: widget.userItem,
+                userNetworkImage: widget.networkImageLink,
+              )));
               },
-              child: const CircleAvatar(radius: 20,backgroundImage: NetworkImage('https://source.unsplash.com/random'),),
+              child: CircleAvatar(radius: 20,backgroundImage:
+              NetworkImage(widget.networkImageLink)
+                ,),
             ),
              const SizedBox(width: 5,),
       
              Flexible(child: Padding( padding: const EdgeInsets.only(top: 10.0,bottom: 8.0),
                child: GestureDetector(
                  onTap: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const SingleUserProfile()));
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>  SingleUserProfile(userItem: widget.userItem,userNetworkImage: widget.networkImageLink,)));
                  },
-                 child:const Column(
+                 child: Column(
                    mainAxisAlignment: MainAxisAlignment.center,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text("Shubham Prajapatishubham prajapati",style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
+                     Text(widget.userItem.name,style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
                      // Text("Online",style: TextStyle(color: Colors.grey, fontSize: 13),),
                    ],
                  ),
@@ -83,9 +90,15 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
           actions: [
-            IconButton(onPressed: () {  }, icon: const Icon(Icons.call,color: Colors.white,size: 20,),),
-            IconButton(onPressed: () {  }, icon: const Icon(Icons.videocam_outlined,color: Colors.white,size: 20,),),
-            IconButton(onPressed: () {  }, icon: const Icon(Icons.menu,color: Colors.white,size: 20,),),
+            SizedBox(
+                width: 35,
+                child: IconButton(onPressed: () {  }, icon: const Icon(Icons.call,color: Colors.white,size: 20,),)),
+            SizedBox(
+                width: 35,
+                child: IconButton(onPressed: () {  }, icon: const Icon(Icons.videocam_outlined,color: Colors.white,size: 20,),)),
+            SizedBox(
+                width: 35,
+                child: IconButton(onPressed: () {  }, icon: const Icon(Icons.more_vert,color: Colors.white,size: 20,),)),
           ],
         ),
       
@@ -120,10 +133,11 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
         ),
-      
-        bottomNavigationBar: Container(
-          height: 60,
-          // color: const Color(0xFFDE8A8A),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          // height: 60,
+          width: double.infinity,
+          color: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10.0),
           child: Row(
             children: [
@@ -134,25 +148,24 @@ class _ChatPageState extends State<ChatPage> {
                   height: 30,
                   width: 30,
                   child:Icon(CupertinoIcons.plus_circle),
-      
+
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                  child: Expanded(
-                    child: TextField(
-                      minLines: 1,
-                      maxLines: 5,
-                      keyboardType: TextInputType.text,
-                      controller: _chattypeTextController,
-                      decoration: InputDecoration(
-                          hintText: "Type a Message",
-                          border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          // borderSide: BorderSide(color: Colors.red)
-                        )
-                      ),
+                  child: TextField(
+                    minLines: 1,
+                    maxLines: 2,
+                    keyboardType: TextInputType.text,
+                    controller: _chattypeTextController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10),
+                        hintText: "Type a Message",
+                        border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        // borderSide: BorderSide(color: Colors.red)
+                      )
                     ),
                   ),
                 ),
@@ -161,7 +174,7 @@ class _ChatPageState extends State<ChatPage> {
               IconButton(onPressed: (){}, icon: const Icon(Icons.send_outlined)),
             ],
           ),
-      
+
         ),
       
       ),
