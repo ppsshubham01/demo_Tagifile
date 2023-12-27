@@ -11,7 +11,6 @@ import 'package:tagifiles/screens/welcome_screen.dart';
 
 class ApiService {
 
-//Done
   /// Login
   Future<void> login({
     required String email,
@@ -58,7 +57,7 @@ class ApiService {
       print('Error: $e');
     }
   }
-
+///token
   Future<void> saveTokenToPrefs(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);

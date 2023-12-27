@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tagifiles/model/chatMessageModel.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
+import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
+import 'package:tagifiles/screens/home_screen.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -12,90 +15,156 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
 
+  final TextEditingController _chattypeTextController = TextEditingController();
+
+  List<ChatMessage> messages = [
+    ChatMessage(messageContent: "Hello Jaimin", messageType: "receiver"),
+    ChatMessage(messageContent: "How are you!", messageType: "receiver"),
+    ChatMessage(messageContent: "Hey dude!", messageType: "sender"),
+    ChatMessage(messageContent: "Dp ma maal lage che hoo!", messageType: "receiver"),
+    ChatMessage(messageContent: "aree re mara bhai!, ....kya che hmna?", messageType: "sender"),
+    ChatMessage(messageContent: "tara ghar ni niche chai piva java na!", messageType: "receiver"),
+    ChatMessage(messageContent: "areee🤩😲😲 surpice em!", messageType: "sender"),
+    ChatMessage(messageContent: "niche avne topa jaldi late thay che.. Bov bdhi vat krvani che", messageType: "receiver"),
+    ChatMessage(messageContent: "ayo ayo kapda peri lav😛😂😂", messageType: "sender"),
+    ChatMessage(messageContent: "Hello Jaimin", messageType: "receiver"),
+    ChatMessage(messageContent: "How are you!", messageType: "receiver"),
+    ChatMessage(messageContent: "Hey dude!", messageType: "sender"),
+    ChatMessage(messageContent: "Dp ma maal lage che hoo!", messageType: "receiver"),
+    ChatMessage(messageContent: "aree re mara bhai!, ....kya che hmna?", messageType: "sender"),
+    ChatMessage(messageContent: "tara ghar ni niche chai piva java na!", messageType: "receiver"),
+    ChatMessage(messageContent: "areee🤩😲😲 surpice!", messageType: "sender"),
+    ChatMessage(messageContent: "niche avne topa jaldi late thay che.. Bov bdhi vat krvani che", messageType: "receiver"),
+    ChatMessage(messageContent: "ayo ayo kapda peri lav😛😂😂", messageType: "sender"),
+  ];
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFF1D55A4),
-      title: Row(
-        children: [
-          GestureDetector(
-              onTap: (){
-                Navigator.of(context).pop();
-              },
-              child: const Icon(Icons.arrow_back,color: Colors.white,)),
-          const CircleAvatar(radius: 18,backgroundImage: NetworkImage('https://source.unsplash.com/random'),),
-           const SizedBox(height: 5,),
-           const Flexible(child: Text("Shubham Prajapati shubham prajapati",style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis),)),
-        ],
-      ),
-        actions:const [
-          Padding(
-            padding:  EdgeInsets.all(8.0),
-            child: Icon(Icons.call, color: Colors.white,),
-          ),
-          Padding(
-            padding:  EdgeInsets.all(8.0),
-            child: Icon(Icons.videocam_outlined,color: Colors.white,),
-          ),
-          Padding(
-            padding:  EdgeInsets.all(8.0),
-            child: Icon(Icons.menu,color: Colors.white,),
-          ),
-        ],
-      ),
-
-      body:   Container(
-        color: Color(0xFF3B5DA0),
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+      
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xFF1D55A4),
+        title: Row(
           children: [
-            Text("Chats"),
-            Row(
-              children: [
-                Icon(Icons.circle_outlined,color: Colors.grey,),
-                TextField(
-                  onTap: (){},
-                  decoration: InputDecoration(hintText: "Type a message"),
-                  keyboardType: TextInputType.text,
-                )
-
-              ],
-            )
+            GestureDetector(
+                onTap: (){
+                  // Navigator.of(context).pop();
+                  Navigator.pop(context);
+                },
+                child: const Icon(Icons.arrow_back,color: Colors.white,)),
+            const SizedBox(width: 5,),
+            GestureDetector(
+              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const SingleUserProfile()));
+              },
+              child: const CircleAvatar(radius: 20,backgroundImage: NetworkImage('https://source.unsplash.com/random'),),
+            ),
+             const SizedBox(width: 5,),
+      
+             Flexible(child: Padding( padding: const EdgeInsets.only(top: 10.0,bottom: 8.0),
+               child: GestureDetector(
+                 onTap: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const SingleUserProfile()));
+                 },
+                 child:const Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text("Shubham Prajapatishubham prajapati",style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
+                     // Text("Online",style: TextStyle(color: Colors.grey, fontSize: 13),),
+                   ],
+                 ),
+               ),
+             ),
+             ),
+      
           ],
         ),
-      ),
-
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.only(bottom: 9.0, ),
-        height: 50,
-        color: const Color(0xFFDE8A8A),
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5.0),
-        child: Row(
-          children: [
-            const Icon(CupertinoIcons.plus_circle),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: "Type a Message",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.red)
-                    )
+          actions: [
+            IconButton(onPressed: () {  }, icon: const Icon(Icons.call,color: Colors.white,size: 20,),),
+            IconButton(onPressed: () {  }, icon: const Icon(Icons.videocam_outlined,color: Colors.white,size: 20,),),
+            IconButton(onPressed: () {  }, icon: const Icon(Icons.menu,color: Colors.white,size: 20,),),
+          ],
+        ),
+      
+        body:   Container(
+          color: const Color(0xFDFEDEFF3),
+          child: SingleChildScrollView(
+            child: Stack(
+              children: <Widget>[
+                ListView.builder(
+                  itemCount: messages.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(top: 10,bottom: 10),
+                    itemBuilder: (context, index){
+                    return Container(
+                      padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
+                      child: Align(
+                        alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                              color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+                          ),
+                          padding: EdgeInsets.all(16),
+                          child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
+                        ),
+                      ),
+                    );
+      
+                })
+              ],
+            ),
+          ),
+        ),
+      
+        bottomNavigationBar: Container(
+          height: 60,
+          // color: const Color(0xFFDE8A8A),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10.0),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                },
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  child:Icon(CupertinoIcons.plus_circle),
+      
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                  child: Expanded(
+                    child: TextField(
+                      minLines: 1,
+                      maxLines: 5,
+                      keyboardType: TextInputType.text,
+                      controller: _chattypeTextController,
+                      decoration: InputDecoration(
+                          hintText: "Type a Message",
+                          border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          // borderSide: BorderSide(color: Colors.red)
+                        )
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.keyboard_voice_outlined)),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.send_outlined)),
-          ],
-        ),
-
-      ),
+              IconButton(onPressed: (){}, icon: const Icon(Icons.keyboard_voice_outlined)),
+              IconButton(onPressed: (){}, icon: const Icon(Icons.send_outlined)),
+            ],
+          ),
       
+        ),
+      
+      ),
     );
   }
 }
