@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tagifiles/util/service.dart';
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
@@ -32,6 +33,13 @@ class _PersonalPageState extends State<PersonalPage> with SingleTickerProviderSt
     // });
     //print(text.trim());
     // print(searchedItems.length);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    ApiService().fetchDataAfterLogin();
+    super.initState();
   }
 
   @override

@@ -37,15 +37,15 @@ class ApiService {
             "Content-Type": "application/json",
             // "Authorization": "99bc42d1122355ce54ff030bba148c2772600379",
           });
-
+print(response.statusCode);
       if (response.statusCode == 200) {
-        final token = jsonDecode(response.body)['token'];
+        final token = jsonDecode(response.body)['data'];
+        print("+++++++++++++++++++++++++++");
+        print(token);
         await saveTokenToPrefs(token);
         print("Login successfully ${response.statusCode} + ${response.body}");
         onSuccess.call(response.body);
         return token;
-        var logindata = jsonDecode(response.body.toString());
-        // print(logindata['token']);
       } else {
         await Fluttertoast.showToast(
             msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
@@ -72,14 +72,11 @@ class ApiService {
     String? token = await getTokenFromPrefs();
 
     if (token != null) {
-      final url = Uri.parse(
-          'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
+     // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
+      final url = Uri.parse('http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
 
-      final response = await http.get(
-        url,
-        headers: {'Authorization': '$token'},
-      );
-
+      final response = await http.get(url, headers: {'Authorization': '$token'},);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         print('Fetched data after login: $jsonData');

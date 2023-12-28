@@ -235,7 +235,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           //     },
                           //     context: context,
                           //   );
-                          //
                           //   print("Validated");
                           // } else {
                           //   // print("Not Validated");
