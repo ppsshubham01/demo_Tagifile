@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +14,11 @@ class SingleUserProfile extends StatefulWidget {
 }
 
 class _SingleUserProfileState extends State<SingleUserProfile> {
+
+  String  title= "selectedmore";
+  String item1 = "1st Item";
+  String item2 = "2st Item";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,17 +32,20 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                   onTap: (){ Navigator.pop(context);},
                   child: const Icon(Icons.arrow_back_ios_new,color: Colors.white,),
                 ),
-                SizedBox(width: 15,),
-                Text("data",style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
+                const SizedBox(width: 15,),
+                Text(widget.userItem.name,style: const TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
               ],
             ),
             actions: [
-               IconButton( onPressed: (){  }, icon: Icon(Icons.menu,color: Colors.white,),)
+              GestureDetector(
+                onTap: popupmenubtn,
+                child: const Icon(Icons.more_vert,color: Colors.white,),
+              )
             ],
           ),
-      
+
         body: Container(
-          color: Color(0xFFEDEFF3),
+          color: const Color(0xFFEDEFF3),
           child: Column(
             children: <Widget>[
               Container(
@@ -47,34 +54,34 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                 width: double.maxFinite,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Stack(
                       children: [
 
-                    CircleAvatar(radius: 75,backgroundImage: NetworkImage('https://source.unsplash.com/random'),),
-                      Positioned(
+                    CircleAvatar(radius: 75,backgroundImage: NetworkImage(widget.userNetworkImage),),
+                      const Positioned(
                           bottom: 20,
                           right: 2,
                           child: Icon(Icons.edit))
                       ],
                     ),
-                    Text("Shubham Prajapati",style: TextStyle(color: Color(0xFF566476),fontSize: 16,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 5,),
-                    Text("number/subName",style: TextStyle(color: Color(0xFFA8A7A7),fontSize: 14),),
-                    SizedBox(height: 10,),
+                    Text(widget.userItem.name,style: const TextStyle(color: Color(0xFF566476),fontSize: 16,fontWeight: FontWeight.bold),),
+                    const SizedBox(height: 5,),
+                    const Text("number/subName",style: TextStyle(color: Color(0xFFA8A7A7),fontSize: 14),),
+                    const SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        IconButton(onPressed: (){}, icon: Icon(Icons.call,size: 32,color: Color(0xFF707070),)),
-                        SizedBox(width: 20,),
-                        IconButton(onPressed: (){}, icon: Icon(Icons.videocam_outlined,size: 32,color: Color(0xFF707070),)),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.call,size: 32,color: Color(0xFF707070),)),
+                        const SizedBox(width: 20,),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.videocam_outlined,size: 32,color: Color(0xFF707070),)),
                       ],
                     )
 
                   ],
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Container(
                 color: Colors.white,
                 height: 80,
@@ -96,24 +103,25 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                   ],
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
 
               Container(
                 color: Colors.white,
                 height: 200,
                 width: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 18.0,left: 20,bottom: 5,right: 20),
+                  padding: const EdgeInsets.only(top: 18.0,left: 20,bottom: 5,right: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Media",style: TextStyle(color: Color(0xFFFFA8A7A7),fontSize: 14),),
                           Icon(CupertinoIcons.chevron_right,size: 18,)
                         ],
                       ),
+                      const SizedBox(height: 5,),
                       // Logic for Media
                   Container(
                       height: 150,
@@ -123,32 +131,30 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                   ),
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Flexible(
                 child: Container(
                   color: Colors.white,
                   height: 600,
                   width: double.infinity,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 18.0,left: 20,bottom: 5),
+                    padding: const EdgeInsets.only(top: 18.0,left: 20,bottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children:<Widget> [
-                        Row(children: [Icon(CupertinoIcons.star,color: Color(0xFF566476),),SizedBox(width: 10,),Text("Starred Message",style: TextStyle(color: Color(0xFF566476)),)],),
-                        SizedBox(height: 10,),
-                        Row(children: [Icon(CupertinoIcons.delete,color: Color(0xFFEE3E3E),),SizedBox(width: 10,),Text("Delete Chat",style: TextStyle(color: Color(0xFF566476)),)],),
-                        SizedBox(height: 10,),
-                        Row(children: [Icon(CupertinoIcons.nosign,color: Color(0xFFEE3E3E),),SizedBox(width: 10,),Text("Block Shubham Prajapati",style: TextStyle(color: Color(0xFF566476)),)],),
-                        SizedBox(height: 10,),
+                      children: <Widget> [
+                        const Row(children: [Icon(CupertinoIcons.star,color: Color(0xFF566476),),SizedBox(width: 10,),Text("Starred Message",style: TextStyle(color: Color(0xFF566476)),)],),
+                        const SizedBox(height: 10,),
+                        const Row(children: [Icon(CupertinoIcons.delete,color: Color(0xFFEE3E3E),),SizedBox(width: 10,),Text("Delete Chat",style: TextStyle(color: Color(0xFF566476)),)],),
+                        const SizedBox(height: 10,),
+                        Row(children: [const Icon(CupertinoIcons.nosign,color: Color(0xFFEE3E3E),),const SizedBox(width: 10,),Text("Block ${widget.userItem.name}",style: const TextStyle(color: Color(0xFF566476)),)],),
+                        const SizedBox(height: 10,),
                       ],
                     ),
                   ),
                 ),
               ),
-
             ],
-
           ),
         ),
       ),
@@ -168,6 +174,17 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                 ),
                 child: Image.network(widget.userNetworkImage,),);
         });
+
+  void popupmenubtn()=> PopupMenuButton(
+    itemBuilder: (context) => [
+      PopupMenuItem(value: item1,child: Text(item1),),
+      PopupMenuItem(value: item2,child: Text(item2),),
+    ],
+    onSelected:(String newValue){
+      setState(() {
+
+      });} ,
+  );
 
 }
 

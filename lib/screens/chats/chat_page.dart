@@ -70,7 +70,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
              const SizedBox(width: 5,),
       
-             Flexible(child: Padding( padding: const EdgeInsets.only(top: 10.0,bottom: 8.0),
+             Flexible(child: Padding(padding: const EdgeInsets.only(top: 10.0,bottom: 8.0),
                child: GestureDetector(
                  onTap: (){
                    Navigator.push(context, MaterialPageRoute(builder: (context)=>  SingleUserProfile(userItem: widget.userItem,userNetworkImage: widget.networkImageLink,)));
@@ -79,7 +79,7 @@ class _ChatPageState extends State<ChatPage> {
                    mainAxisAlignment: MainAxisAlignment.center,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text(widget.userItem.name,style: TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
+                     Text(widget.userItem.name,style: const TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
                      // Text("Online",style: TextStyle(color: Colors.grey, fontSize: 13),),
                    ],
                  ),
@@ -102,34 +102,36 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       
-        body:   Container(
-          color: const Color(0xFDFEDEFF3),
-          child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                ListView.builder(
-                  itemCount: messages.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(top: 10,bottom: 10),
-                    itemBuilder: (context, index){
-                    return Container(
-                      padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                      child: Align(
-                        alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                              color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+        body:   SingleChildScrollView(
+          child: Container(
+            color: const Color(0xFDFEDEFF3),
+            child: SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  ListView.builder(
+                    itemCount: messages.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(top: 10,bottom: 10),
+                      itemBuilder: (context, index){
+                      return Container(
+                        padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
+                        child: Align(
+                          alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                                color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+                            ),
+                            padding: EdgeInsets.all(16),
+                            child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
                           ),
-                          padding: EdgeInsets.all(16),
-                          child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
                         ),
-                      ),
-                    );
-      
-                })
-              ],
+                      );
+                
+                  })
+                ],
+              ),
             ),
           ),
         ),
