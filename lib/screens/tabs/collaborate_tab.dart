@@ -118,13 +118,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Slidable(
-              endActionPane: ActionPane(motion: const StretchMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed:  doNothing ,
-                      icon: CupertinoIcons.delete,backgroundColor: Colors.red.shade300,
-                      borderRadius: BorderRadius.circular(12), )]),
+            child: Dismissible(
+              key: ValueKey('$index'),
               child: ListTile(
                 leading: GestureDetector(
                   onTap: (){

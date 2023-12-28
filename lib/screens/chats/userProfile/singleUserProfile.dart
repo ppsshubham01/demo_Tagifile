@@ -37,10 +37,7 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
               ],
             ),
             actions: [
-              GestureDetector(
-                onTap: popupmenubtn,
-                child: const Icon(Icons.more_vert,color: Colors.white,),
-              )
+              popupmenubtn(context),
             ],
           ),
 
@@ -175,15 +172,16 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                 child: Image.network(widget.userNetworkImage,),);
         });
 
-  void popupmenubtn()=> PopupMenuButton(
+  popupmenubtn(BuildContext context)=> PopupMenuButton(
+    color: Colors.white,
+    iconColor: Colors.white,
     itemBuilder: (context) => [
       PopupMenuItem(value: item1,child: Text(item1),),
       PopupMenuItem(value: item2,child: Text(item2),),
     ],
     onSelected:(String newValue){
-      setState(() {
-
-      });} ,
+      print(newValue);
+    } ,
   );
 
 }
