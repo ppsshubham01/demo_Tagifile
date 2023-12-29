@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:tagifiles/screens/verification/email_pending.dart';
+import 'package:tagifiles/screens/verification/email_verify.dart';
+import 'package:tagifiles/screens/verification/two_factor_auth.dart';
 import 'package:tagifiles/screens/welcome_screen.dart';
 
 void main() async {
@@ -23,6 +26,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: WelcomeScreen()
+      // home: EmailPending(),
     );
   }
 }

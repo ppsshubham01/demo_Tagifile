@@ -302,10 +302,35 @@ class _SignupScreenState extends State<SignupScreen> {
                               email: _emailController.text,
                               password: _passwordController.text,
                               onSuccess: (value) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const WelcomeScreen()));
+                                showDialog(context: context,
+                                    useRootNavigator: false,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: Colors.white,
+                                        title: Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                                        content: Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+                                        actions:<Widget> [
+                                          const Divider(),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              TextButton(onPressed: (){ Navigator.pop(context,true);}, child: Text('Yes, Delete',style: TextStyle(color: Colors.red),),style: ButtonStyle(),),
+                                              SizedBox(
+                                                height: 50,
+                                                child: VerticalDivider(color: Colors.black,),),
+                                              TextButton(onPressed: (){Navigator.pop(context,false);}, child: Text('No',style: TextStyle(color: Color(0xFF566476)),)),
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    }
+                                );
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => const WelcomeScreen()));
                               },
                             );
                             // Navigator.push(context,
