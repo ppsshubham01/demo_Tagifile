@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:password_field_validator/password_field_validator.dart';
 import 'package:http/http.dart';
 import 'package:tagifiles/screens/home_screen.dart';
 import 'package:tagifiles/screens/signup_screen.dart';
@@ -221,24 +220,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => HomePage()));
-                          // if (formKey.currentState!.validate()) {
-                          //   serviceObject.login(
-                          //     email: emailController.text,
-                          //     password: passwordController.text,
-                          //     onSuccess: (value) {
-                          //       Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(
-                          //               builder: (_) => const HomePage()));
-                          //     },
-                          //     context: context,
-                          //   );
-                          //   print("Validated");
-                          // } else {
-                          //   // print("Not Validated");
-                          // }
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (_) => HomePage()));
+                          if (formKey.currentState!.validate()) {
+                            serviceObject.login(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              onSuccess: (value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const HomePage()));
+                              },
+                              context: context,
+                            );
+                            print("Validated");
+                          } else {
+                            // print("Not Validated");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color((0xFF1D55A4)),

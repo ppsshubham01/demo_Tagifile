@@ -116,15 +116,20 @@ class _ChatPageState extends State<ChatPage> {
                       itemBuilder: (context, index){
                       return Container(
                         padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                        child: Align(
-                          alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                                color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+                        child: GestureDetector(
+                          onLongPress: (){
+                            AlertDialog(title: Text('Hi!'),);
+                          },
+                          child: Align(
+                            alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                  color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+                              ),
+                              padding: EdgeInsets.all(16),
+                              child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
                             ),
-                            padding: EdgeInsets.all(16),
-                            child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
                           ),
                         ),
                       );
@@ -135,6 +140,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
         ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           // height: 60,
@@ -176,7 +182,6 @@ class _ChatPageState extends State<ChatPage> {
               IconButton(onPressed: (){}, icon: const Icon(Icons.send_outlined)),
             ],
           ),
-
         ),
       
       ),

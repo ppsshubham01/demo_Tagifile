@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-
 import '../chats/chat_page.dart';
 
 class CollaboratePage extends StatefulWidget {
@@ -113,37 +111,69 @@ class _CollaboratePageState extends State<CollaboratePage> {
   Widget chatList()=>
       ListView.builder(
         itemCount: chatUsers.length,
-        itemBuilder: (context, index) {
-          final item = chatUsers[index];
+        itemBuilder: (BuildContext context,int index) {
+          return Dismissible(
+            key: ValueKey(chatUsers[index]),
+            background: Container(
+              color: Colors.red,
+              child: const Icon(CupertinoIcons.delete),
+            ),
+            secondaryBackground: Container(
+              color: Colors.green,
+              child: const Icon(Icons.archive),
+            ),
+            onDismissed:(DismissDirection direction){
+              setState(() {
+                Container();
+                chatUsers.removeAt(index);
+              });
+            },
+            confirmDismiss: (DismissDirection direction) async {
+               return showDialog(context: context,
+                   useRootNavigator: false,
+                   barrierDismissible: true,
+                   builder: (BuildContext context) {
+                 return AlertDialog(
+                   backgroundColor: Colors.white,
+                   title: Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                   content: Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+                   actions:<Widget> [
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         ElevatedButton(onPressed: (){ Navigator.pop(context,true);}, child: Text('Yes, Delete',style: TextStyle(color: Colors.red),),style: ButtonStyle(),),
+                         ElevatedButton(onPressed: (){Navigator.pop(context,false);}, child: Text('No',style: TextStyle(color: Color(0xFF566476)),)),
+                       ],
+                     )
+                   ],
+                 );
+                   }
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Dismissible(
-              key: ValueKey('$index'),
-              child: ListTile(
-                leading: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                      userItem: item,
-                      networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                    ),),);
-                  },
-                  child: CircleAvatar(
-                    radius: 28,
-                    backgroundImage: NetworkImage(
-                        'https://source.unsplash.com/random?sig=$index'),
-                  ),
+               );
+            },
+            child: ListTile(
+              leading: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                    userItem: chatUsers[index],
+                    networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                  ),),);
+                },
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: NetworkImage(
+                      'https://source.unsplash.com/random?sig=$index'),
                 ),
-                title: Text(item.name),
-                subtitle: Text("subtitle ${item.messageText}"),
-                trailing: Column(
-                  children: [
-                    Text("12.00${item.time}"),
-                    Icon(Icons.timelapse_rounded),
-                  ],
-                ),
-                // onTap: () => _selectedItem(item),
               ),
+              title: Text(chatUsers[index].name),
+              subtitle: Text("subtitle ${chatUsers[index].messageText}"),
+              trailing: Column(
+                children: [
+                  Text("12.00${chatUsers[index].time}"),
+                  Icon(Icons.timelapse_rounded),
+                ],
+              ),
+              // onTap: () => _selectedItem(item),
             ),
           );
         },

@@ -42,8 +42,6 @@ dependencies:
   dio: ^5.4.0
   shared_preferences: ^2.2.2
   fluttertoast: ^8.2.4
-  password_field_validator: ^0.0.1
-  flutter_slidable:
 
 
 dev_dependencies:

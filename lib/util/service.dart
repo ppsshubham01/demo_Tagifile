@@ -10,7 +10,7 @@ import 'package:tagifiles/screens/home_screen.dart';
 import 'package:tagifiles/screens/welcome_screen.dart';
 
 class ApiService {
-
+// login done
   /// Login
   Future<void> login({
     required String email,
@@ -27,17 +27,15 @@ class ApiService {
     });
 
     try {
-      Response response = await post(
-          Uri.parse(
+      Response response = await post(Uri.parse(
               // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
-                  'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'
-          ),
+              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'),
           body: serverPayload,
           headers: {
             "Content-Type": "application/json",
             // "Authorization": "99bc42d1122355ce54ff030bba148c2772600379",
           });
-print(response.statusCode);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final token = jsonDecode(response.body)['data'];
         print("+++++++++++++++++++++++++++");
@@ -57,7 +55,8 @@ print(response.statusCode);
       print('Error: $e');
     }
   }
-///token
+
+  ///token
   Future<void> saveTokenToPrefs(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
@@ -72,11 +71,44 @@ print(response.statusCode);
     String? token = await getTokenFromPrefs();
 
     if (token != null) {
-     // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
-      final url = Uri.parse('http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
+      // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
+      final url = Uri.parse(
+          'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
 
-      final response = await http.get(url, headers: {'Authorization': '$token'},);
+      final String body = json.encode({
+        "parent_id": 0,
+        "sort_order": "NULL",
+        "sort_by": "NULL",
+        "filter_by": "",
+        "content_path": "",
+        "only_dirs": false,
+        "page_range": {"pg_from": 0, "pg_to": 100},
+        "org_id": -1,
+        "page_data": {
+          "next_files_from": 0,
+          "next_files_till": 20,
+          "next_folders_from": 0,
+          "next_folders_till": 20,
+          "next_files_only": false,
+          "next_folders_only": false,
+          "file_sort_key": "NAME",
+          "file_sort_order": "ASC",
+          "folder_sort_key": "NAME",
+          "folder_sort_order": "ASC"
+        }
+      });
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Token $token',
+          "Accept": "application/json",
+          "content-type": "application/json",
+        },
+        body: body,
+      );
+      print("-------------------------------------------");
       print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         print('Fetched data after login: $jsonData');
@@ -89,6 +121,7 @@ print(response.statusCode);
     }
   }
 
+  // login kr
   /// Sign_Up
   Future<void> signup({
     required String firstName,
@@ -110,8 +143,7 @@ print(response.statusCode);
       Response response = await post(
         Uri.parse(
             // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/create/'
-            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/create/'
-        ),
+            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/create/'),
         body: serverpayLoad1,
         // headers:  {"Content-Type": "application/json;charset=utf-8"}
         headers: {"Content-Type": "application/json"},
