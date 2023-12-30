@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/screens/verification/email_verify.dart';
+
+import '../welcome_screen.dart';
 
 class TwoFactorAuth extends StatelessWidget {
   const TwoFactorAuth({super.key});
@@ -7,22 +10,24 @@ class TwoFactorAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: const Color(0XffF5F6F9),
       body: Center(
         child: Container(
-          margin: EdgeInsets.all(25),
+          margin: const EdgeInsets.all(25),
           height: 350,
           width: double.maxFinite,
           decoration: BoxDecoration(
-            color: Colors.white,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15)
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.mail,color: Colors.blue,size: 50,),
+              const Icon(Icons.mail,color: Colors.blue,size: 50,),
+              const SizedBox(height: 10,),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                     children: [
                       TextSpan(text: 'Email Verification Pending\n',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18), ),
                       TextSpan(text: 'Enter the 6-Digit Code Which We Have Sent You to\n', style: TextStyle(color: Colors.black),),
@@ -42,27 +47,32 @@ class TwoFactorAuth extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const EmailVerify()));
-                      }, child: Text('Submit', style: TextStyle(color: Colors.white),),
+                      },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
                           ),
-                        ),
+                        ), child: Text('Submit', style: TextStyle(color: Colors.white),),
                       ),
                     ),
                     // Text('Link Sent Successfully.',style: TextStyle(color: Colors.green),),
+
+                    const SizedBox(height: 10,),
                     RichText(text: TextSpan(
                       children: [
                         TextSpan(text: "Didn't Receive the Email ? ", style: TextStyle(color: Colors.black),),
-                        TextSpan(text: "Resend OTP", style: TextStyle(color: Colors.blue),),
+                        TextSpan(text: "Resend OTP", style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>  const WelcomeScreen())),
+                        ),
                       ]
                     ),),
                   ],
                 ),
               ),
 
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.arrow_back),

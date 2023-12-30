@@ -6,22 +6,24 @@ class EmailVerify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: const Color(0XffF5F6F9),
       body: Center(
         child: Container(
-          margin: EdgeInsets.all(25),
+          margin: const EdgeInsets.all(25),
           height: 300,
           width: double.maxFinite,
           decoration: BoxDecoration(
-            color: Colors.white,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15)
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.done,color: Colors.blue,size: 50,),
+              const Icon(Icons.verified,color: Colors.blue,size: 50,),
+              const SizedBox(height: 30,),
               RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                     children: [
                       TextSpan(text: 'Email Verification Successfully\n',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18), ),
                       TextSpan(text: 'Your Email has been Successfully Verified click\n', style: TextStyle(color: Colors.black),),
@@ -29,16 +31,17 @@ class EmailVerify extends StatelessWidget {
                     ]
                 ),
               ),
+              SizedBox(height: 20,),
               Container(
-                padding: EdgeInsets.only(left:20,right: 20),
+                padding: const EdgeInsets.only(left:20,right: 20),
                 width: double.infinity,
-                child: TextButton(onPressed: (){}, child: Text('Log In', style: TextStyle(color: Colors.white),),
+                child: TextButton(onPressed: (){},
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: const Color(0xFF1D55A4),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                  ),
+                  ), child: const Text('Log In', style: TextStyle(color: Colors.white),),
                 ),
               ),
             ],

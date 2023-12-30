@@ -134,9 +134,11 @@ class _CollaboratePageState extends State<CollaboratePage> {
                    barrierDismissible: true,
                    builder: (BuildContext context) {
                  return AlertDialog(
+                   alignment: Alignment.center,
                    backgroundColor: Colors.white,
                    title: Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
                    content: Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+
                    actions:<Widget> [
                      const Divider(),
                      Row(
@@ -146,7 +148,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
                          TextButton(onPressed: (){ Navigator.pop(context,true);}, child: Text('Yes, Delete',style: TextStyle(color: Colors.red),),style: ButtonStyle(),),
                          SizedBox(
                              height: 50,
-                             child: VerticalDivider(color: Colors.black,),),
+                             child: VerticalDivider(endIndent: 0,),),
                          TextButton(onPressed: (){Navigator.pop(context,false);}, child: Text('No',style: TextStyle(color: Color(0xFF566476)),)),
                        ],
                      )

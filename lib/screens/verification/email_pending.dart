@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/screens/verification/email_verify.dart';
 import 'package:tagifiles/screens/verification/two_factor_auth.dart';
+import 'package:tagifiles/screens/welcome_screen.dart';
 
 class EmailPending extends StatelessWidget {
   const EmailPending({super.key});
@@ -8,26 +10,28 @@ class EmailPending extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: const Color(0XffF5F6F9),
       body: Center(
         child: Container(
-          margin: EdgeInsets.all(25),
+          margin:  const EdgeInsets.all(25),
           height: 350,
           width: double.maxFinite,
           decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(15)
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.mail,color: Colors.blue,size: 50,),
+              const Icon(Icons.email_outlined,color: Colors.blue,size: 50,),
+              const SizedBox(height: 10,),
               RichText(
                   textAlign: TextAlign.center,
-                  text: TextSpan(
+                  text: const TextSpan(
                 children: [
                   TextSpan(text: 'Email Verification Pending\n',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18), ),
-                  TextSpan(text: 'We have Sent You Email Verification link on\n', style: TextStyle(color: Colors.black),),
-                  TextSpan(text: 'abc@gmail.com\n', style: TextStyle(color: Colors.black,fontSize: 18),),
+                  TextSpan(text: 'We have Sent You Email Verification link on\n', style: TextStyle(color: Color(0xFF7A7A7A)),),
+                  TextSpan(text: 'abc@gmail.com\n', style: TextStyle(color: Color(0xFF414141),fontSize: 18,fontWeight: FontWeight.bold),),
                 ]
               ),
               ),
@@ -39,29 +43,31 @@ class EmailPending extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextButton(onPressed: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
+                        Navigator.push(context, MaterialPageRoute(
                                 builder: (_) => const TwoFactorAuth()));
-                      }, child: Text('Resend Link', style: TextStyle(color: Colors.white),),
+                      },
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: const Color(0xFF1D55A4),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0), // Adjust the radius as needed
                         ),
-                      ),
+                      ), child: const Text('Resend Link', style: TextStyle(color: Colors.white),),
                       ),
                     ),
-                    Text('Link Sent Successfully.',style: TextStyle(color: Colors.green),),
+                    const SizedBox(height: 5,),
+                    const Text('Link Sent Successfully.',style: TextStyle(color: Color(0xFF00A150)),),
                   ],
                 ),
               ),
-              
-              Row(
+              const SizedBox(height: 10,),
+               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.arrow_back),
-                  Text('Back to Login')
+                  const Icon(Icons.arrow_back,color: Color(0xFF707070),),
+                  GestureDetector(
+                    onTap: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>  WelcomeScreen())),
+                      // onTap: Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignupScreen())),
+                      child: const Text('Back to Login',style: TextStyle(color: Color(0xFF414141)),))
                 ],
               )
             ],
