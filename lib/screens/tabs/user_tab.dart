@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
 
@@ -14,6 +15,7 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color(0xFF1D55A4),
         title: const Text(
           'Profile',
@@ -23,15 +25,16 @@ class _UserPageState extends State<UserPage> {
       drawer: Container(
         width: 280,
         color: const Color(0xFF1D55A4),
-        child: const Column(
+        child:  Column(
           children: [
             /// Header
-            DrawerHeader(
+             const DrawerHeader(
                 child: Row(
                  children: [
                    CircleAvatar(
                      radius: 30,
                      child: InkWell(
+
                      ),
                    ),
                    SizedBox(width: 10,),
@@ -39,7 +42,7 @@ class _UserPageState extends State<UserPage> {
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                         Text("Lia Nass",style: TextStyle(color: Colors.white),),
+                         Text("Lia Nass ",style: TextStyle(color: Colors.white),),
                          Text("xyz@gmail.com",style: TextStyle(color: Color(0xFFA8A7A7)),),
                        ],
                      ),
@@ -54,12 +57,36 @@ class _UserPageState extends State<UserPage> {
             Expanded(
               child: Column(
                 children: [
-                  MyListTile(icon: Icons.settings, text: 'S E T T I N G ',
-                    iconn: Icon(Icons.arrow_drop_down,color: Colors.white,size: 30,),),
-                  Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
-                  MyListTile(icon: Icons.settings, text: 'S E T T I N G ',
-                    iconn: Icon(Icons.arrow_drop_down,color: Colors.white,size: 30,),),
-                  Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
+                  Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child:  const ExpansionTile(
+                      title: Text('S E T T I N G ', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                    leading: Icon(CupertinoIcons.settings),
+                    iconColor: Colors.white,
+                    collapsedIconColor: Colors.white,
+                    childrenPadding: EdgeInsets.all(0),
+                    // textColor: Colors.greenAccent,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: Icon(CupertinoIcons.lock,color: Color(0xFF6395D9),),
+                              title:Text('S E C U R I T Y',style: TextStyle(color: Color(0xFF6395D9)),) ,),
+                            ListTile(
+                              leading: Icon(Icons.format_list_bulleted_outlined,color: Color(0xFF6395D9),),
+                              title:Text('Audience List',style: TextStyle(color: Color(0xFF6395D9)),) ,),
+                            ListTile(
+                              leading: Icon(CupertinoIcons.person,color: Color(0xFF6395D9),),
+                              title:Text('P R O F I L E',style: TextStyle(color: Color(0xFF6395D9)),) ,),
+                          ],
+                        ),
+                      )
+                    ],
+                    ),
+                  ),
+                  // Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
                 ],
               ),
             ),
