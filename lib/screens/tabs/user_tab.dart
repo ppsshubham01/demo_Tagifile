@@ -33,9 +33,7 @@ class _UserPageState extends State<UserPage> {
                  children: [
                    CircleAvatar(
                      radius: 30,
-                     child: InkWell(
-
-                     ),
+                     backgroundImage: NetworkImage("https://source.unsplash.com/random"),
                    ),
                    SizedBox(width: 10,),
                    SingleChildScrollView(

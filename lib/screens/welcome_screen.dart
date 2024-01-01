@@ -16,6 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final FocusNode _emailFocusNode = FocusNode();

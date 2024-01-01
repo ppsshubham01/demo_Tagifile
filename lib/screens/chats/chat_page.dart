@@ -118,7 +118,11 @@ class _ChatPageState extends State<ChatPage> {
                         padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
                         child: GestureDetector(
                           onLongPress: (){
-                            AlertDialog(title: Text('Hi!'),);
+                            showDialog(context: context,
+                              builder: (context) {
+                            return AlertDialog(title: Text('Hi!'),);
+                              },
+                            );
                           },
                           child: Align(
                             alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),

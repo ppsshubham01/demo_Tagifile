@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
 import 'package:tagifiles/screens/welcome_screen.dart';
 import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/util/validation.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -16,13 +19,11 @@ class _SignupScreenState extends State<SignupScreen> {
   int _selectedOption = 1;
   bool _isSelected = true;
 
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
+    final authProviderInstance = Provider.of<AuthProvider>(context);
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
@@ -74,7 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           const EdgeInsets.only(left: 20, top: 40, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _firstNameController,
+                        controller: authProviderInstance.firstNameController,
                         decoration: InputDecoration(
                           labelText: 'FirstName',
                           labelStyle: const TextStyle(
@@ -110,7 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _lastNameController,
+                        controller: authProviderInstance.lastNameController,
                         decoration: InputDecoration(
                           labelText: 'LastName',
                           labelStyle: const TextStyle(
@@ -197,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           const EdgeInsets.only(left: 20, top: 5, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _emailController,
+                        controller: authProviderInstance.emailController,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           labelStyle: const TextStyle(
@@ -241,7 +242,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: _passwordController,
+                        controller: authProviderInstance.passwordController,
                         obscureText: _isSelected,
                         decoration: InputDecoration(
                           labelText: 'Password',
@@ -276,15 +277,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         maxLines: 1,
                         // keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Password is required";
-                          } else if (value.length < 8) {
-                            return ('length should be at-least 8 character');
-                          } else if(!value.contains(RegExp(r'[A-Z]'))){
-                            return "Password not contain at-least one capital letter";
-                          } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
-                            return "Password not contain at-least one special character";
-                          }
+                          Validation.passwordValidate(value);
                         },
                       ),
                     ),
@@ -297,16 +290,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            ApiService().signup(
-                              firstName: _firstNameController.text,
-                              lastName: _lastNameController.text,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                              onSuccess: (value) {
-                                Navigator.push(context, MaterialPageRoute(
-                                        builder: (_) => const EmailPending()));
-                              },
-                            );
+                            authProviderInstance.signUpUser(context);
                             // Navigator.push(context,
                             //     MaterialPageRoute(builder: (_) => HomePage()));
                             // print("Validated");

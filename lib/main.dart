@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
 import 'package:tagifiles/screens/verification/email_verify.dart';
 import 'package:tagifiles/screens/verification/two_factor_auth.dart';
@@ -23,10 +25,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: WelcomeScreen()
-      // home: EmailPending(),
+    return ChangeNotifierProvider.value(
+      value: AuthProvider(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: WelcomeScreen()
+        // home: EmailPending(),
+      ),
     );
   }
 }
