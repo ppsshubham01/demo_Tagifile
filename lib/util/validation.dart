@@ -11,4 +11,19 @@ class Validation {
       return "Password not contain at-least one special character";
     }
   }
+
+  static emailValidate(String? value){
+    final RegExp emailRegex = RegExp(
+        r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    bool validateEmail(String email) {
+      return emailRegex.hasMatch(email);
+    }
+
+    if (value!.isEmpty) {
+      return 'Please enter the email';
+    } else if (!validateEmail(value)) {
+      //print('Enter valid E-mail');
+      return 'Enter valid E-mail';
+    }
+  }
 }

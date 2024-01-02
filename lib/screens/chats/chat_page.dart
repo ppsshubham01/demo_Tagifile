@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tagifiles/model/chatMessageModel.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
 import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
-import 'package:tagifiles/screens/home_screen.dart';
+import 'package:tagifiles/util/dialog_box.dart';
 
 class ChatPage extends StatefulWidget {
  String networkImageLink;
@@ -19,25 +18,31 @@ class _ChatPageState extends State<ChatPage> {
 
   final TextEditingController _chattypeTextController = TextEditingController();
 
+  final popDialog = PopDialog();
+
+  String  title= "selectedmore";
+  String item1 = "1st Item";
+  String item2 = "2st Item";
+
   List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello Jaimin", messageType: "receiver"),
+    ChatMessage(messageContent: "Hello joid", messageType: "receiver"),
     ChatMessage(messageContent: "How are you!", messageType: "receiver"),
     ChatMessage(messageContent: "Hey dude!", messageType: "sender"),
-    ChatMessage(messageContent: "Dp ma maal lage che hoo!", messageType: "receiver"),
-    ChatMessage(messageContent: "aree re mara bhai!, ....kya che hmna?", messageType: "sender"),
-    ChatMessage(messageContent: "tara ghar ni niche chai piva java na!", messageType: "receiver"),
+    ChatMessage(messageContent: "Are you looking to learning place!", messageType: "receiver"),
+    ChatMessage(messageContent: "ets you build responsive and inter?", messageType: "sender"),
+    ChatMessage(messageContent: "We are finished!", messageType: "receiver"),
     ChatMessage(messageContent: "areee🤩😲😲 surpice em!", messageType: "sender"),
-    ChatMessage(messageContent: "niche avne topa jaldi late thay che.. Bov bdhi vat krvani che", messageType: "receiver"),
-    ChatMessage(messageContent: "ayo ayo kapda peri lav😛😂😂", messageType: "sender"),
-    ChatMessage(messageContent: "Hello Jaimin", messageType: "receiver"),
+    ChatMessage(messageContent: "here is a example project in the example folder.", messageType: "receiver"),
+    ChatMessage(messageContent: "Custom size😛😂😂", messageType: "sender"),
+    ChatMessage(messageContent: "Top, bottom or center child for Circular percent indicator", messageType: "receiver"),
     ChatMessage(messageContent: "How are you!", messageType: "receiver"),
     ChatMessage(messageContent: "Hey dude!", messageType: "sender"),
-    ChatMessage(messageContent: "Dp ma maal lage che hoo!", messageType: "receiver"),
-    ChatMessage(messageContent: "aree re mara bhai!, ....kya che hmna?", messageType: "sender"),
+    ChatMessage(messageContent: "Dp here is a example project!", messageType: "receiver"),
+    ChatMessage(messageContent: "Progress and background color...kya che hmna?", messageType: "sender"),
     ChatMessage(messageContent: "tara ghar ni niche chai piva java na!", messageType: "receiver"),
     ChatMessage(messageContent: "areee🤩😲😲 surpice!", messageType: "sender"),
-    ChatMessage(messageContent: "niche avne topa jaldi late thay che.. Bov bdhi vat krvani che", messageType: "receiver"),
-    ChatMessage(messageContent: "ayo ayo kapda peri lav😛😂😂", messageType: "sender"),
+    ChatMessage(messageContent: "ou should then run ", messageType: "receiver"),
+    ChatMessage(messageContent: "Progress Color using gradients😛😂😂", messageType: "sender"),
   ];
 
 
@@ -97,8 +102,43 @@ class _ChatPageState extends State<ChatPage> {
                 width: 35,
                 child: IconButton(onPressed: () {  }, icon: const Icon(Icons.videocam_outlined,color: Colors.white,size: 20,),)),
             SizedBox(
-                width: 35,
-                child: IconButton(onPressed: () {  }, icon: const Icon(Icons.more_vert,color: Colors.white,size: 20,),)),
+              width: 35,
+              child: IconButton(
+                icon: const Icon(Icons.more_vert, color: Colors.white, size: 20),
+                onPressed: () {
+                  showMenu(
+                    context: context, // Assuming context is available
+                    position: RelativeRect.fromLTRB(80, 75, 0, 0), // Position below the button
+                    items: [
+                      PopupMenuItem(
+                        value: 'Preview',
+                        child: Text('Preview'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Share',
+                        child: Text('Share'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Get Link',
+                        child: Text('Get Link'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Remove',
+                        child: Text('Remove'),
+                      ),
+                    ],
+                  ).then((value) {
+                    // Handle menu item selection here, as before
+                    if (value != null) {
+                      switch (value) {
+                      // ... (same as previous code)
+                      }
+                    }
+                  });
+                },
+              ),
+            )
+
           ],
         ),
       
@@ -118,11 +158,7 @@ class _ChatPageState extends State<ChatPage> {
                         padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
                         child: GestureDetector(
                           onLongPress: (){
-                            showDialog(context: context,
-                              builder: (context) {
-                            return AlertDialog(title: Text('Hi!'),);
-                              },
-                            );
+                            popDialog.showPopupMenu(context);
                           },
                           child: Align(
                             alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
@@ -159,7 +195,9 @@ class _ChatPageState extends State<ChatPage> {
                 child: Container(
                   height: 30,
                   width: 30,
-                  child:Icon(CupertinoIcons.plus_circle),
+                  child:GestureDetector(
+                      // onTap: popDialog.showsendPopmenu(context),
+                      child: Icon(CupertinoIcons.plus_circle)),
 
                 ),
               ),

@@ -7,6 +7,8 @@ import 'package:tagifiles/screens/welcome_screen.dart';
 import 'package:tagifiles/util/service.dart';
 import 'package:tagifiles/util/validation.dart';
 
+import 'home_screen.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -23,7 +25,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final authProviderInstance = Provider.of<AuthProvider>(context);
+
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
@@ -234,6 +238,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             //print('Enter valid E-mail');
                             return 'Enter valid E-mail';
                           }
+                          // Validation.emailValidate(value);
                         },
                       ),
                     ),
@@ -291,12 +296,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             authProviderInstance.signUpUser(context);
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (_) => HomePage()));
                             // print("Validated");
                           } else {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (_) => const EmailPending()));
+                            // Navigator.push(context, MaterialPageRoute(
+                            //     builder: (_) => const EmailPending()));
                             // print("Not Validated");
                           }
                         },

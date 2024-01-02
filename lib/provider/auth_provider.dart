@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tagifiles/screens/home_screen.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
+import 'package:tagifiles/screens/welcome_screen.dart';
 import 'package:tagifiles/util/service.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -18,7 +20,7 @@ void signUpUser(BuildContext context){
     password: passwordController.text,
     onSuccess: (value) {
       Navigator.push(context, MaterialPageRoute(
-          builder: (_) => const EmailPending()));
+          builder: (_) => const WelcomeScreen()));
     },
   );
 }

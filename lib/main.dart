@@ -15,9 +15,10 @@ void main() async {
 
   runApp(const MyApp());
 }
-Future initialization(BuildContext? context) async{
+
+Future initialization(BuildContext? context) async {
 //  Load reaources
-await Future.delayed(const Duration(seconds: 1));
+  await Future.delayed(const Duration(seconds: 1));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,16 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: AuthProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider())
+      ],
       child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: WelcomeScreen()
-        // home: EmailPending(),
-      ),
+          debugShowCheckedModeBanner: false,
+          home: WelcomeScreen()
+          // home: EmailPending(),
+          ),
     );
   }
 }
-
-
-
