@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/home_screen.dart';
 import 'package:tagifiles/screens/welcome_screen.dart';
 
@@ -67,6 +68,18 @@ class ApiService {
     return prefs.getString('token');
   }
 
+
+  /// model object
+  Future<void> saveModelObjectToPrefs(Model modelData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('model', json.encode(modelData));
+  }
+
+  Future<Model> getModelObjectToPrefs(Model modelData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return json.decode(prefs.getString('model').toString());
+  }
+
   Future<void> fetchDataAfterLogin() async {
     String? token = await getTokenFromPrefs();
 
@@ -106,11 +119,13 @@ class ApiService {
         },
         body: body,
       );
-      print("-------------------------------------------");
-      print(response.statusCode);
-      print(response.body);
+      // print("-------------------------------------------");
+      // print(response.statusCode);
+      // print(response.body);
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
+        Model resultData = Model.fromJson(jsonData);
+        await saveModelObjectToPrefs(resultData);
         print('Fetched data after login: $jsonData');
       } else {
         print(
