@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/util/service.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -11,6 +13,31 @@ class PersonalPage extends StatefulWidget {
 class _PersonalPageState extends State<PersonalPage> with SingleTickerProviderStateMixin{
 
   // List<Note> searchedItems = []; //.. here Note is model class
+
+  List<Model> userdata=[
+    Model()
+  ];
+  List<String> items = [
+    'Pratik',
+    'Dharti',
+    'Shubham',
+    'Jaimin',
+    'Bhargav',
+    'Khushal',
+    'Harsh',
+    'Hetvi',
+    'Yash',
+    'Pratik',
+    'Dharti',
+    'Shubham',
+    'Jaimin',
+    'Bhargav',
+    'Khushal',
+    'Harsh',
+    'Hetvi',
+    'Yash',
+    'Jaivik',
+  ];
 
   // searching element from toDoList2
   void searchingElements(String text) {
@@ -126,11 +153,22 @@ class _PersonalPageState extends State<PersonalPage> with SingleTickerProviderSt
                 },
               ),
             ),
-            const Expanded(
+             Expanded(
               child: TabBarView(
                 // controller: _tabController,
                 children: [
-                  Icon(Icons.directions_car),
+                  Container(
+                    height: double.infinity,
+                      width: double.infinity,
+                      child: Scaffold(body: Column(
+                        children: [
+                          SafeArea(child:
+                          // Icon(Icons.directions_car)
+                          buildGrid(),
+                          ),
+
+                        ],
+                      ))),
                   Icon(Icons.directions_transit),
                 ],
               ),
@@ -160,5 +198,51 @@ class _PersonalPageState extends State<PersonalPage> with SingleTickerProviderSt
       //
       // ),
     );
+  }
+
+
+  Widget buildGrid() => GridView.builder(
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+    ),
+    itemCount: items.length,
+    itemBuilder: (context, index) {
+      final item = items[index];
+
+      return GridTile(
+        footer: Text(
+          item,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        child: InkWell(
+          child: Ink.image(
+            image: NetworkImage(
+              'https://source.unsplash.com/random?sig=$index',
+            ),
+            fit: BoxFit.cover,
+          ),
+          onTap: () { _selectedItem(item);},
+        ),
+      );
+    },
+  );
+
+  void _selectedItem(String item) {
+    final snackBar = SnackBar(
+      content: Text(
+        "Selected chat number $item..",
+        style: const TextStyle(fontSize: 15.0),
+      ),
+      backgroundColor: Colors.purple,
+    );
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }

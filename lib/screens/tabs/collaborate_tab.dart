@@ -34,22 +34,20 @@ class _CollaboratePageState extends State<CollaboratePage> {
   // searching element from List2
   void searchingElements(String text) {
     setState(() {});
-    // searchedItems.clear();
-    // if (text.isEmpty) {
-    //   setState(() {});
-    //   return;
-    // } else {
-    //   for (var element in toDoList2) {
-    //     if (element.title.toLowerCase().contains(
-    //         text.toLowerCase().trim().replaceAll(RegExp(r'\b\s+\b'), ''))) {
-    //       // print(element.title);
-    //       searchedItems.add(element);
-    //     }
-    //   }
-    //   setState(() {});
-    // }
-    // setState(() {
-    // });
+    chatUsers.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    } else {
+      for (var element in chatUsers) {
+        if (element.name.toLowerCase().contains(
+            text.toLowerCase().trim().replaceAll(RegExp(r'\b\s+\b'), ''))) {
+          // print(element.title);
+          chatUsers.add(element);
+        }
+      }
+      setState(() {});
+    }
     //print(text.trim());
     // print(searchedItems.length);
   }
@@ -136,8 +134,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
                  return AlertDialog(
                    alignment: Alignment.center,
                    backgroundColor: Colors.white,
-                   title: Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
-                   content: Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+                   title: const Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                   content: const Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
 
                    actions:<Widget> [
                      const Divider(),
@@ -145,11 +143,11 @@ class _CollaboratePageState extends State<CollaboratePage> {
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        // crossAxisAlignment: CrossAxisAlignment.center,
                        children: [
-                         TextButton(onPressed: (){ Navigator.pop(context,true);}, child: Text('Yes, Delete',style: TextStyle(color: Colors.red),),style: ButtonStyle(),),
-                         SizedBox(
+                         TextButton(onPressed: (){ Navigator.pop(context,true);},style: const ButtonStyle(), child: const Text('Yes, Delete',style: TextStyle(color: Colors.red),),),
+                         const SizedBox(
                              height: 50,
                              child: VerticalDivider(endIndent: 0,),),
-                         TextButton(onPressed: (){Navigator.pop(context,false);}, child: Text('No',style: TextStyle(color: Color(0xFF566476)),)),
+                         TextButton(onPressed: (){Navigator.pop(context,false);}, child: const Text('No',style: TextStyle(color: Color(0xFF566476)),)),
                        ],
                      )
                    ],
@@ -177,7 +175,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
               trailing: Column(
                 children: [
                   Text("12.00${chatUsers[index].time}"),
-                  Icon(Icons.timelapse_rounded),
+                  const Icon(Icons.timelapse_rounded),
                 ],
               ),
               // onTap: () => _selectedItem(item),
