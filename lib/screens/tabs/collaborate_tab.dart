@@ -170,7 +170,14 @@ class _CollaboratePageState extends State<CollaboratePage> {
                       'https://source.unsplash.com/random?sig=$index'),
                 ),
               ),
-              title: Text(chatUsers[index].name),
+              title: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                      userItem: chatUsers[index],
+                      networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                    ),),);
+                  },
+                  child: Text(chatUsers[index].name)),
               subtitle: Text("subtitle ${chatUsers[index].messageText}"),
               trailing: Column(
                 children: [

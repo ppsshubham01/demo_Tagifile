@@ -104,28 +104,29 @@ class _UserPageState extends State<UserPage> {
               color: Colors.white,
               height: 250,
               width: double.infinity,
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    child: InkWell(
-                      child: Ink.image(
-                        image:
-                            NetworkImage('https://source.unsplash.com/random'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    backgroundImage: NetworkImage('https://source.unsplash.com/random'),
+                    // child: InkWell(
+                    //   child: Ink.image(
+                    //     image:
+                    //         NetworkImage('https://source.unsplash.com/random'),
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                  Text(
                     'Lia Nass',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFF566476)),
                   ),
-                  const Text('xyz@gmail.com',style: TextStyle(color: Color(0xFFA8A7A7)),),
+                  Text('xyz@gmail.com',style: TextStyle(color: Color(0xFFA8A7A7)),),
                 ],
               ),
             ),

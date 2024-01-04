@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/util/service.dart';
 
@@ -139,34 +140,13 @@ class _PersonalPageState extends State<PersonalPage>
                 // controller: _tabController,
                 children: [
                   MyFilesTab(),
-                  Icon(Icons.directions_transit),
+                  const Icon(Icons.directions_transit),
                 ],
               ),
             ),
           ],
         ),
       ),
-      // body: DefaultTabController(
-      //   length: 2,
-      //   child: Scaffold(
-      //     appBar: AppBar(
-      //       bottom: const TabBar(
-      //         tabs: [
-      //           Tab(text: "My Files",),
-      //           Tab(text: "Shared Files",),
-      //         ],
-      //       ),
-      //     ),
-      //     body: TabBarView(
-      //       children: [
-      //         Icon(Icons.directions_car),
-      //         Icon(Icons.directions_transit),
-      //       ],
-      //
-      //     ) ,
-      //   ),
-      //
-      // ),
     );
   }
 }
@@ -203,129 +183,121 @@ class MyFilesTab extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
+        padding: const EdgeInsets.only(top: 0.5),
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-
-          // return GridTile(
-          //   footer: Text(
-          //     item,
-          //     style: const TextStyle(
-          //       color: Colors.white,
-          //       fontSize: 32,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //   ),
-          //   child: InkWell(
-          //     child: Ink.image(
-          //       image: NetworkImage(
-          //         'https://source.unsplash.com/random?sig=$index',
-          //       ),
-          //       fit: BoxFit.cover,
-          //     ),
-          //     onTap: () {
-          //       _selectedItem(item, context);
-          //     },
-          //   ),
-          // );
           return Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.only(right: 5,left: 5,top: 5,bottom: 5),
             decoration: BoxDecoration(
-            color: Colors.white,
+              color: Colors.white,
+              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Checkbox(value: false, onChanged: (value) {
-                    },),
-                    Icon(Icons.more_vert),
-                  ],
-                ),
-                Container(
-                  height: 100,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(bottom: 5,left: 10, right: 10),
-                  color: Colors.red,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text('xyz.jpg'),
-                ),
-                Text('JPEG'),
-                Text('155 KB . 27/06/2002'),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                    Icon(Icons.share),
-                    Text('x version'),
-                    Spacer(),
-                    Icon(Icons.ios_share_outlined)
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 10,
-                      ),
-                      Text('userName')
-                    ],
-                  ),
-                )
-              ],
-            ),
+             mainAxisAlignment: MainAxisAlignment.start,
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Checkbox(
+                     value: false,
+                     onChanged: (value) {},
+                   ),
+                   const Icon(Icons.more_vert,color: Color(0xFF7A7A7A),),
+                 ],
+               ),
+               Container(
+                 height: 100,
+                 width: double.infinity,
+                 margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                 color: Colors.red,
+
+                 // NetworkImage('https://source.unsplash.com/random?sig=$index'),
+               ),
+
+               Container(
+                 padding: const EdgeInsets.only(left: 10),
+                 child: const Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text('xyz.jpg',style: TextStyle(color: Color(0xFF7A7A7A),fontWeight: FontWeight.bold),),
+                     Text('JPEG',style: TextStyle(color: Color(0xFF7A7A7A)),),
+                     Text('155 KB . 27/06/2002',style: TextStyle(color: Color(0xFFBEBEBE)),),
+                     Row(
+                       children: [
+                         Icon(Icons.pattern_sharp,color: Color(0xFF1672F3),),
+                         SizedBox(width: 5,),
+                         Text('5 version',style: TextStyle(color: Color(0xFF7A7A7A),fontWeight: FontWeight.bold),),
+                         Spacer(),
+                         Icon(Icons.mobile_screen_share,color: Color(0xFF566476),)
+                       ],
+                     ),
+                     SizedBox(height: 2,),
+                     Row(
+                       children: [
+                         CircleAvatar(radius: 10,backgroundImage: NetworkImage("https://source.unsplash.com/random"),),
+                         SizedBox(width: 5),
+                         Text('userName',style: TextStyle(color: Color(0xFF7A7A7A)),),
+                       ],
+                     ),
+                   ],
+                 ),
+               )
+             ],
+                            ),
           );
         },
       );
 
   Widget buildFolderGrid() => GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      childAspectRatio: 0.95,
-      crossAxisCount: 3,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-    ),
-    itemCount: 3,
-    itemBuilder: (context, index) {
-
-      return Container(
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.white,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.95,
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-           Align(
-               alignment: Alignment.centerRight,
-               child: Icon(Icons.more_vert)),
-            Padding(
-              padding: EdgeInsets.only(left: 5),
-                child: Icon(Icons.folder, size: 50,color: Colors.blue,)),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
-                children: [
-                  Text('Document'),
-                  Spacer(),
-                  Icon(Icons.ios_share_outlined)
-                ],
-              ),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+              borderRadius: BorderRadius.circular(8),
             ),
-          Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text('27/06/2002')),
-          ],
-        ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(Icons.more_vert,color: Color(0xFF7A7A7A),)),
+                Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Icon(
+                      Icons.folder,
+                      size: 50,
+                      color: Color(0xFF1672F3),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Row(
+                    children: [
+                      Text('Document',style: TextStyle(color: Color(0xFF7A7A7A)),),
+                      Spacer(flex: 1,),
+                      Icon(Icons.mobile_screen_share,color: Color(0xFF566476),)
+                    ],
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text('27/06/2002',style: TextStyle(color: Color(0xFFBEBEBE)),)),
+              ],
+            ),
+          );
+        },
       );
-    },
-  );
 
   void _selectedItem(String item, BuildContext context) {
     final snackBar = SnackBar(
@@ -340,31 +312,75 @@ class MyFilesTab extends StatelessWidget {
       ..showSnackBar(snackBar);
   }
 
-  List<String> dropDownList = <String>['One', 'Two', 'Three', 'Four'];
+  String dropDownList ='Date';
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DropdownMenu<String>(
-              initialSelection: dropDownList.first,
-              onSelected: (String? value) {
-                // This is called when the user selects an item.
-                // setState(() {
-                //   dropdownValue = value!;
-                // });
-              },
-              dropdownMenuEntries:
-                  dropDownList.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
-            ),
-            Text('data'),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                height: 30, // Set your desired height
+                width: 100, // Set your desired width
+                child: DropdownButton<String>(
+                  value: dropDownList,
+                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.black),
+                  underline: const SizedBox(), // Hide the default underline
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      // Update the selected value on user interaction
+                      dropDownList = newValue;
+                      // You can add additional functionality here based on the selection
+                    }
+                  },
+                  items: <String>['Date', 'Name'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Row(
+                        children: [
+                          const Icon(Icons.sort,color: Color(0xFF566476),), // Leading icon
+                          const SizedBox(width: 8), // Adjust the spacing
+                          Text(value),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              )
+
+              // DropdownMenu<String>(
+              //   // width: 30,
+              //   enabled: true,
+              //   leadingIcon: const Icon(Icons.sort),
+              //   trailingIcon: Icon(Icons.keyboard_arrow_down_rounded),
+              //   initialSelection: dropDownList.first,
+              //   onSelected: (String? value) {
+              //     // This is called when the user selects an item.
+              //     // setState(() {
+              //     //   dropdownValue = value!;
+              //     // });
+              //   },
+              //   dropdownMenuEntries:
+              //       dropDownList.map<DropdownMenuEntry<String>>((String value) {
+              //     return DropdownMenuEntry<String>(value: value, label: value);
+              //   }).toList(),
+              // ),
+              ,
+              IconButton(onPressed: () {}, icon: const Icon(Icons.grid_view_rounded,color: Color(0xFF1672F3),))
+            ],
+          ),
         ),
         Expanded(
           flex: 3,
@@ -373,12 +389,18 @@ class MyFilesTab extends StatelessWidget {
             child: buildGrid(),
           ),
         ),
-        Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text('Folders'),),
+        const Padding(
+          padding: EdgeInsets.only(left: 13),
+          child: Text('Folders',style: TextStyle(color: Color(0xFF414141),fontWeight: FontWeight.bold,fontSize: 14),),
+        ),
         Expanded(
           flex: 1,
-          child: buildFolderGrid(),),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 10.0, right: 10, top: 8.0, bottom: 8.0),
+            child: buildFolderGrid(),
+          ),
+        ),
       ],
     );
   }
