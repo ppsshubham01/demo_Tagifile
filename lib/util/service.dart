@@ -122,21 +122,23 @@ class ApiService {
       // print("-------------------------------------------");
       // print(response.statusCode);
       // print(response.body);
+
       if (response.statusCode == 200) {
+        /// dataStored In Object
         final jsonData = jsonDecode(response.body);
         Model resultData = Model.fromJson(jsonData);
+        print(resultData);
         await saveModelObjectToPrefs(resultData);
         print('Fetched data after login: $jsonData');
       } else {
-        print(
-            'Failed to fetch data after login with status: ${response.statusCode}');
+        print('Failed to fetch data after login with status: ${response.statusCode}');
       }
     } else {
       print('Token not found. User not logged in.');
     }
   }
 
-  // login kr
+
   /// Sign_Up
   Future<void> signup({
     required String firstName,
@@ -176,5 +178,11 @@ class ApiService {
     } catch (e) {
       print('Sign_up Error: $e');
     }
+  }
+
+  /// Log-Out
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
   }
 }

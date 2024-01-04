@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
+import 'package:tagifiles/util/service.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -89,7 +90,9 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
             /// Log-out
-            MyListTile(icon: Icons.logout_outlined, text: 'S I G N O U T',),
+            MyListTile(icon: Icons.logout_outlined, text: 'S I G N O U T',onTap: () async{
+              await ApiService().logout();
+            },),
           ],
         ),
       ),
