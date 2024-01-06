@@ -13,7 +13,6 @@ class CollaboratePage extends StatefulWidget {
 
 class _CollaboratePageState extends State<CollaboratePage> {
 
-  // List<Note> searchedItems = []; //.. here Note is model class
 
   List<ChatUsers> chatUsers = [
     ChatUsers(name: "Jane Russel", messageText: "Awesome Setup", image: "images/userImage1.jpeg", time: "Now"),
@@ -31,7 +30,6 @@ class _CollaboratePageState extends State<CollaboratePage> {
     ChatUsers(name: "Andrey Jones", messageText: "Can you please share the file?", image: "images/userImage7.jpeg", time: "24 Feb"),
   ];
 
-  // searching element from List2
   void searchingElements(String text) {
     setState(() {});
     chatUsers.clear();
