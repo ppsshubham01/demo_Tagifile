@@ -1,6 +1,6 @@
 class Validation {
 
-  static passwordValidate(String? value){
+  static passwordValidate(String? value) {
     if (value!.isEmpty) {
       return "Password is required";
     } else if (value.length < 8) {
@@ -12,7 +12,7 @@ class Validation {
     }
   }
 
-  static emailValidate(String? value){
+  static emailValidate(String? value) {
     final RegExp emailRegex = RegExp(
         r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
     bool validateEmail(String email) {

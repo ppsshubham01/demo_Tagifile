@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
-import 'package:tagifiles/screens/welcome_screen.dart';
 import 'package:tagifiles/util/service.dart';
 import 'package:tagifiles/util/validation.dart';
 
-import 'home_screen.dart';
+import '../home/home_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -226,19 +226,19 @@ class _SignupScreenState extends State<SignupScreen> {
                         maxLines: 1,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
-                          final RegExp emailRegex = RegExp(
-                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                          bool validateEmail(String email) {
-                            return emailRegex.hasMatch(email);
-                          }
-
-                          if (value!.isEmpty) {
-                            return 'Please enter the email';
-                          } else if (!validateEmail(value)) {
-                            //print('Enter valid E-mail');
-                            return 'Enter valid E-mail';
-                          }
-                          // Validation.emailValidate(value);
+                          // final RegExp emailRegex = RegExp(
+                          //     r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                          // bool validateEmail(String email) {
+                          //   return emailRegex.hasMatch(email);
+                          // }
+                          //
+                          // if (value!.isEmpty) {
+                          //   return 'Please enter the email';
+                          // } else if (!validateEmail(value)) {
+                          //   //print('Enter valid E-mail');
+                          //   return 'Enter valid E-mail';
+                          // }
+                         return Validation.emailValidate(value);
                         },
                       ),
                     ),
@@ -282,7 +282,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         maxLines: 1,
                         // keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
-                          Validation.passwordValidate(value);
+                          return Validation.passwordValidate(value);
                         },
                       ),
                     ),

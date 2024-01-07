@@ -7,16 +7,17 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/user_data.dart';
-import 'package:tagifiles/screens/home_screen.dart';
-import 'package:tagifiles/screens/welcome_screen.dart';
+import 'package:tagifiles/screens/home/home_screen.dart';
 
-class ApiService {
+class ApiService with ChangeNotifier {
+
+  String? tokenKey;
+
 // login done
   /// Login
-  Future<void> login(
-      {
+  Future<void> login({
     required String email,
-    password,
+    required String password,
     required BuildContext context,
     required ValueSetter onSuccess,
   }) async {
@@ -40,6 +41,8 @@ class ApiService {
       print(response.statusCode);
       if (response.statusCode == 200) {
         final token = jsonDecode(response.body)['data'];
+        tokenKey = token;
+        notifyListeners();
         print("+++++++++++++++++++++++++++");
         print(token);
         await saveTokenToPrefs(token);
@@ -68,7 +71,6 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
   }
-
 
   /// model object
   Future<void> saveModelObjectToPrefs(Model modelData) async {
@@ -132,13 +134,13 @@ class ApiService {
         await saveModelObjectToPrefs(resultData);
         print('Fetched data after login: $jsonData');
       } else {
-        print('Failed to fetch data after login with status: ${response.statusCode}');
+        print(
+            'Failed to fetch data after login with status: ${response.statusCode}');
       }
     } else {
       print('Token not found. User not logged in.');
     }
   }
-
 
   /// Sign_Up
   Future<void> signup({
@@ -183,7 +185,9 @@ class ApiService {
 
   /// Log-Out
   Future<void> logout() async {
+    tokenKey = null;
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
+    notifyListeners();
   }
 }

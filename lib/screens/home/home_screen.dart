@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tagifiles/screens/tabs/collaborate_tab.dart';
-import 'package:tagifiles/screens/tabs/new_tab.dart';
-import 'package:tagifiles/screens/tabs/personal_tab.dart';
-import 'package:tagifiles/screens/tabs/user_tab.dart';
+import 'package:tagifiles/screens/home/tabs/collaborate_tab.dart';
+import 'package:tagifiles/screens/home/tabs/new_tab.dart';
+import 'package:tagifiles/screens/home/tabs/personal_tab.dart';
+import 'package:tagifiles/screens/home/tabs/user_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

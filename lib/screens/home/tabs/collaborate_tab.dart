@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
-import '../chats/chat_page.dart';
+import 'package:tagifiles/screens/chats/chat_page.dart';
 
 class CollaboratePage extends StatefulWidget {
   const CollaboratePage({super.key

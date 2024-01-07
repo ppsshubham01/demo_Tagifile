@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart';
-import 'package:tagifiles/screens/home_screen.dart';
-import 'package:tagifiles/screens/signup_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/screens/home/home_screen.dart';
+import 'package:tagifiles/screens/auth/signup_screen.dart';
 import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/util/validation.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -41,6 +44,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    /// creating provider instance
+    final authProviderInstance = Provider.of<AuthProvider>(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -89,7 +94,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           const EdgeInsets.only(left: 20, top: 40, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: emailController,
+                        ///
+                        controller: authProviderInstance.emailController2,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           labelStyle: const TextStyle(
@@ -117,18 +123,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         focusNode: _emailFocusNode,
                         onTap: _onEmailTap,
                         validator: (value) {
-                          final RegExp emailRegex = RegExp(
-                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                          bool validateEmail(String email) {
-                            return emailRegex.hasMatch(email);
-                          }
-
-                          if (value!.isEmpty) {
-                            return 'Please enter the email';
-                          } else if (!validateEmail(value)) {
-                            //print('Enter valid E-mail');
-                            return 'Enter valid E-mail';
-                          }
+                          return Validation.emailValidate(value);
+                          // final RegExp emailRegex = RegExp(
+                          //     r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                          // bool validateEmail(String email) {
+                          //   return emailRegex.hasMatch(email);
+                          // }
+                          //
+                          // if (value!.isEmpty) {
+                          //   return 'Please enter the email';
+                          // } else if (!validateEmail(value)) {
+                          //   //print('Enter valid E-mail');
+                          //   return 'Enter valid E-mail';
+                          // }
                         },
                       ),
                     ),
@@ -139,7 +146,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: passwordController,
+                        controller: authProviderInstance.passwordController2,
                         obscureText: _isSelected,
                         decoration: InputDecoration(
                           labelText: 'Password',
@@ -175,15 +182,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         focusNode: _passwordFocusNode,
                         onTap: _onPasswordTap,
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Password is required";
-                          } else if (value.length < 8) {
-                            return ('length should be at-least 8 character');
-                          } else if(!value.contains(RegExp(r'[A-Z]'))){
-                            return "Password not contain at-least one capital letter";
-                          } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
-                            return "Password not contain at-least one special character";
-                          }
+                          return Validation.passwordValidate(value);
+                          // if (value!.isEmpty) {
+                          //   return "Password is required";
+                          // } else if (value.length < 8) {
+                          //   return ('length should be at-least 8 character');
+                          // } else if(!value.contains(RegExp(r'[A-Z]'))){
+                          //   return "Password not contain at-least one capital letter";
+                          // } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
+                          //   return "Password not contain at-least one special character";
+                          // }
                         },
                       ),
                     ),
@@ -224,17 +232,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => HomePage()));
                           if (formKey.currentState!.validate()) {
-                            serviceObject.login(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              onSuccess: (value) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const HomePage()));
-                              },
-                              context: context,
-                            );
+                            // serviceObject.login(
+                            //   email: emailController.text,
+                            //   password: passwordController.text,
+                            //   onSuccess: (value) {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (_) => const HomePage()));
+                            //   },
+                            //   context: context,
+                            // );
+                            authProviderInstance.signInUser(context);
                             print("Validated");
                           } else {
                             // print("Not Validated");
