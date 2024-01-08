@@ -98,7 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
 
-                    /// firstLastName-email-pass
+                    /// firstName
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 40, right: 20),
@@ -136,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-
+                    ///LastName
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -174,8 +174,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-
-                    // const SizedBox(height: 20,),
+                    ///Gender
                     Padding(
                       padding: const EdgeInsets.only(left: 24.0, top: 5),
                       child: Row(
@@ -226,7 +225,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ],
                       ),
                     ),
-
+                    ///Email
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 5, right: 20),
@@ -275,7 +274,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-
+                    ///Password
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -353,6 +352,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
+
+                    ///orSign in with
                     Container(
                       margin:
                           const EdgeInsets.only(left: 20, right: 20, top: 30),
