@@ -28,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final serviceObject = ApiService();
+  // final serviceObject = ApiService();
 
   void _onEmailTap() {
     setState(() {
@@ -109,7 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
-                              color: Color(0x1D55A4),
+                              color: Color(0xFF1D55A4),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -142,9 +142,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                     /// Password
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
                       child: TextFormField(
+                        autofocus: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: authProviderInstance.passwordController2,
                         obscureText: _isSelected,
@@ -171,7 +171,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(
-                                color: Color(0x1D55A4),
+                                color: Color(0xFF1D55A4),
                               )),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),

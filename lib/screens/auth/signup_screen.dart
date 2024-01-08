@@ -21,6 +21,31 @@ class _SignupScreenState extends State<SignupScreen> {
   int _selectedOption = 1;
   bool _isSelected = true;
 
+  final FocusNode _emailFocusNode= FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _firstnameFocusNode= FocusNode();
+  final FocusNode _lastnameFocusNode= FocusNode();
+
+  void _onEmailTap(){
+    setState(() {
+      _emailFocusNode.requestFocus();
+    });
+  }
+  void _onPasswordTap(){
+    setState(() {
+      _passwordFocus.requestFocus();
+    });
+  }
+  void _onFirstnameTap(){
+    setState(() {
+      _firstnameFocusNode.requestFocus();
+    });
+  }
+  void _onLastnameTap(){
+    setState(() {
+      _lastnameFocusNode.requestFocus();
+    });
+  }
 
 
   @override
@@ -86,12 +111,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Color(0xFF414141),
                           ),
                           hintText: 'Enter your firstname',
-                          prefixIcon: const Icon(Icons.person,
-                              color: Color(0xFF1672F3)),
+                          prefixIcon:  Icon(Icons.person,
+                              color: _firstnameFocusNode.hasFocus ? const Color(0xFF1672F3) : const Color(0xFF7A7A7A)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
-                              color: Color(0x1D55A4),
+                              color: Color(0xFF1D55A4),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -100,6 +125,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 const BorderSide(color: Color(0xFF1D55A4)),
                           ),
                         ),
+                        focusNode: _firstnameFocusNode,
+                        onTap: _onFirstnameTap,
                         maxLines: 1,
                         keyboardType: TextInputType.name,
                         validator: (value) {
@@ -122,12 +149,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Color(0xFF414141),
                           ),
                           hintText: 'Enter your lastname',
-                          prefixIcon: const Icon(Icons.person,
-                              color: Color(0xFF1672F3)),
+                          prefixIcon: Icon(Icons.person,
+                              color: _lastnameFocusNode.hasFocus?  const Color(0xFF1672F3) : const Color(0xFF7A7A7A)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
-                              color: Color(0x1D55A4),
+                              color: Color(0xFF1D55A4),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -136,6 +163,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 const BorderSide(color: Color(0xFF1D55A4)),
                           ),
                         ),
+                        focusNode: _lastnameFocusNode,
+                        onTap: _onLastnameTap,
                         maxLines: 1,
                         keyboardType: TextInputType.name,
                         validator: (value) {
@@ -197,6 +226,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ],
                       ),
                     ),
+
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 5, right: 20),
@@ -210,11 +240,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           hintText: 'Enter your email address',
                           prefixIcon:
-                              const Icon(Icons.email, color: Color(0xFF1672F3)),
+                               Icon(Icons.email,
+                                  color: _emailFocusNode.hasFocus?  const Color(0xFF1672F3) : const Color(0xFF7A7A7A)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
-                              color: Color(0x1D55A4),
+                              color: Color(0xFF1D55A4),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -223,6 +254,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 const BorderSide(color: Color(0xFF1D55A4)),
                           ),
                         ),
+                        focusNode: _emailFocusNode,
+                        onTap: _onEmailTap,
                         maxLines: 1,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -242,6 +275,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
+
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -256,10 +290,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           hintText: 'Enter your password',
                           prefixIcon:
-                              const Icon(Icons.lock, color: Color(0xFF1672F3)),
+                               Icon(Icons.lock, color: _passwordFocus.hasFocus
+                                  ? const Color(0xFF1672F3)
+                                  : const Color(0xFF7A7A7A)),
                           suffixIcon: InkWell(
                             onTap: () {
                               setState(() {
+                                _onPasswordTap();
                                 _isSelected = !_isSelected;
                               });
                             },
@@ -270,7 +307,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
-                              color: Color(0x1D55A4),
+                              color: Color(0xFF1D55A4),
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -279,6 +316,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 const BorderSide(color: Color(0xFF1D55A4)),
                           ),
                         ),
+                        focusNode: _passwordFocus,
+                        onTap: _onPasswordTap,
                         maxLines: 1,
                         // keyboardType: TextInputType.visiblePassword,
                         validator: (value) {

@@ -16,13 +16,11 @@ void main() async {
   FlutterNativeSplash.remove();
   String? tokenKey = await ApiService().getTokenFromPrefs();
 
-  runApp(MyApp(
-    tokenKey: tokenKey,
-  ));
+  runApp(MyApp(tokenKey: tokenKey,));
 }
 
 Future initialization(BuildContext? context) async {
-//  Load reaources
+//  Load reasources
   await Future.delayed(const Duration(seconds: 1));
 }
 
@@ -41,6 +39,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ApiService>(
         builder: (context, apiServiceInstanceProvider, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
+            // theme: ThemeData(fontFamily: 'Helvetica'),
             home: tokenKey == null || apiServiceInstanceProvider.tokenKey == null ? const WelcomeScreen() : const HomePage()
             // home: EmailPending(),
             ),
