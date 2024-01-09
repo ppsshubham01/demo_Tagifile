@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         builder: (context, apiServiceInstanceProvider, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             // theme: ThemeData(fontFamily: 'Helvetica'),
-            home: tokenKey == null || apiServiceInstanceProvider.tokenKey == null ? const WelcomeScreen() : const HomePage()
+            home: tokenKey != null || apiServiceInstanceProvider.tokenKey != null ? const HomePage() : const WelcomeScreen()
             // home: EmailPending(),
             ),
       ),

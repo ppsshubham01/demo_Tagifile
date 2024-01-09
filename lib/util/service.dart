@@ -42,7 +42,7 @@ class ApiService with ChangeNotifier {
       if (response.statusCode == 200) {
         final token = jsonDecode(response.body)['data'];
         tokenKey = token;
-        notifyListeners();
+        //notifyListeners();
         print("+++++++++++++++++++++++++++");
         print(token);
         await saveTokenToPrefs(token);
@@ -50,8 +50,7 @@ class ApiService with ChangeNotifier {
         onSuccess.call(response.body);
         return token;
       } else {
-        await Fluttertoast.showToast(
-            msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
+        await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
         print(
             'Login Failed with state code: ${response.statusCode} ${response.body}');
         return null;

@@ -38,7 +38,7 @@ class AuthProvider with ChangeNotifier {
       password: passwordController2.text,
       context: context,
       onSuccess: (value) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const HomePage()));
       },
     );

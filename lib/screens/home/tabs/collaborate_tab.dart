@@ -31,7 +31,9 @@ class _CollaboratePageState extends State<CollaboratePage> {
   ];
 
   void searchingElements(String text) {
-    setState(() {});
+    setState(() {
+
+    });
     chatUsers.clear();
     if (text.isEmpty) {
       setState(() {});
@@ -75,7 +77,9 @@ class _CollaboratePageState extends State<CollaboratePage> {
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide:
-                        const BorderSide(color: Colors.white, width: 2.0))
+                        const BorderSide(color: Colors.white, width: 2.0)
+                    ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                 ),
                 expands: false,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
 import 'package:tagifiles/util/service.dart';
 
@@ -137,6 +138,7 @@ class _UserPageState extends State<UserPage> {
               text: 'S I G N O U T',
               onTap: () async {
                 await ApiService().logout();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const WelcomeScreen()));
               },
             ),
           ],

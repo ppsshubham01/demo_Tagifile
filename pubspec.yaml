@@ -54,8 +54,7 @@ dev_dependencies:
 flutter_native_splash:
 #  color: "#FFFFFF"
   background_image: images/4xTagiback.png
-  image: images/tagilogoWhite4x.png
-#  image_path:
+  image: images/tagiicon.png
 #  image-size: 500
 
 # following page: https://dart.dev/tools/pub/pubspec
@@ -88,7 +87,6 @@ flutter:
       - images/
 #     - images/tegisplash.png
 #     - images/4xTagiback.png
-#     - images/tagilogo.png
 #     - images/tagilogoWhite.png
 #     - images/tagilogoWhite.svg
 #     - images/google.svg

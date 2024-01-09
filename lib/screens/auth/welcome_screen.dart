@@ -52,31 +52,38 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Form(
             key: formKey,
             child: SizedBox(
-              height: 1200,
+              height: 800,
               child: Stack(
                 children: [
                   /// Background ImageBottom
                   Container(
-                      color: Colors.blue,
-                      child: Image.asset("images/bottombackground.png",
-                          height: 250)),
+                      color: const Color(0xFF1D55A4),
+                      child: Image.asset("images/cityskyline.png",
+                          height: 180)),
+
                   Positioned(
-                    top: 120,
+                    top: 160,
                     right: 0,
                     left: 0,
                     child: Container(
-                      color: Colors.white,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)
+                        )
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           /// Welcome Text
                           const Padding(
-                            padding: EdgeInsets.only(left: 25, top: 0),
+                            padding: EdgeInsets.only(left: 25, top: 50),
                             child: Text(
                               'Welcome to Tagifiles',
                               style: TextStyle(
                                 color: Color(0xFF414141),
-                                fontSize: 18.0,
+                                fontSize: 22.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -98,10 +105,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             padding: const EdgeInsets.only(
                                 left: 20, top: 40, right: 20),
                             child: TextFormField(
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-
-                              ///
+                              autofocus: true,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               controller: authProviderInstance.emailController2,
                               decoration: InputDecoration(
                                 labelText: 'Email',
@@ -119,6 +124,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     color: Color(0xFF1D55A4),
                                   ),
                                 ),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 15,horizontal: 50),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
@@ -152,9 +158,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             padding: const EdgeInsets.only(
                                 left: 20, top: 20, right: 20),
                             child: TextFormField(
-                              autofocus: true,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                              // autofocus: true,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               controller:
                                   authProviderInstance.passwordController2,
                               obscureText: _isSelected,
@@ -175,19 +180,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                       _isSelected = !_isSelected;
                                     });
                                   },
-                                  child: Icon(_isSelected
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
+                                  child: Icon(_isSelected ? Icons.visibility_off : Icons.visibility),
                                 ),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: const BorderSide(
                                       color: Color(0xFF1D55A4),
                                     )),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 15,horizontal: 50),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide:
-                                      const BorderSide(color: Color(0xFF1D55A4)),
+                                  borderSide: const BorderSide(color: Color(0xFF1D55A4)),
                                 ),
                               ),
                               focusNode: _passwordFocusNode,
@@ -240,10 +243,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HomePage()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
                                   // serviceObject.login(
                                   //   email: emailController.text,
@@ -256,9 +259,27 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   //   },
                                   //   context: context,
                                   // );
-                                  authProviderInstance.signInUser(context);
+                                  try {
+                                    authProviderInstance.signInUser(context);
+                                  } catch (e) {
+                                    const SnackBar(
+                                      content: Text(
+                                        "Error....",
+                                        style: TextStyle(fontSize: 15.0),
+                                      ),
+                                      backgroundColor: Colors.redAccent,
+                                    );
+                                  }
+                                  // authProviderInstance.signInUser(context);
                                   print("Validated");
                                 } else {
+                                   const SnackBar(
+                                    content: Text(
+                                      "Error....",
+                                      style: TextStyle(fontSize: 15.0),
+                                    ),
+                                    backgroundColor: Colors.redAccent,
+                                  );
                                   // print("Not Validated");
                                 }
                               },
@@ -268,7 +289,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     borderRadius: BorderRadius.circular(5.0)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 10.0),
-                                fixedSize: const Size(347, 35),
+                                fixedSize: const Size(347, 45),
                               ),
                               child: const Text(
                                 'Login',
@@ -283,13 +304,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           /// Text or sign in with
                           Container(
                             margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 50),
+                                left: 20, right: 20, top: 40),
                             child: const Row(
                               children: [
                                 Expanded(
                                   child: Divider(
                                     color: Colors.grey,
-                                    thickness: 2,
+                                    thickness: 1,
                                     // height: 1.0,
                                   ),
                                 ),
@@ -300,7 +321,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 Expanded(
                                   child: Divider(
                                     color: Colors.grey,
-                                    thickness: 2,
+                                    thickness: 1,
                                     // height: 1.0,
                                   ),
                                 )
@@ -310,7 +331,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                           ///  Logo Google Signin
                           Padding(
-                            padding: const EdgeInsets.only(top: 50, bottom: 30),
+                            padding: const EdgeInsets.only(top: 45, bottom: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
