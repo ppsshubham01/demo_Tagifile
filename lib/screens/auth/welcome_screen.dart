@@ -19,7 +19,6 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final FocusNode _emailFocusNode = FocusNode();
@@ -52,51 +51,56 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         body: SingleChildScrollView(
           child: Form(
             key: formKey,
-            child: Stack(
-              children: [
-                /// Background ImageBottom
-                Positioned(
-                    top: 0,
-                    left: 0,
+            child: SizedBox(
+              height: 1200,
+              child: Stack(
+                children: [
+                  /// Background ImageBottom
+                  Container(
+                      color: Colors.blue,
+                      child: Image.asset("images/bottombackground.png",
+                          height: 250)),
+                  Positioned(
+                    top: 120,
                     right: 0,
-                    child: Image.asset("images/bluetopbackground.png")),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-
-                    Container(
-                      height: 160,
-                    ),
-                    /// Welcome Text
-                    const Padding(
-                      padding: EdgeInsets.only(left: 25, top: 80),
-                      child: Text(
-                        'Welcome to Tagifiles',
-                        style: TextStyle(
-                          color: Color(0xFF414141),
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Text(
-                        'Login to Your Account',
-                        style: TextStyle(
-                          color: Color(0xFF7A7A7A),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
+                    left: 0,
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          /// Welcome Text
+                          const Padding(
+                            padding: EdgeInsets.only(left: 25, top: 0),
+                            child: Text(
+                              'Welcome to Tagifiles',
+                              style: TextStyle(
+                                color: Color(0xFF414141),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Text(
+                              'Login to Your Account',
+                              style: TextStyle(
+                                color: Color(0xFF7A7A7A),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
 
                           /// Email
                           Padding(
-                            padding:
-                            const EdgeInsets.only(left: 20, top: 40, right: 20),
+                            padding: const EdgeInsets.only(
+                                left: 20, top: 40, right: 20),
                             child: TextFormField(
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+
                               ///
                               controller: authProviderInstance.emailController2,
                               decoration: InputDecoration(
@@ -118,7 +122,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                  const BorderSide(color: Color(0xFF1D55A4)),
+                                      const BorderSide(color: Color(0xFF1D55A4)),
                                 ),
                               ),
                               maxLines: 1,
@@ -145,15 +149,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                           /// Password
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+                            padding: const EdgeInsets.only(
+                                left: 20, top: 20, right: 20),
                             child: TextFormField(
                               autofocus: true,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              controller: authProviderInstance.passwordController2,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller:
+                                  authProviderInstance.passwordController2,
                               obscureText: _isSelected,
                               decoration: InputDecoration(
                                 labelText: 'Password',
-                                labelStyle: const TextStyle(color: Color(0xFF414141)),
+                                labelStyle:
+                                    const TextStyle(color: Color(0xFF414141)),
                                 hintText: 'Enter your Password',
                                 prefixIcon: Icon(
                                   Icons.lock,
@@ -179,7 +187,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                  const BorderSide(color: Color(0xFF1D55A4)),
+                                      const BorderSide(color: Color(0xFF1D55A4)),
                                 ),
                               ),
                               focusNode: _passwordFocusNode,
@@ -232,8 +240,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) => HomePage()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
                                   // serviceObject.login(
                                   //   email: emailController.text,
@@ -272,8 +282,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                           /// Text or sign in with
                           Container(
-                            margin:
-                            const EdgeInsets.only(left: 20, right: 20, top: 50),
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, top: 50),
                             child: const Row(
                               children: [
                                 Expanded(
@@ -352,7 +362,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            const SignupScreen()));
+                                                const SignupScreen()));
                                   },
                                   child: const Text(
                                     "Create an Account",
@@ -364,11 +374,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
+              ),
             ),
           ),
-        );
+        ),
+      ),
+    );
   }
 }
