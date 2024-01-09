@@ -237,16 +237,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
 
                           /// LogIn Buttom
+                          authProviderInstance.loginLoading ? const CircularProgressIndicator(
+                            color: Colors.red,
+                          ) :
                           Container(
                             width: double.infinity,
                             margin: const EdgeInsets.only(left: 20, right: 20),
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (_) => HomePage()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
                                   // serviceObject.login(
                                   //   email: emailController.text,

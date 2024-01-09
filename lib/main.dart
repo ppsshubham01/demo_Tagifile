@@ -33,14 +33,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => ApiService()),
+        ChangeNotifierProvider.value(value: AuthProvider()),
+        ChangeNotifierProvider.value(value: ApiService()),
       ],
       child: Consumer<ApiService>(
         builder: (context, apiServiceInstanceProvider, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             // theme: ThemeData(fontFamily: 'Helvetica'),
-            home: tokenKey != null || apiServiceInstanceProvider.tokenKey != null ? const HomePage() : const WelcomeScreen()
+            home: apiServiceInstanceProvider.tokenKey != null ? const HomePage() : const WelcomeScreen()
             // home: EmailPending(),
             ),
       ),

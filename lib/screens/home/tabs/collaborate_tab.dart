@@ -30,27 +30,30 @@ class _CollaboratePageState extends State<CollaboratePage> {
     ChatUsers(name: "Andrey Jones", messageText: "Can you please share the file?", image: "images/userImage7.jpeg", time: "24 Feb"),
   ];
 
-  void searchingElements(String text) {
-    setState(() {
+  List<ChatUsers> searchChatUserList = [];
 
+  void searchingElements(String text) {
+
+    setState(() {
+      searchChatUserList.clear();
     });
-    chatUsers.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    } else {
+
+    if (text.isNotEmpty || text != '') {
       for (var element in chatUsers) {
         if (element.name.toLowerCase().contains(
             text.toLowerCase().trim().replaceAll(RegExp(r'\b\s+\b'), ''))) {
           // print(element.title);
-          chatUsers.add(element);
+          searchChatUserList.add(element);
         }
       }
       setState(() {});
+
     }
     //print(text.trim());
     // print(searchedItems.length);
   }
+
+  final TextEditingController searchTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
               child: TextField(
                 // maxLines: 1,
                 //maxLength: 100,
+                controller: searchTextController,
                 onChanged: (value) => searchingElements(value),
                 style: const TextStyle(overflow: TextOverflow.fade),
                 decoration: InputDecoration(
@@ -108,90 +112,181 @@ class _CollaboratePageState extends State<CollaboratePage> {
   }
 
   // ChatList
-  Widget chatList()=>
-      ListView.builder(
-        itemCount: chatUsers.length,
-        itemBuilder: (BuildContext context,int index) {
-          return Dismissible(
-            key: ValueKey(chatUsers[index]),
-            background: Container(
-              color: Colors.red,
-              child: const Icon(CupertinoIcons.delete),
-            ),
-            secondaryBackground: Container(
-              color: Colors.green,
-              child: const Icon(Icons.archive),
-            ),
-            onDismissed:(DismissDirection direction){
-              setState(() {
-                Container();
-                chatUsers.removeAt(index);
-              });
-            },
-            confirmDismiss: (DismissDirection direction) async {
-               return showDialog(context: context,
-                   useRootNavigator: true,
-                   barrierDismissible: true,
-                   builder: (BuildContext context) {
-                 return AlertDialog(
-                   alignment: Alignment.center,
-                   backgroundColor: Colors.white,
-                   title: const Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
-                   content: const Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+  Widget chatList() {
+    return searchChatUserList.isEmpty ? ListView.builder(
+      itemCount: chatUsers.length,
+      itemBuilder: (BuildContext context,int index) {
+        return Dismissible(
+          key: ValueKey(chatUsers[index]),
+          background: Container(
+            color: Colors.red,
+            child: const Icon(CupertinoIcons.delete),
+          ),
+          secondaryBackground: Container(
+            color: Colors.green,
+            child: const Icon(Icons.archive),
+          ),
+          onDismissed:(DismissDirection direction){
+            setState(() {
+              Container();
+              chatUsers.removeAt(index);
+            });
+          },
+          confirmDismiss: (DismissDirection direction) async {
+            return showDialog(context: context,
+                useRootNavigator: true,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.white,
+                    title: const Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                    content: const Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
 
-                   actions:<Widget> [
-                     const Divider(),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       // crossAxisAlignment: CrossAxisAlignment.center,
-                       children: [
-                         TextButton(onPressed: (){ Navigator.pop(context,true);},style: const ButtonStyle(), child: const Text('Yes, Delete',style: TextStyle(color: Colors.red),),),
-                         const SizedBox(
-                             height: 50,
-                             child: VerticalDivider(endIndent: 0,),),
-                         TextButton(onPressed: (){Navigator.pop(context,false);}, child: const Text('No',style: TextStyle(color: Color(0xFF566476)),)),
-                       ],
-                     )
-                   ],
-                 );
-                   }
+                    actions:<Widget> [
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextButton(onPressed: (){ Navigator.pop(context,true);},style: const ButtonStyle(), child: const Text('Yes, Delete',style: TextStyle(color: Colors.red),),),
+                          const SizedBox(
+                            height: 50,
+                            child: VerticalDivider(endIndent: 0,),),
+                          TextButton(onPressed: (){Navigator.pop(context,false);}, child: const Text('No',style: TextStyle(color: Color(0xFF566476)),)),
+                        ],
+                      )
+                    ],
+                  );
+                }
 
-               );
-            },
-            child: ListTile(
-              leading: GestureDetector(
+            );
+          },
+          child: ListTile(
+            leading: GestureDetector(
+              onTap: (){
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                //   userItem: chatUsers[index],
+                //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                // ),),);
+              },
+              child: CircleAvatar(
+                radius: 28,
+                backgroundImage: NetworkImage(
+                    'https://source.unsplash.com/random?sig=$index'),
+              ),
+            ),
+            title: GestureDetector(
                 onTap: (){
+                  setState(() {
+                    // searchChatUserList.clear();
+                    searchTextController.clear();
+                  });
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
                     userItem: chatUsers[index],
                     networkImageLink: 'https://source.unsplash.com/random?sig=$index',
                   ),),);
                 },
-                child: CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage(
-                      'https://source.unsplash.com/random?sig=$index'),
-                ),
-              ),
-              title: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                      userItem: chatUsers[index],
-                      networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                    ),),);
-                  },
-                  child: Text(chatUsers[index].name)),
-              subtitle: Text("subtitle ${chatUsers[index].messageText}"),
-              trailing: Column(
-                children: [
-                  Text("12.00${chatUsers[index].time}"),
-                  const Icon(Icons.timelapse_rounded),
-                ],
-              ),
-              // onTap: () => _selectedItem(item),
+                child: Text(chatUsers[index].name)),
+            subtitle: Text("subtitle ${chatUsers[index].messageText}"),
+            trailing: Column(
+              children: [
+                Text("12.00${chatUsers[index].time}"),
+                const Icon(Icons.timelapse_rounded),
+              ],
             ),
-          );
-        },
-      );
+            // onTap: () => _selectedItem(item),
+          ),
+        );
+      },
+    ) : ListView.builder(
+      itemCount: searchChatUserList.length,
+      itemBuilder: (BuildContext context,int index) {
+        return Dismissible(
+          key: ValueKey(searchChatUserList[index]),
+          background: Container(
+            color: Colors.red,
+            child: const Icon(CupertinoIcons.delete),
+          ),
+          secondaryBackground: Container(
+            color: Colors.green,
+            child: const Icon(Icons.archive),
+          ),
+          onDismissed:(DismissDirection direction){
+            setState(() {
+              Container();
+              searchChatUserList.removeAt(index);
+            });
+          },
+          confirmDismiss: (DismissDirection direction) async {
+            return showDialog(context: context,
+                useRootNavigator: true,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.white,
+                    title: const Center(child: Text("Delete this chat?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)),
+                    content: const Text("Are you sure you want to permanently delete this message?",style: TextStyle(color: Color(0xFF7A7A7A),fontSize: 12,fontWeight: FontWeight.normal),),
+
+                    actions:<Widget> [
+                      const Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextButton(onPressed: (){ Navigator.pop(context,true);},style: const ButtonStyle(), child: const Text('Yes, Delete',style: TextStyle(color: Colors.red),),),
+                          const SizedBox(
+                            height: 50,
+                            child: VerticalDivider(endIndent: 0,),),
+                          TextButton(onPressed: (){Navigator.pop(context,false);}, child: const Text('No',style: TextStyle(color: Color(0xFF566476)),)),
+                        ],
+                      )
+                    ],
+                  );
+                }
+
+            );
+          },
+          child: ListTile(
+            leading: GestureDetector(
+              onTap: (){
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                //   userItem: searchChatUserList[index],
+                //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                // ),),);
+              },
+              child: CircleAvatar(
+                radius: 28,
+                backgroundImage: NetworkImage(
+                    'https://source.unsplash.com/random?sig=$index'),
+              ),
+            ),
+            title: GestureDetector(
+                onTap: (){
+                  setState(() {
+                    // searchChatUserList.clear();
+                    searchTextController.clear();
+                  });
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                    userItem: searchChatUserList[index],
+                    networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                  ),),);
+                },
+                child: Text(searchChatUserList[index].name)),
+            subtitle: Text("subtitle ${searchChatUserList[index].messageText}"),
+            trailing: Column(
+              children: [
+                Text("12.00${searchChatUserList[index].time}"),
+                const Icon(Icons.timelapse_rounded),
+              ],
+            ),
+            // onTap: () => _selectedItem(item),
+          ),
+        );
+      },
+    );
+  }
 
   void doNothing(BuildContext context) {}
 }

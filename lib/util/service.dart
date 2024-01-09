@@ -20,6 +20,7 @@ class ApiService with ChangeNotifier {
     required String password,
     required BuildContext context,
     required ValueSetter onSuccess,
+    required ValueSetter onError,
   }) async {
     String serverPayload = json.encode({
       'email': email,
@@ -56,6 +57,7 @@ class ApiService with ChangeNotifier {
         return null;
       }
     } catch (e) {
+      onError.call("");
       print('Error: $e');
     }
   }
@@ -149,6 +151,7 @@ class ApiService with ChangeNotifier {
     required String password,
     gender,
     required ValueSetter onSuccess,
+    required ValueSetter onError,
   }) async {
     String serverpayLoad1 = json.encode({
       'email': email,
@@ -178,6 +181,7 @@ class ApiService with ChangeNotifier {
         print(response.statusCode);
       }
     } catch (e) {
+      onError.call("");
       print('Sign_up Error: $e');
     }
   }

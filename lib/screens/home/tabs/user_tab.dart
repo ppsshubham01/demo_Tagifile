@@ -138,7 +138,6 @@ class _UserPageState extends State<UserPage> {
               text: 'S I G N O U T',
               onTap: () async {
                 await ApiService().logout();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const WelcomeScreen()));
               },
             ),
           ],
