@@ -24,8 +24,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   bool _isSelected = true;
-  TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // final TextEditingController passwordController = TextEditingController();
 
   // final serviceObject = ApiService();
 
@@ -135,6 +135,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               keyboardType: TextInputType.emailAddress,
                               focusNode: _emailFocusNode,
                               onTap: _onEmailTap,
+                              // onTap: authProviderInstance.focusEmailTap(),
                               validator: (value) {
                                 return Validation.emailValidate(value);
                                 // final RegExp emailRegex = RegExp(
@@ -236,20 +237,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           ),
 
+                          authProviderInstance.loginLoading ?const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF1D55A4),
+                            ),
+                          ) : SizedBox(),
                           /// LogIn Buttom
-                          authProviderInstance.loginLoading ? const CircularProgressIndicator(
-                            color: Colors.red,
-                          ) :
+                          // authProviderInstance.loginLoading ? const CircularProgressIndicator(
+                          //   color: Color(0xFF1D55A4),
+                          // ) :0
                           Container(
                             width: double.infinity,
                             margin: const EdgeInsets.only(left: 20, right: 20),
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HomePage()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
                                   // serviceObject.login(
                                   //   email: emailController.text,
@@ -262,18 +268,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   //   },
                                   //   context: context,
                                   // );
-                                  try {
-                                    authProviderInstance.signInUser(context);
-                                  } catch (e) {
-                                    const SnackBar(
-                                      content: Text(
-                                        "Error....",
-                                        style: TextStyle(fontSize: 15.0),
-                                      ),
-                                      backgroundColor: Colors.redAccent,
-                                    );
-                                  }
-                                  // authProviderInstance.signInUser(context);
+                                  authProviderInstance.signInUser(context);
                                   print("Validated");
                                 } else {
                                    const SnackBar(

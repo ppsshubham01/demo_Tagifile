@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
-import 'package:tagifiles/screens/verification/email_pending.dart';
 import 'package:tagifiles/util/service.dart';
 
 class AuthProvider with ChangeNotifier {
-
   /// for signUp
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -22,6 +19,11 @@ class AuthProvider with ChangeNotifier {
   bool loginLoading = false;
   bool signUpLoading = false;
 
+  /// for focusIcon
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  bool _isSelected = true;
+
   /// for signUp method
   void signUpUser(BuildContext context) {
     signUpLoading = true;
@@ -34,11 +36,11 @@ class AuthProvider with ChangeNotifier {
       onSuccess: (value) {
         signUpLoading = false;
         notifyListeners();
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
       },
       onError: (value) async{
-        await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT );
+        await Fluttertoast.showToast(msg: 'SignUp email should be used!', toastLength: Toast.LENGTH_SHORT );
       },
     );
   }
@@ -58,11 +60,9 @@ class AuthProvider with ChangeNotifier {
             context, MaterialPageRoute(builder: (_) => const HomePage()));
       },
       onError: (value) async{
-      await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT );
-
-    },
+      await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
+      },
     );
   }
 
-  ///
 }

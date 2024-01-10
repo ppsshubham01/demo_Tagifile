@@ -47,3 +47,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// -->     home: tokenKey != null || apiServiceInstanceProvider.tokenKey != null ? const HomePage() : const WelcomeScreen()
+// --> home: tokenKey == null || apiServiceInstanceProvider.tokenKey == null ? const WelcomeScreen() : const HomePage()
+

@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/user_data.dart';
-import 'package:tagifiles/screens/home/home_screen.dart';
 
 class ApiService with ChangeNotifier {
 
@@ -51,9 +50,9 @@ class ApiService with ChangeNotifier {
         onSuccess.call(response.body);
         return token;
       } else {
-        await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
-        print(
-            'Login Failed with state code: ${response.statusCode} ${response.body}');
+        // await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
+        // const SnackBar(content: Text("Error....", style: TextStyle(fontSize: 15.0),),backgroundColor: Colors.redAccent,);
+        print('Login Failed with state code: ${response.statusCode} ${response.body}');
         return null;
       }
     } catch (e) {

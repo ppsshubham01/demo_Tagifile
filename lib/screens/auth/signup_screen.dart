@@ -66,6 +66,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: const Color(0xFF1D55A4),
                       child: Image.asset("images/cityskyline.png",
                           height: 180)),
+
+                  /// Circlular Logic
+                  const Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF1D55A4),
+                        ),
+                      )
+                  ),
+
                   Positioned(
                     top: 160,
                     left: 0,
@@ -343,10 +357,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ),
 
+
                           /// signUpButton
-                          authProviderInstance.signUpLoading ? const CircularProgressIndicator(
-                            color: Colors.red,
-                          ) : Container(
+                          authProviderInstance.signUpLoading ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.red,
+                            ),
+                          ) :
+                          Container(
                             width: double.infinity,
                             margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                             padding: const EdgeInsets.only(top: 20.0),
