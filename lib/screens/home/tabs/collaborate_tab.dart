@@ -104,6 +104,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
           )
         ],
       ),
+
       body: SafeArea(
           child: Scaffold(
             body: chatList(),
@@ -277,8 +278,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
             subtitle: Text("subtitle ${searchChatUserList[index].messageText}"),
             trailing: Column(
               children: [
-                Text("12.00${searchChatUserList[index].time}"),
-                const Icon(Icons.timelapse_rounded),
+                Text("12.00${searchChatUserList[index].time}",style: const TextStyle(color: Color(0xFFA8A7A7)),),
+                const Icon(Icons.timelapse_rounded,color: Colors.lightGreenAccent,),
               ],
             ),
             // onTap: () => _selectedItem(item),

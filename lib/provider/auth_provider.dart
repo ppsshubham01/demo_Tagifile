@@ -19,6 +19,11 @@ class AuthProvider with ChangeNotifier {
   bool loginLoading = false;
   bool signUpLoading = false;
 
+  /// forgotPassword Emailtext
+  final TextEditingController forgorPasswordText = TextEditingController();
+
+
+
   /// for focusIcon
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
@@ -64,5 +69,15 @@ class AuthProvider with ChangeNotifier {
       },
     );
   }
+
+
+  void forgotPassword(BuildContext context){
+
+    // ApiService.forgotPassword(
+    //     forgotPasswordEmailPhone: forgorPasswordText.text);
+  }
+
+
+
 
 }

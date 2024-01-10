@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/provider/createFolder_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: AuthProvider()),
         ChangeNotifierProvider.value(value: ApiService()),
+        ChangeNotifierProvider.value(value: CreateFolderProvider()),
       ],
       child: Consumer<ApiService>(
         builder: (context, apiServiceInstanceProvider, child) => MaterialApp(

@@ -37,6 +37,7 @@ class _NewPageState extends State<NewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
+
       appBar: AppBar(
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
@@ -82,172 +83,21 @@ class _NewPageState extends State<NewPage> {
       // body: ,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _uploadFolderBottomSheet(context);
+          // _uploadFolderBottomSheet(context);
         },
         elevation: 8,
         foregroundColor: Colors.blueAccent,
         backgroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
+
+      body: Container(
+
+
+      ),
     );
   }
 
-  //Method for
-  void _uploadFolderBottomSheet(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return Container(
-            height: MediaQuery.of(context).size.height * .60,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 20.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      const Text(
-                        "Create New ",
-                        style: TextStyle(
-                            color: Color(0xFF414141),
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          icon: const Icon(Icons.cancel_outlined)),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0))),
-                                child: const Icon(
-                                  Icons.folder_open_rounded,
-                                  size: 60.0,
-                                  color: Color(0xFF1672F3),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            const Text(
-                              "Folders",
-                              style: TextStyle(fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0))),
-                                child: const Icon(
-                                  Icons.group,
-                                  size: 60.0,
-                                  color: Color(0xFF1672F3),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            const Text(
-                              "Groups",
-                              style: TextStyle(fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0))),
-                                child: const Icon(
-                                  Icons.cloud_outlined,
-                                  size: 60.0,
-                                  color: Color(0xFF1672F3),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            const Text(
-                              "Add Cloud",
-                              style: TextStyle(fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0))),
-                                child: const Icon(
-                                  Icons.upload_outlined,
-                                  color: Color(0xFF1672F3),
-                                  size: 60.0,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            const Text(
-                              "Upload",
-                              style: TextStyle(fontSize: 16.0),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
 }
 
 // GridView.count(

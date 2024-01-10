@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/screens/auth/signup_screen.dart';
+import 'package:tagifiles/screens/verification/fogot_password.dart';
 import 'package:tagifiles/util/service.dart';
 import 'package:tagifiles/util/validation.dart';
 
@@ -227,7 +228,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   ],
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const ForgotPassword()));
+                                  },
                                   child: const Text(
                                     'Forgot Password?',
                                     style: TextStyle(color: Color(0xFF7A7A7A)),

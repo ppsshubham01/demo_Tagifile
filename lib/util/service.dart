@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -191,5 +192,78 @@ class ApiService with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
     notifyListeners();
+  }
+
+  /// Forgot Password
+//   {forget_password_email_phone_input: "pps.shubham02@gmail.com", reset_method: "email"}
+// forget_password_email_phone_input : "pps.shubham02@gmail.com"
+// reset_method : "email"
+  Future<void> forgotPassword({
+    required String forgotPasswordEmailPhone,
+    String? resetMethod,
+
+  }) async{
+    String  forgotServerPayload = json.encode({
+      'forget_password_email_phone_input' : forgotPasswordEmailPhone,
+      'reset_method' : resetMethod
+    });
+    try {
+      Response response = await post(Uri.parse('http://192.168.1.142:8001/api/v1/auth/forget_pwd_send_code/'),
+        body: forgotServerPayload,
+        headers:  {'Content-Type' : 'application/json;charset=utf-8'}
+      );
+
+      if(response.statusCode == 200){
+        print(response.body);
+
+      }else{
+        print(response.statusCode);
+        print(response.headers);
+      }
+
+    }catch(e){
+      print('forgot Password error'!);
+    }
+
+}
+
+  /// newFolder
+  Future<void> newFolder({
+    required String foldername,
+    required Int? destinationFolderId,
+    Int? orgOwnerId,
+    Int? organisationId,
+    Int? groupId,
+    Int? relationId,
+    required ValueSetter onSuccess,
+    required ValueSetter onError,
+
+  }) async{
+
+    String crateserverpayload = json.encode({
+      'folder_name' : foldername,
+      'destination_folder_id' :destinationFolderId,
+      'org_owner_id' : orgOwnerId,
+      'organisation_id' : organisationId,
+      'group_id' : groupId,
+      'relation_id' : relationId
+    });
+
+    try{
+      Response response = await post(Uri.parse('http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/create/'),
+      body: crateserverpayload,
+        headers: { 'Content-Type': 'application/json'}
+      );
+
+      if(response.statusCode ==200){
+        print(response.body);
+      }else{
+        print(response.statusCode);
+        print('------------------');
+        print(response.body);
+      }
+    }catch(e){
+      print('Folder error'!);
+    }
   }
 }
