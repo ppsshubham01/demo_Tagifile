@@ -73,8 +73,8 @@ class AuthProvider with ChangeNotifier {
 
   void forgotPassword(BuildContext context){
 
-    // ApiService.forgotPassword(
-    //     forgotPasswordEmailPhone: forgorPasswordText.text);
+    ApiService().forgotPassword(
+        forgotPasswordEmailPhone: forgorPasswordText.text);
   }
 
 

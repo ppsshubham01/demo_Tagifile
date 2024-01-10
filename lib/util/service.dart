@@ -230,11 +230,11 @@ class ApiService with ChangeNotifier {
   /// newFolder
   Future<void> newFolder({
     required String foldername,
-    required Int? destinationFolderId,
-    Int? orgOwnerId,
-    Int? organisationId,
-    Int? groupId,
-    Int? relationId,
+    required int destinationFolderId,
+    int? orgOwnerId,
+    int? organisationId,
+    int? groupId,
+    int? relationId,
     required ValueSetter onSuccess,
     required ValueSetter onError,
 

@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final createfolderProvider= Provider.of<CreateFolderProvider>(context);
+    final createFolderProviderInstance =
+        Provider.of<CreateFolderProvider>(context);
 
     return Scaffold(
       body: _pages[_selectedIndex],
@@ -84,7 +84,8 @@ class _HomePageState extends State<HomePage> {
                                         width: 100,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            showCreateFolderBottomSheet(context);
+                                            showCreateFolderBottomSheet(context,
+                                                createFolderProviderInstance);
                                           },
                                           style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
@@ -115,7 +116,11 @@ class _HomePageState extends State<HomePage> {
                                         width: 100,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const NewGroupPage()));
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        const NewGroupPage()));
                                           },
                                           style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
@@ -241,7 +246,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// createNew Folder Method
-  void showCreateFolderBottomSheet(BuildContext context) {
+  void showCreateFolderBottomSheet(
+      BuildContext context, CreateFolderProvider createFolderProviderInstance) {
     // final createfolderProvider= Provider.of<CreateFolderProvider>(context);
     showModalBottomSheet(
       context: context,
@@ -284,10 +290,12 @@ class _HomePageState extends State<HomePage> {
                           child: Text("Folder Name"),
                         ),
                         TextFormField(
-                          // controller: createfolderProvider.createfoldertext,
-                          //   scrollPadding: EdgeInsets.symmetric(
-                          //       vertical:
-                          //           MediaQuery.of(context).viewInsets.bottom),
+                            controller:
+                                createFolderProviderInstance.createfoldertext,
+                            // controller: createfolderProvider.createfoldertext,
+                            //   scrollPadding: EdgeInsets.symmetric(
+                            //       vertical:
+                            //           MediaQuery.of(context).viewInsets.bottom),
                             autofocus: true,
                             decoration: InputDecoration(
                               hintText: 'Enter Folder Name',
@@ -316,6 +324,10 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
+                              if (createFolderProviderInstance
+                                  .createfoldertext.text.isNotEmpty) {
+                                createFolderProviderInstance.createFolder(context);
+                              }
                               // createfolderProvider.createfoldertext;
                             },
                             style: ElevatedButton.styleFrom(
@@ -383,8 +395,7 @@ class _HomePageState extends State<HomePage> {
                           icon: const Icon(Icons.cancel_outlined)),
                     ],
                   ),
-
-                  const Divider(thickness: 1,indent: 6,endIndent: 8),
+                  const Divider(thickness: 1, indent: 6, endIndent: 8),
                   Row(
                     children: <Widget>[
                       Padding(
@@ -396,13 +407,15 @@ class _HomePageState extends State<HomePage> {
                               width: 100,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  showCreateFolderBottomSheet(context);
+                                  // showCreateFolderBottomSheet(context);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.0))),
-                                child: Image.asset("images/googledrive.png",),
+                                child: Image.asset(
+                                  "images/googledrive.png",
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
@@ -426,7 +439,9 @@ class _HomePageState extends State<HomePage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.0))),
-                                child: Image.asset("images/boxdrive.png",),
+                                child: Image.asset(
+                                  "images/boxdrive.png",
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
@@ -450,7 +465,9 @@ class _HomePageState extends State<HomePage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.0))),
-                                child: Image.asset("images/dropdrive.png",),
+                                child: Image.asset(
+                                  "images/dropdrive.png",
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
@@ -478,7 +495,9 @@ class _HomePageState extends State<HomePage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.0))),
-                                child: Image.asset("images/onedrive.png",),
+                                child: Image.asset(
+                                  "images/onedrive.png",
+                                ),
                               ),
                             ),
                             const SizedBox(height: 10.0),

@@ -16,9 +16,11 @@ class CreateFolderProvider with ChangeNotifier {
 
     ApiService().newFolder(
         foldername: createfoldertext.text,
-        destinationFolderId: null,
+        destinationFolderId: DateTime.now().millisecondsSinceEpoch,
         onSuccess: (value) {
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> const NewPage()) );
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          // Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> const NewPage()) );
         },
         onError: (value) async{
           await Fluttertoast.showToast(msg: 'Try Again..create folder Again!', toastLength: Toast.LENGTH_SHORT );

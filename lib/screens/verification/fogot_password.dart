@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -11,6 +13,7 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
+  final authProviderInstance = Provider.of<AuthProvider>(context);
     return  SafeArea(
         child: Scaffold(
           backgroundColor: const Color(0XffF5F6F9),
@@ -49,6 +52,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           child: Text("Email"),
                         ),
                         TextFormField(
+                          controller: authProviderInstance.forgorPasswordText,
                             autofocus: true,
                             decoration: InputDecoration(
                               hintText: 'Enter your email address or mobile number',
@@ -75,7 +79,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   Container(
                     padding: const EdgeInsets.only(left:20,right: 20),
                     width: double.infinity,
-                    child: TextButton(onPressed: (){},
+                    child: TextButton(onPressed: (){
+                      authProviderInstance.forgotPassword(context);
+                    },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xFF1D55A4),
                         shape: RoundedRectangleBorder(
