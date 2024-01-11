@@ -325,6 +325,7 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               if (createFolderProviderInstance
                                   .createfoldertext.text.isNotEmpty) {
+                                print("no Name is there..............................");
                                 createFolderProviderInstance.createFolder(context);
                               }
                               // createfolderProvider.createfoldertext;

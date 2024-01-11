@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // theme: ThemeData(fontFamily: 'Helvetica'),
             home: apiServiceInstanceProvider.tokenKey != null ? const HomePage() : const WelcomeScreen()
-            // home: EmailPending(),
             ),
       ),
     );

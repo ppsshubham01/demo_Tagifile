@@ -13,8 +13,7 @@ class ApiService with ChangeNotifier {
 
   String? tokenKey;
 
-// login done
-  /// Login
+  /// ########################  Login
   Future<void> login({
     required String email,
     required String password,
@@ -32,8 +31,8 @@ class ApiService with ChangeNotifier {
 
     try {
       Response response = await post(Uri.parse(
-              // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
-              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'),
+        // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
+          'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'),
           body: serverPayload,
           headers: {
             "Content-Type": "application/json",
@@ -44,8 +43,8 @@ class ApiService with ChangeNotifier {
         final token = jsonDecode(response.body)['data'];
         tokenKey = token;
         //notifyListeners();
-        print("+++++++++++++++++++++++++++");
-        print(token);
+        // print("+++++++++++++++++++++++++++");
+        // print(token);
         await saveTokenToPrefs(token);
         print("Login successfully ${response.statusCode} + ${response.body}");
         onSuccess.call(response.body);
@@ -53,7 +52,8 @@ class ApiService with ChangeNotifier {
       } else {
         // await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
         // const SnackBar(content: Text("Error....", style: TextStyle(fontSize: 15.0),),backgroundColor: Colors.redAccent,);
-        print('Login Failed with state code: ${response.statusCode} ${response.body}');
+        print('Login Failed with state code: ${response.statusCode} ${response
+            .body}');
         return null;
       }
     } catch (e) {
@@ -62,7 +62,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  ///token
+  /// ######################## token
   Future<void> saveTokenToPrefs(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
@@ -73,7 +73,7 @@ class ApiService with ChangeNotifier {
     return prefs.getString('token');
   }
 
-  /// model object
+  /// ########################  model object
   Future<void> saveModelObjectToPrefs(Model modelData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('model', json.encode(modelData));
@@ -136,14 +136,15 @@ class ApiService with ChangeNotifier {
         print('Fetched data after login: $jsonData');
       } else {
         print(
-            'Failed to fetch data after login with status: ${response.statusCode}');
+            'Failed to fetch data after login with status: ${response
+                .statusCode}');
       }
     } else {
       print('Token not found. User not logged in.');
     }
   }
 
-  /// Sign_Up
+  /// ########################  Sign_Up
   Future<void> signup({
     required String firstName,
     required String lastName,
@@ -164,7 +165,7 @@ class ApiService with ChangeNotifier {
     try {
       Response response = await post(
         Uri.parse(
-            // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/create/'
+          // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/create/'
             'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/create/'),
         body: serverpayLoad1,
         // headers:  {"Content-Type": "application/json;charset=utf-8"}
@@ -186,7 +187,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  /// Log-Out
+  /// ######################## Log-Out
   Future<void> logout() async {
     tokenKey = null;
     final prefs = await SharedPreferences.getInstance();
@@ -194,38 +195,33 @@ class ApiService with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Forgot Password
-//   {forget_password_email_phone_input: "pps.shubham02@gmail.com", reset_method: "email"}
-// forget_password_email_phone_input : "pps.shubham02@gmail.com"
-// reset_method : "email"
+  ///########################## Forgot Password
   Future<void> forgotPassword({
     required String forgotPasswordEmailPhone,
     String? resetMethod,
 
-  }) async{
-    String  forgotServerPayload = json.encode({
-      'forget_password_email_phone_input' : forgotPasswordEmailPhone,
-      'reset_method' : resetMethod
+  }) async {
+    String forgotServerPayload = json.encode({
+      'forget_password_email_phone_input': forgotPasswordEmailPhone,
+      'reset_method': resetMethod
     });
     try {
-      Response response = await post(Uri.parse('http://192.168.1.142:8001/api/v1/auth/forget_pwd_send_code/'),
-        body: forgotServerPayload,
-        headers:  {'Content-Type' : 'application/json;charset=utf-8'}
+      Response response = await post(Uri.parse(
+          'http://192.168.1.142:8001/api/v1/auth/forget_pwd_send_code/'),
+          body: forgotServerPayload,
+          headers: {'Content-Type': 'application/json;charset=utf-8'}
       );
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         print(response.body);
-
-      }else{
+      } else {
         print(response.statusCode);
         print(response.headers);
       }
-
-    }catch(e){
+    } catch (e) {
       print('forgot Password error'!);
     }
-
-}
+  }
 
   /// newFolder
   Future<void> newFolder({
@@ -238,32 +234,61 @@ class ApiService with ChangeNotifier {
     required ValueSetter onSuccess,
     required ValueSetter onError,
 
-  }) async{
-
+  }) async {
     String crateserverpayload = json.encode({
-      'folder_name' : foldername,
-      'destination_folder_id' :destinationFolderId,
-      'org_owner_id' : orgOwnerId,
-      'organisation_id' : organisationId,
-      'group_id' : groupId,
-      'relation_id' : relationId
+      'folder_name': foldername,
+      'destination_folder_id': destinationFolderId,
+      'org_owner_id': orgOwnerId,
+      'organisation_id': organisationId,
+      'group_id': groupId,
+      'relation_id': relationId
     });
 
-    try{
-      Response response = await post(Uri.parse('http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/create/'),
-      body: crateserverpayload,
-        headers: { 'Content-Type': 'application/json'}
+
+    try {
+      Response response = await post(Uri.parse(
+          'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/create/'),
+          body: crateserverpayload,
+          headers: { 'Content-Type': 'application/json'}
       );
 
-      if(response.statusCode ==200){
+      if (response.statusCode == 200) {
         print(response.body);
-      }else{
+      } else {
         print(response.statusCode);
         print('------------------');
         print(response.body);
       }
-    }catch(e){
+    } catch (e) {
       print('Folder error'!);
     }
   }
+
+
+  ///########################## removeFolder
+//   Future<void> removeFolder({
+// // Payload :--------- {files: [], folders: [37295]}
+// //     response:- {"msg":"Successfully deleted","data":{"job_id":-1},"errors":null,"status":200}
+//      }) async{
+//     String removeServerpayload = json.encode({
+//
+//     });
+//
+//     try{
+//       Response response = await post(Uri.parse('http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
+//           body: removeServerpayload,
+//           headers: { 'Content-Type': 'application/json'}
+//          );
+//
+//       if(response.statusCode ==200){
+//         print(response.body);
+//       }else{
+//         print(response.statusCode);
+//         print('------------------');
+//         print(response.body);
+//       }
+//     }catch(e){
+//       print('Folder error!');
+//     }
+//   }
 }

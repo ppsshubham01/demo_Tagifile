@@ -73,6 +73,20 @@ class AuthProvider with ChangeNotifier {
 
   void forgotPassword(BuildContext context){
 
+    /// Preview for the  save in object new created folder
+    // {msg: "Created folder successfully!",…}
+    // data: {is_directory: true, content_name: "abc", content_size: 0, content_id: 37292, content_thumbnails: [],…}
+    // content_id: 37292
+    // content_name: "abc"
+    // content_parent_id: 36206
+    // content_path: "Tagifiles/abc/"
+    // content_size: 0
+    // content_thumbnails: []
+    // is_directory: true
+    // organisation_id: -1
+    // errors: null
+    // msg: "Created folder successfully!"
+    // status: 201
     ApiService().forgotPassword(
         forgotPasswordEmailPhone: forgorPasswordText.text);
   }

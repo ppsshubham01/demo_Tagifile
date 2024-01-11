@@ -41,7 +41,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ]
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0,right: 25),
                     child: Column(
@@ -75,7 +75,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Container(
                     padding: const EdgeInsets.only(left:20,right: 20),
                     width: double.infinity,
@@ -93,7 +93,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.arrow_back),
+                      const Icon(Icons.arrow_back),
                       TextButton(
                         onPressed: () => Navigator.pushReplacement(
                             context,
