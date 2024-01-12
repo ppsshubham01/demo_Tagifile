@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:tagifiles/model/user_data.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/util/service.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -49,9 +51,11 @@ class _PersonalPageState extends State<PersonalPage>
 
   @override
   Widget build(BuildContext context) {
+    final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      // APP-BAR Start
+
+      /// APPBAR Start
       appBar: AppBar(
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
@@ -94,8 +98,8 @@ class _PersonalPageState extends State<PersonalPage>
           )
         ],
       ),
-      // APP-BAR End
 
+      /// tabBar Controller
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -147,6 +151,18 @@ class _PersonalPageState extends State<PersonalPage>
           ],
         ),
       ),
+
+      floatingActionButton: FloatingActionButton(
+        mini: true,
+        onPressed: () {
+          // _uploadFolderBottomSheet(context);
+        },
+        elevation: 8,
+        foregroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
+        child: const Icon(Icons.add),
+      ),
+
     );
   }
 }
@@ -160,23 +176,10 @@ class MyFilesTab extends StatelessWidget {
     'Shubham',
     'Jaimin',
     'Bhargav',
-    'Khushal',
-    'Harsh',
-    'Hetvi',
-    'Yash',
-    'Pratik',
-    'Dharti',
-    'Shubham',
-    'Jaimin',
-    'Bhargav',
-    'Khushal',
-    'Harsh',
-    'Hetvi',
-    'Yash',
-    'Jaivik',
   ];
 
-  Widget buildGrid() => GridView.builder(
+  /// Upper Image List
+  Widget buildGrid(AuthProvider fetchedDataafterlogin) => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.7,
           crossAxisCount: 2,
@@ -188,69 +191,106 @@ class MyFilesTab extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = items[index];
           return Container(
-            padding: const EdgeInsets.only(right: 5,left: 5,top: 5,bottom: 5),
+            padding:
+                const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   Checkbox(
-                     value: false,
-                     onChanged: (value) {},
-                   ),
-                   const Icon(Icons.more_vert,color: Color(0xFF7A7A7A),),
-                 ],
-               ),
-               Container(
-                 height: 100,
-                 width: double.infinity,
-                 margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                 color: Colors.red,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                    const Icon(
+                      Icons.more_vert,
+                      color: Color(0xFF7A7A7A),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 100,
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                  color: Colors.red,
 
-                 // NetworkImage('https://source.unsplash.com/random?sig=$index'),
-               ),
-
-               Container(
-                 padding: const EdgeInsets.only(left: 10),
-                 child: const Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Text('xyz.jpg',style: TextStyle(color: Color(0xFF7A7A7A),fontWeight: FontWeight.bold),),
-                     Text('JPEG',style: TextStyle(color: Color(0xFF7A7A7A)),),
-                     Text('155 KB . 27/06/2002',style: TextStyle(color: Color(0xFFBEBEBE)),),
-                     Row(
-                       children: [
-                         Icon(Icons.pattern_sharp,color: Color(0xFF1672F3),),
-                         SizedBox(width: 5,),
-                         Text('5 version',style: TextStyle(color: Color(0xFF7A7A7A),fontWeight: FontWeight.bold),),
-                         Spacer(),
-                         Icon(Icons.mobile_screen_share,color: Color(0xFF566476),)
-                       ],
-                     ),
-                     SizedBox(height: 2,),
-                     Row(
-                       children: [
-                         CircleAvatar(radius: 10,backgroundImage: NetworkImage("https://source.unsplash.com/random"),),
-                         SizedBox(width: 5),
-                         Text('userName',style: TextStyle(color: Color(0xFF7A7A7A)),),
-                       ],
-                     ),
-                   ],
-                 ),
-               )
-             ],
-                            ),
+                  // NetworkImage('https://source.unsplash.com/random?sig=$index'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'xyz.jpg',
+                        style: TextStyle(
+                            color: Color(0xFF7A7A7A),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'JPEG',
+                        style: TextStyle(color: Color(0xFF7A7A7A)),
+                      ),
+                      Text(
+                        '155 KB . 27/06/2002',
+                        style: TextStyle(color: Color(0xFFBEBEBE)),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.pattern_sharp,
+                            color: Color(0xFF1672F3),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '5 version',
+                            style: TextStyle(
+                                color: Color(0xFF7A7A7A),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.mobile_screen_share,
+                            color: Color(0xFF566476),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 10,
+                            backgroundImage: NetworkImage(
+                                "https://source.unsplash.com/random"),
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'userName',
+                            style: TextStyle(color: Color(0xFF7A7A7A)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           );
         },
       );
 
+  /// FolderList
   Widget buildFolderGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.95,
@@ -258,7 +298,7 @@ class MyFilesTab extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: 3,
+        itemCount: items.length,
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.all(5),
@@ -272,7 +312,10 @@ class MyFilesTab extends StatelessWidget {
               children: [
                 Align(
                     alignment: Alignment.centerRight,
-                    child: Icon(Icons.more_vert,color: Color(0xFF7A7A7A),)),
+                    child: Icon(
+                      Icons.more_vert,
+                      color: Color(0xFF7A7A7A),
+                    )),
                 Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Icon(
@@ -284,15 +327,25 @@ class MyFilesTab extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
-                      Text('Document',style: TextStyle(color: Color(0xFF7A7A7A)),),
-                      Spacer(flex: 1,),
-                      Icon(Icons.mobile_screen_share,color: Color(0xFF566476),)
+                      Text('Document',
+                        style: TextStyle(color: Color(0xFF7A7A7A)),
+                      ),
+                      Spacer(
+                        flex: 1,
+                      ),
+                      Icon(
+                        Icons.mobile_screen_share,
+                        color: Color(0xFF566476),
+                      )
                     ],
                   ),
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Text('27/06/2002',style: TextStyle(color: Color(0xFFBEBEBE)),)),
+                    child: Text(
+                      '27/06/2002',
+                      style: TextStyle(color: Color(0xFFBEBEBE)),
+                    )),
               ],
             ),
           );
@@ -312,7 +365,7 @@ class MyFilesTab extends StatelessWidget {
       ..showSnackBar(snackBar);
   }
 
-  String dropDownList ='Date';
+  String dropDownList = 'Date';
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +390,8 @@ class MyFilesTab extends StatelessWidget {
                   iconSize: 24,
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
-                  underline: const SizedBox(), // Hide the default underline
+                  underline: const SizedBox(),
+                  // Hide the default underline
                   onChanged: (String? newValue) {
                     if (newValue != null) {
                       // Update the selected value on user interaction
@@ -350,8 +404,13 @@ class MyFilesTab extends StatelessWidget {
                       value: value,
                       child: Row(
                         children: [
-                          const Icon(Icons.sort,color: Color(0xFF566476),), // Leading icon
-                          const SizedBox(width: 8), // Adjust the spacing
+                          const Icon(
+                            Icons.sort,
+                            color: Color(0xFF566476),
+                          ),
+                          // Leading icon
+                          const SizedBox(width: 8),
+                          // Adjust the spacing
                           Text(value),
                         ],
                       ),
@@ -378,7 +437,12 @@ class MyFilesTab extends StatelessWidget {
               //   }).toList(),
               // ),
               ,
-              IconButton(onPressed: () {}, icon: const Icon(Icons.grid_view_rounded,color: Color(0xFF1672F3),))
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.grid_view_rounded,
+                    color: Color(0xFF1672F3),
+                  ))
             ],
           ),
         ),
@@ -386,12 +450,18 @@ class MyFilesTab extends StatelessWidget {
           flex: 3,
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: buildGrid(),
+            // child: buildGrid(fetchedDataafterlogin),
           ),
         ),
         const Padding(
           padding: EdgeInsets.only(left: 13),
-          child: Text('Folders',style: TextStyle(color: Color(0xFF414141),fontWeight: FontWeight.bold,fontSize: 14),),
+          child: Text(
+            'Folders',
+            style: TextStyle(
+                color: Color(0xFF414141),
+                fontWeight: FontWeight.bold,
+                fontSize: 14),
+          ),
         ),
         Expanded(
           flex: 1,

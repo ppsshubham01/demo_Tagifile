@@ -83,66 +83,7 @@ class ApiService with ChangeNotifier {
     return json.decode(prefs.getString('model').toString());
   }
 
-  Future<void> fetchDataAfterLogin() async {
-    String? token = await getTokenFromPrefs();
-
-    if (token != null) {
-      // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
-      final url = Uri.parse(
-          'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
-
-      final String body = json.encode({
-        "parent_id": 0,
-        "sort_order": "NULL",
-        "sort_by": "NULL",
-        "filter_by": "",
-        "content_path": "",
-        "only_dirs": false,
-        "page_range": {"pg_from": 0, "pg_to": 100},
-        "org_id": -1,
-        "page_data": {
-          "next_files_from": 0,
-          "next_files_till": 20,
-          "next_folders_from": 0,
-          "next_folders_till": 20,
-          "next_files_only": false,
-          "next_folders_only": false,
-          "file_sort_key": "NAME",
-          "file_sort_order": "ASC",
-          "folder_sort_key": "NAME",
-          "folder_sort_order": "ASC"
-        }
-      });
-      final response = await http.post(
-        url,
-        headers: {
-          'Authorization': 'Token $token',
-          "Accept": "application/json",
-          "content-type": "application/json",
-        },
-        body: body,
-      );
-      // print("-------------------------------------------");
-      // print(response.statusCode);
-      // print(response.body);
-
-      if (response.statusCode == 200) {
-        /// dataStored In Object
-        final jsonData = jsonDecode(response.body);
-        Model resultData = Model.fromJson(jsonData);
-        print(resultData);
-        await saveModelObjectToPrefs(resultData);
-        print('Fetched data after login: $jsonData');
-      } else {
-        print(
-            'Failed to fetch data after login with status: ${response.statusCode}');
-      }
-    } else {
-      print('Token not found. User not logged in.');
-    }
-  }
-
-  Future<Model> fetchListContent() async {
+  Future<Model> fetchDataAfterLogin() async {
     String? token = await getTokenFromPrefs();
 
     if (token != null) {
@@ -197,9 +138,70 @@ class ApiService with ChangeNotifier {
         print(
             'Failed to fetch data after login with status: ${response.statusCode}');
       }
+    } else {
+      print('Token not found. User not logged in.');
     }
     return Model();
   }
+
+
+
+
+
+
+
+
+  /// #######################ListContent
+  Future<Model> fetchListContent() async {
+    String? token = await getTokenFromPrefs();
+
+    if (token != null) {
+      // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
+      final url = Uri.parse(
+          'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
+
+      final String body = json.encode({
+        "parent_id": 0,
+        "sort_order": "NULL",
+        "sort_by": "NULL",
+        "filter_by": "",
+        "content_path": "",
+        "only_dirs": false,
+        "page_range": {
+          "pg_from": 0,
+          "pg_to": 100
+        },
+        "org_id": null
+      });
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Token $token',
+          "Accept": "application/json",
+          "content-type": "application/json",
+        },
+        body: body,
+      );
+      // print("-------------------------------------------");
+      // print(response.statusCode);
+      // print(response.body);
+
+      if (response.statusCode == 200) {
+        /// dataStored In Object
+        final jsonData = jsonDecode(response.body);
+        Model resultData = Model.fromJson(jsonData);
+        print(resultData);
+        await saveModelObjectToPrefs(resultData);
+        print('Fetched data after login: $jsonData');
+        return resultData;
+      } else {
+        print(
+            'Failed to fetch data after login with status: ${response.statusCode}');
+      }
+    }
+    return Model();
+  }
+
 
   /// ########################  Sign_Up
   Future<void> signup({

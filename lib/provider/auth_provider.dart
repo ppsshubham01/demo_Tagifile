@@ -29,6 +29,8 @@ class AuthProvider with ChangeNotifier {
   final FocusNode _passwordFocusNode = FocusNode();
   bool _isSelected = true;
 
+  /// for the fetchingData
+  var ffetchDataafterLogin;
   var finalListContentData;
 
 
@@ -94,6 +96,12 @@ class AuthProvider with ChangeNotifier {
         forgotPasswordEmailPhone: forgorPasswordText.text);
   }
 
+
+  void fetchDataaafterLogin() async {
+    final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
+    ffetchDataafterLogin= fetchedDataAfterLogin;
+    notifyListeners();
+  }
 
   void listContentData() async{
     final listContentData = await ApiService().fetchListContent();

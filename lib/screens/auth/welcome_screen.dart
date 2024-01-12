@@ -242,6 +242,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                           authProviderInstance.loginLoading ?const Center(
                             child: CircularProgressIndicator(
+                              backgroundColor: Colors.grey,
                               color: Color(0xFF1D55A4),
                             ),
                           ) : SizedBox(),
