@@ -29,6 +29,9 @@ class AuthProvider with ChangeNotifier {
   final FocusNode _passwordFocusNode = FocusNode();
   bool _isSelected = true;
 
+  var finalListContentData;
+
+
   /// for signUp method
   void signUpUser(BuildContext context) {
     signUpLoading = true;
@@ -92,6 +95,11 @@ class AuthProvider with ChangeNotifier {
   }
 
 
+  void listContentData() async{
+    final listContentData = await ApiService().fetchListContent();
+    finalListContentData = listContentData;
+    notifyListeners();
+  }
 
 
 }
