@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/util/service.dart';
@@ -30,7 +31,7 @@ class AuthProvider with ChangeNotifier {
   bool _isSelected = true;
 
   /// for the fetchingData
-  var ffetchDataafterLogin;
+  late Model ffetchDataafterLogin;
   var finalListContentData;
 
 

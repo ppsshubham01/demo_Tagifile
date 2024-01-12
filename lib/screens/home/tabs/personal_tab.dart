@@ -52,6 +52,7 @@ class _PersonalPageState extends State<PersonalPage>
   @override
   Widget build(BuildContext context) {
     final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
 
@@ -143,7 +144,7 @@ class _PersonalPageState extends State<PersonalPage>
               child: TabBarView(
                 // controller: _tabController,
                 children: [
-                  MyFilesTab(),
+                  MyFilesTab(fetchedDataafterlogin: fetchedDataafterlogin),
                   const Icon(Icons.directions_transit),
                 ],
               ),
@@ -168,7 +169,8 @@ class _PersonalPageState extends State<PersonalPage>
 }
 
 class MyFilesTab extends StatelessWidget {
-  MyFilesTab({super.key});
+  AuthProvider fetchedDataafterlogin;
+  MyFilesTab({super.key,required this.fetchedDataafterlogin});
 
   final List<String> items = [
     'Pratik',
@@ -179,7 +181,7 @@ class MyFilesTab extends StatelessWidget {
   ];
 
   /// Upper Image List
-  Widget buildGrid(AuthProvider fetchedDataafterlogin) => GridView.builder(
+  Widget buildGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.7,
           crossAxisCount: 2,
@@ -225,12 +227,12 @@ class MyFilesTab extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.only(left: 10),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'xyz.jpg',
-                        style: TextStyle(
+                        fetchedDataafterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
+                        style: const TextStyle(
                             color: Color(0xFF7A7A7A),
                             fontWeight: FontWeight.bold),
                       ),
@@ -369,6 +371,7 @@ class MyFilesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -450,7 +453,7 @@ class MyFilesTab extends StatelessWidget {
           flex: 3,
           child: Padding(
             padding: const EdgeInsets.all(10),
-            // child: buildGrid(fetchedDataafterlogin),
+            child: buildGrid(),
           ),
         ),
         const Padding(
