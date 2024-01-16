@@ -31,7 +31,7 @@ class AuthProvider with ChangeNotifier {
   bool _isSelected = true;
 
   /// for the fetchingData
-  late Model ffetchDataafterLogin;
+  Model ffetchDataafterLogin= Model();
   var finalListContentData;
 
 

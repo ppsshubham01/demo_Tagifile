@@ -45,13 +45,14 @@ class _PersonalPageState extends State<PersonalPage>
   @override
   void initState() {
     // TODO: implement initState
-    ApiService().fetchDataAfterLogin();
+    AuthProvider().fetchDataaafterLogin();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
+    fetchedDataafterlogin.fetchDataaafterLogin();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
