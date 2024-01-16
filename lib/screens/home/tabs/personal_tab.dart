@@ -189,8 +189,11 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         padding: const EdgeInsets.only(top: 0.5),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
+        // itemCount: fetchedDataafterlogin.ffetchDataafterLogin?.result != null
+        //     ? fetchedDataafterlogin.ffetchDataafterLogin?.result?.length
+        //     : 0,
+    itemCount: fetchedDataafterlogin.ffetchDataafterLogin?.result?.length ?? 0,
+    itemBuilder: (context, index) {
           final item = items[index];
           return Container(
             padding:
@@ -231,20 +234,20 @@ class MyFilesTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        fetchedDataafterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
+                        fetchedDataafterlogin.ffetchDataafterLogin!.result![0].contentName.toString(),
                         style: const TextStyle(
                             color: Color(0xFF7A7A7A),
                             fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'JPEG',
                         style: TextStyle(color: Color(0xFF7A7A7A)),
                       ),
-                      Text(
+                      const Text(
                         '155 KB . 27/06/2002',
                         style: TextStyle(color: Color(0xFFBEBEBE)),
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Icon(
                             Icons.pattern_sharp,
@@ -266,10 +269,10 @@ class MyFilesTab extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
-                      Row(
+                      const Row(
                         children: [
                           CircleAvatar(
                             radius: 10,
@@ -309,16 +312,16 @@ class MyFilesTab extends StatelessWidget {
               border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Column(
+            child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
+                const Align(
                     alignment: Alignment.centerRight,
                     child: Icon(
                       Icons.more_vert,
                       color: Color(0xFF7A7A7A),
                     )),
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Icon(
                       Icons.folder,
@@ -326,23 +329,25 @@ class MyFilesTab extends StatelessWidget {
                       color: Color(0xFF1672F3),
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
-                      Text('Document',
+                      Text(
+                        fetchedDataafterlogin.ffetchDataafterLogin!.result![0].contentName.toString(),
+
                         style: TextStyle(color: Color(0xFF7A7A7A)),
                       ),
-                      Spacer(
+                      const Spacer(
                         flex: 1,
                       ),
-                      Icon(
+                      const Icon(
                         Icons.mobile_screen_share,
                         color: Color(0xFF566476),
                       )
                     ],
                   ),
                 ),
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       '27/06/2002',

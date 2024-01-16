@@ -53,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Form(
             key: formKey,
             child: SizedBox(
-              height: 800,
+              height: 900,
               child: Stack(
                 children: [
                   /// Background ImageBottom
@@ -240,12 +240,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           ),
 
-                          authProviderInstance.loginLoading ?const Center(
+                          authProviderInstance.loginLoading ?
+                          // buildCustomProgressIndicator()
+                          const Center(
                             child: CircularProgressIndicator(
                               backgroundColor: Colors.grey,
                               color: Color(0xFF1D55A4),
                             ),
-                          ) : SizedBox(),
+                          )
+                              : SizedBox(),
                           /// LogIn Buttom
                           // authProviderInstance.loginLoading ? const CircularProgressIndicator(
                           //   color: Color(0xFF1D55A4),
@@ -401,6 +404,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildCustomProgressIndicator() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              backgroundColor: Color(0xFF1672F3),
+              strokeWidth: 8,
             ),
           ),
         ),

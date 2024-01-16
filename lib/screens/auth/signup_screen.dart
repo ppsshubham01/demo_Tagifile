@@ -57,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
           key: formKey,
           //autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SizedBox(
-            height: 950,
+            height: 1000,
             child: Stack(
                 // resizeToAvoidBottomInset: false,
                 children: <Widget>[
