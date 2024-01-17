@@ -237,7 +237,7 @@ class MyFilesTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        fetchedfterlogin.ffetchDataafterLogin.result!.contentName.toString(),
+                        fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
                         // fetchedfterlogin.ffetchDataafterLogin.result!.,
                         style: const TextStyle(
                             color: Color(0xFF7A7A7A),
