@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
-import 'package:tagifiles/util/service.dart';
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
@@ -45,15 +44,18 @@ class _PersonalPageState extends State<PersonalPage>
   @override
   void initState() {
     // TODO: implement initState
-    AuthProvider().fetchDataaafterLogin();
+    // AuthProvider().fetchDataaafterLogin();
+    //AuthProvider().ffetchDataafterLogin();
+    Provider.of<AuthProvider>(context,listen: false).fetchDataaafterLogin();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
-    fetchedDataafterlogin.fetchDataaafterLogin();
-
+    final fetchedDafterlogin = Provider. of<AuthProvider>(context);
+    var temp = fetchedDafterlogin.ffetchDataafterLogin;
+    print("++++++++++++++++++++++++++++++");
+    print(temp.result);
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
 
@@ -145,7 +147,7 @@ class _PersonalPageState extends State<PersonalPage>
               child: TabBarView(
                 // controller: _tabController,
                 children: [
-                  MyFilesTab(fetchedDataafterlogin: fetchedDataafterlogin),
+                  MyFilesTab(fetchedfterlogin: fetchedDafterlogin),
                   const Icon(Icons.directions_transit),
                 ],
               ),
@@ -170,9 +172,8 @@ class _PersonalPageState extends State<PersonalPage>
 }
 
 class MyFilesTab extends StatelessWidget {
-  AuthProvider fetchedDataafterlogin;
-  MyFilesTab({super.key,required this.fetchedDataafterlogin});
-
+  AuthProvider fetchedfterlogin;
+  MyFilesTab({super.key,required this.fetchedfterlogin});
   final List<String> items = [
     'Pratik',
     'Dharti',
@@ -181,6 +182,9 @@ class MyFilesTab extends StatelessWidget {
     'Bhargav',
   ];
 
+  Widget buildScroll()=> SingleChildScrollView(
+
+  );
   /// Upper Image List
   Widget buildGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -190,15 +194,13 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         padding: const EdgeInsets.only(top: 0.5),
-        // itemCount: fetchedDataafterlogin.ffetchDataafterLogin?.result != null
-        //     ? fetchedDataafterlogin.ffetchDataafterLogin?.result?.length
-        //     : 0,
-    itemCount: fetchedDataafterlogin.ffetchDataafterLogin?.result?.length ?? 0,
-    itemBuilder: (context, index) {
-          final item = items[index];
+        itemCount: fetchedfterlogin.ffetchDataafterLogin?.result != null
+            ? fetchedfterlogin.ffetchDataafterLogin?.result?.length
+            : 0,
+        //   itemCount:  items.length,
+          itemBuilder: (context, index) {
           return Container(
-            padding:
-                const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+            padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
@@ -235,7 +237,8 @@ class MyFilesTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        fetchedDataafterlogin.ffetchDataafterLogin!.result![0].contentName.toString(),
+                        fetchedfterlogin.ffetchDataafterLogin.result!.contentName.toString(),
+                        // fetchedfterlogin.ffetchDataafterLogin.result!.,
                         style: const TextStyle(
                             color: Color(0xFF7A7A7A),
                             fontWeight: FontWeight.bold),
@@ -304,7 +307,9 @@ class MyFilesTab extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: items.length,
+        itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? fetchedfterlogin.ffetchDataafterLogin.result?.length
+            : 0,
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.all(5),
@@ -334,8 +339,7 @@ class MyFilesTab extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        fetchedDataafterlogin.ffetchDataafterLogin!.result![0].contentName.toString(),
-
+                        fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
                         style: TextStyle(color: Color(0xFF7A7A7A)),
                       ),
                       const Spacer(
@@ -375,6 +379,8 @@ class MyFilesTab extends StatelessWidget {
 
   String dropDownList = 'Date';
 
+
+//feches file and folders
   @override
   Widget build(BuildContext context) {
     /// final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
@@ -426,26 +432,8 @@ class MyFilesTab extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-              )
+              ),
 
-              // DropdownMenu<String>(
-              //   // width: 30,
-              //   enabled: true,
-              //   leadingIcon: const Icon(Icons.sort),
-              //   trailingIcon: Icon(Icons.keyboard_arrow_down_rounded),
-              //   initialSelection: dropDownList.first,
-              //   onSelected: (String? value) {
-              //     // This is called when the user selects an item.
-              //     // setState(() {
-              //     //   dropdownValue = value!;
-              //     // });
-              //   },
-              //   dropdownMenuEntries:
-              //       dropDownList.map<DropdownMenuEntry<String>>((String value) {
-              //     return DropdownMenuEntry<String>(value: value, label: value);
-              //   }).toList(),
-              // ),
-              ,
               IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -483,4 +471,5 @@ class MyFilesTab extends StatelessWidget {
       ],
     );
   }
+
 }

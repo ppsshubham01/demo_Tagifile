@@ -259,10 +259,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HomePage()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
                                   // serviceObject.login(
                                   //   email: emailController.text,
