@@ -8,7 +8,7 @@ import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/screens/verification/email_pending.dart';
 import 'package:tagifiles/screens/verification/email_verify.dart';
 import 'package:tagifiles/screens/verification/two_factor_auth.dart';
-import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/services/service.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

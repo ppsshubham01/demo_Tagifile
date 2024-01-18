@@ -182,7 +182,7 @@ class MyFilesTab extends StatelessWidget {
     'Bhargav',
   ];
 
-  Widget buildScroll()=> SingleChildScrollView(
+  Widget buildScroll()=> const SingleChildScrollView(
 
   );
   /// Upper Image List
@@ -194,8 +194,8 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         padding: const EdgeInsets.only(top: 0.5),
-        itemCount: fetchedfterlogin.ffetchDataafterLogin?.result != null
-            ? fetchedfterlogin.ffetchDataafterLogin?.result?.length
+        itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? fetchedfterlogin.ffetchDataafterLogin.result?.length
             : 0,
         //   itemCount:  items.length,
           itemBuilder: (context, index) {
@@ -364,22 +364,8 @@ class MyFilesTab extends StatelessWidget {
         },
       );
 
-  void _selectedItem(String item, BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text(
-        "Selected chat number $item..",
-        style: const TextStyle(fontSize: 15.0),
-      ),
-      backgroundColor: Colors.purple,
-    );
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(snackBar);
-  }
 
   String dropDownList = 'Date';
-
-
 //feches file and folders
   @override
   Widget build(BuildContext context) {
@@ -411,7 +397,6 @@ class MyFilesTab extends StatelessWidget {
                     if (newValue != null) {
                       // Update the selected value on user interaction
                       dropDownList = newValue;
-                      // You can add additional functionality here based on the selection
                     }
                   },
                   items: <String>['Date', 'Name'].map((String value) {

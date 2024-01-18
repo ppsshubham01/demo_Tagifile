@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tagifiles/screens/home/tabs/new_tab.dart';
 import 'package:tagifiles/screens/home/tabs/user_tab.dart';
-import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/services/service.dart';
 
 class CreateFolderProvider with ChangeNotifier {
 

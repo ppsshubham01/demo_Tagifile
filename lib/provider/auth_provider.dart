@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
-import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/services/service.dart';
 
 class AuthProvider with ChangeNotifier {
   /// for signUp

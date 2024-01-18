@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
-import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/services/service.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});

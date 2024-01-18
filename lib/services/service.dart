@@ -328,7 +328,6 @@ class ApiService with ChangeNotifier {
 //     String removeServerpayload = json.encode({
 //
 //     });
-//
 //     try{
 //       Response response = await post(Uri.parse('http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
 //           body: removeServerpayload,
@@ -346,4 +345,47 @@ class ApiService with ChangeNotifier {
 //       print('Folder error!');
 //     }
 //   }
+
+
+  // name: krishna.jpg
+  // B_size: 70008
+  // upload_to: 36206
+  // type: image/jpeg
+  // directory_path:
+  // file: (binary)
+  // org_id:
+  // org_owner_id:
+  // Response:--- {"data":195689,"message":"OK","status":200}
+  Future<void> fileUpload({
+    required String name,
+    int? bsize,
+    int? uploadTo,
+    String? type,
+    String? directoryPath,
+    String? file,
+    String? orgId,
+    String? orgOwnerId,
+     }) async{
+    String uploadServerpayload = json.encode({
+
+      'name': name,
+      'B_size': bsize,
+      'upload_to': uploadTo,
+      'type': type,
+      'directory_path': directoryPath,
+      'file': file,
+      'org_id': orgId,
+      'org_owner_id': orgOwnerId,
+    });
+
+      Response response = await post(Uri.parse(
+          'http://192.168.1.142:8006/tf/core/api/service/dev/v1/personal/content/file/v1/upload/'
+      ),
+          body: uploadServerpayload,
+          headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarywi229qlFZwAtkioi'}
+         );
+  }
+
+
+
 }

@@ -9,7 +9,7 @@ import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/screens/auth/signup_screen.dart';
 import 'package:tagifiles/screens/verification/fogot_password.dart';
-import 'package:tagifiles/util/service.dart';
+import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/validation.dart';
 
 class WelcomeScreen extends StatefulWidget {
