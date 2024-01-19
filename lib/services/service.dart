@@ -7,7 +7,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
+import 'package:tagifiles/screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
   String? tokenKey;
@@ -386,6 +388,22 @@ class ApiService with ChangeNotifier {
          );
   }
 
+
+  Future<UserdetailsModel> serviceUserDetails()async{
+
+
+     try{
+       Response response = await http.get(Uri.parse("http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/" ));
+       if(response.statusCode==200) {
+         final responseData = json.decode(response.body);
+
+         return responseData;
+       }
+       return UserdetailsModel(data: data);
+     }catch(error) {
+       throw Exception('an error occurred: $error');
+     }
+}
 
 
 }

@@ -249,6 +249,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           )
                               : SizedBox(),
+
                           /// LogIn Buttom
                           // authProviderInstance.loginLoading ? const CircularProgressIndicator(
                           //   color: Color(0xFF1D55A4),
@@ -264,29 +265,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 //     MaterialPageRoute(
                                 //         builder: (_) => HomePage()));
                                 if (formKey.currentState!.validate()) {
-                                  // serviceObject.login(
-                                  //   email: emailController.text,
-                                  //   password: passwordController.text,
-                                  //   onSuccess: (value) {
-                                  //     Navigator.push(
-                                  //         context,
-                                  //         MaterialPageRoute(
-                                  //             builder: (_) => const HomePage()));
-                                  //   },
-                                  //   context: context,
-                                  // );
                                   authProviderInstance.signInUser(context);
-                                  print("Validated");
-                                } else {
-                                   const SnackBar(
-                                    content: Text(
-                                      "Error....",
-                                      style: TextStyle(fontSize: 15.0),
-                                    ),
-                                    backgroundColor: Colors.redAccent,
-                                  );
-                                  // print("Not Validated");
                                 }
+                                // else {
+                                //    const SnackBar(
+                                //     content: Text(
+                                //       "Error Email/password Wrong!",
+                                //       style: TextStyle(fontSize: 15.0),
+                                //     ),
+                                //     backgroundColor: Colors.redAccent,
+                                //   );
+                                //   // print("Not Validated");
+                                // }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color((0xFF1D55A4)),
@@ -296,8 +286,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     horizontal: 20.0, vertical: 10.0),
                                 fixedSize: const Size(347, 45),
                               ),
-                              child: const Text(
-                                'Login',
+                              child: const Text('Login',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,

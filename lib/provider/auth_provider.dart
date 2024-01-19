@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
@@ -71,7 +72,15 @@ class AuthProvider with ChangeNotifier {
             context, MaterialPageRoute(builder: (_) => const HomePage()));
       },
       onError: (value) async{
-      await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
+        loginLoading= false;
+        SnackBar(
+          content: Text(
+            "Error Email/password Wrong!",
+            style: TextStyle(fontSize: 15.0),
+          ),
+          backgroundColor: Colors.redAccent,
+        );
+      // await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
       },
     );
   }
@@ -110,5 +119,13 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+  /// UserDetailProvider
+  late UserdetailsModel _userdetailsModel;
+  UserdetailsModel get details => _userdetailsModel;
+  Future<void> fetchPost() async {
+    _userdetailsModel = await ApiService().serviceUserDetails();
+    notifyListeners();
+  }
 
 }
