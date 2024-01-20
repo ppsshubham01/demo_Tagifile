@@ -5,6 +5,7 @@ import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/services/service.dart';
+import 'package:tagifiles/util/dialog_box.dart';
 
 class AuthProvider with ChangeNotifier {
   /// for signUp
@@ -73,13 +74,8 @@ class AuthProvider with ChangeNotifier {
       },
       onError: (value) async{
         loginLoading= false;
-        SnackBar(
-          content: Text(
-            "Error Email/password Wrong!",
-            style: TextStyle(fontSize: 15.0),
-          ),
-          backgroundColor: Colors.redAccent,
-        );
+        notifyListeners();
+        PopDialog().showMyDialog(context);
       // await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
       },
     );
@@ -127,5 +123,20 @@ class AuthProvider with ChangeNotifier {
     _userdetailsModel = await ApiService().serviceUserDetails();
     notifyListeners();
   }
+
+  signInDispose(){
+    emailController2.clear();
+    passwordController2.clear();
+    notifyListeners();
+  }
+
+  signUpDispose(){
+    firstNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    notifyListeners();
+  }
+
 
 }

@@ -12,7 +12,12 @@ import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
-  String? tokenKey;
+
+  String? _tokenKey;
+
+  bool get isToken{
+    return _tokenKey != null;
+  }
 
   /// ########################  Login
   Future<void> login({
@@ -42,8 +47,8 @@ class ApiService with ChangeNotifier {
       print(response.statusCode);
       if (response.statusCode == 200) {
         final token = jsonDecode(response.body)['data'];
-        tokenKey = token;
-        //notifyListeners();
+        _tokenKey = token;
+        notifyListeners();
         // print("+++++++++++++++++++++++++++");
         // print(token);
         await saveTokenToPrefs(token);
@@ -250,10 +255,20 @@ class ApiService with ChangeNotifier {
 
   /// ######################## Log-Out
   Future<void> logout() async {
-    tokenKey = null;
+    _tokenKey = null;
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
     notifyListeners();
+  }
+
+  Future<bool> tryAutoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('token')) {
+      return false;
+    }
+    _tokenKey = await getTokenFromPrefs();
+    notifyListeners();
+    return true;
   }
 
   ///########################## Forgot Password
@@ -391,15 +406,20 @@ class ApiService with ChangeNotifier {
 
   Future<UserdetailsModel> serviceUserDetails()async{
 
-
+    String? userToken = await getTokenFromPrefs();
      try{
-       Response response = await http.get(Uri.parse("http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/" ));
+       Response response = await http.get(Uri.parse("http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/" ),
+           headers: {'Content-Type': 'application/json',
+           'Authorization': 'Token $userToken',
+           },
+
+       );
        if(response.statusCode==200) {
          final responseData = json.decode(response.body);
-
-         return responseData;
+         return UserdetailsModel.fromJson(responseData);
+       } else{
+         throw Exception('Failed to load user details, status code: ${response.statusCode}');
        }
-       return UserdetailsModel(data: data);
      }catch(error) {
        throw Exception('an error occurred: $error');
      }

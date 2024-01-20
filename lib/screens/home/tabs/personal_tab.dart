@@ -199,103 +199,106 @@ class MyFilesTab extends StatelessWidget {
             : 0,
         //   itemCount:  items.length,
           itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
+              return Container(
+                padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Checkbox(
-                      value: false,
-                      onChanged: (value) {},
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Checkbox(
+                          value: false,
+                          onChanged: (value) {},
+                        ),
+                        const Icon(
+                          Icons.more_vert,
+                          color: Color(0xFF7A7A7A),
+                        ),
+                      ],
                     ),
-                    const Icon(
-                      Icons.more_vert,
-                      color: Color(0xFF7A7A7A),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 100,
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                  color: Colors.red,
+                    Container(
+                      height: 100,
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                      color: Colors.red,
 
-                  // NetworkImage('https://source.unsplash.com/random?sig=$index'),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
-                        // fetchedfterlogin.ffetchDataafterLogin.result!.,
-                        style: const TextStyle(
-                            color: Color(0xFF7A7A7A),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        'JPEG',
-                        style: TextStyle(color: Color(0xFF7A7A7A)),
-                      ),
-                      const Text(
-                        '155 KB . 27/06/2002',
-                        style: TextStyle(color: Color(0xFFBEBEBE)),
-                      ),
-                      const Row(
+                      // NetworkImage('https://source.unsplash.com/random?sig=$index'),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.pattern_sharp,
-                            color: Color(0xFF1672F3),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
                           Text(
-                            '5 version',
-                            style: TextStyle(
+                            fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
+                            // fetchedfterlogin.ffetchDataafterLogin.result!.,
+                            style: const TextStyle(
                                 color: Color(0xFF7A7A7A),
                                 fontWeight: FontWeight.bold),
                           ),
-                          Spacer(),
-                          Icon(
-                            Icons.mobile_screen_share,
-                            color: Color(0xFF566476),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      const Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 10,
-                            backgroundImage: NetworkImage(
-                                "https://source.unsplash.com/random"),
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'userName',
+                          const Text(
+                            'JPEG',
                             style: TextStyle(color: Color(0xFF7A7A7A)),
                           ),
+                          const Text(
+                            '155 KB . 27/06/2002',
+                            style: TextStyle(color: Color(0xFFBEBEBE)),
+                          ),
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.pattern_sharp,
+                                color: Color(0xFF1672F3),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '5 version',
+                                style: TextStyle(
+                                    color: Color(0xFF7A7A7A),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Spacer(),
+                              Icon(
+                                Icons.mobile_screen_share,
+                                color: Color(0xFF566476),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          const Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundImage: NetworkImage(
+                                    "https://source.unsplash.com/random"),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'userName',
+                                style: TextStyle(color: Color(0xFF7A7A7A)),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
+                    )
+                  ],
+                ),
+              );
+            }
+
         },
       );
 
@@ -311,56 +314,60 @@ class MyFilesTab extends StatelessWidget {
             ? fetchedfterlogin.ffetchDataafterLogin.result?.length
             : 0,
         itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Align(
-                    alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.more_vert,
-                      color: Color(0xFF7A7A7A),
-                    )),
-                const Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Icon(
-                      Icons.folder,
-                      size: 50,
-                      color: Color(0xFF1672F3),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
-                        style: TextStyle(color: Color(0xFF7A7A7A)),
-                      ),
-                      const Spacer(
-                        flex: 1,
-                      ),
-                      const Icon(
-                        Icons.mobile_screen_share,
-                        color: Color(0xFF566476),
-                      )
-                    ],
-                  ),
+          if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
+            {
+              return Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      '27/06/2002',
-                      style: TextStyle(color: Color(0xFFBEBEBE)),
-                    )),
-              ],
-            ),
-          );
+                child:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.more_vert,
+                          color: Color(0xFF7A7A7A),
+                        )),
+                    const Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Icon(
+                          Icons.folder,
+                          size: 50,
+                          color: Color(0xFF1672F3),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
+                            style: TextStyle(color: Color(0xFF7A7A7A)),
+                          ),
+                          const Spacer(
+                            flex: 1,
+                          ),
+                          const Icon(
+                            Icons.mobile_screen_share,
+                            color: Color(0xFF566476),
+                          )
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          '27/06/2002',
+                          style: TextStyle(color: Color(0xFFBEBEBE)),
+                        )),
+                  ],
+                ),
+              );
+            }
+
         },
       );
 

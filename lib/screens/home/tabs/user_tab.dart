@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
 import 'package:tagifiles/services/service.dart';
@@ -14,6 +16,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
+    // final userDetailProvider = Provider.of<AuthProvider>(context).details;
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(

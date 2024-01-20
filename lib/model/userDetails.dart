@@ -9,6 +9,16 @@ class UserdetailsModel {
 
   UserdetailsModel copyWih({required Data data}) =>
       UserdetailsModel(data: data);
+
+  Map<String, dynamic> toJson() => {
+    'data': data.toJson(),
+  };
+
+  factory UserdetailsModel.fromJson(Map<String, dynamic> json) =>
+      UserdetailsModel(
+        data: Data.fromJson(json['data']),
+      );
+
 }
 
 class Data {
@@ -20,8 +30,17 @@ class Data {
     required this.secondary,
   });
 
-  Data({required Primary primary, required Secondary secondary}) =>
-      Data(primary: primary, secondary: secondary);
+  Map<String, dynamic> toJson() => {
+    'primary': primary?.toJson(),
+    'secondary': secondary?.toJson(),
+  };
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    primary: Primary.fromJson(json['primary']),
+    secondary: Secondary.fromJson(json['secondary']),
+  );
+
+
 }
 
 class Primary {
@@ -63,44 +82,47 @@ class Primary {
     required this.loginTwoStep,
   });
 
-  Primary({
-    dynamic addLineOne,
-    dynamic addLineTwo,
-    dynamic stateOrProvince,
-    dynamic poscodeOrZip,
-    dynamic addLat,
-    dynamic addLon,
-    dynamic country,
-    required String middleName,
-    required String gender,
-    dynamic dob,
-    dynamic phone,
-    dynamic city,
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required bool loginTwoStep,
-  }) =>
-      Primary(
-          addLineOne: addLineOne,
-          addLineTwo: addLineTwo,
-          stateOrProvince: stateOrProvince,
-          poscodeOrZip: poscodeOrZip,
-          addLat: addLat,
-          addLon: addLon,
-          country: country,
-          middleName: middleName,
-          gender: gender,
-          dob: dob,
-          phone: phone,
-          city: city,
-          firstName: firstName,
-          lastName: lastName,
-          username: username,
-          email: email,
-          loginTwoStep: loginTwoStep);
+  Map<String, dynamic> toJson() => {
+    'addLineOne': addLineOne,
+    'addLineTwo': addLineTwo,
+    'stateOrProvince': stateOrProvince,
+    'poscodeOrZip': poscodeOrZip,
+    'addLat': addLat,
+    'addLon': addLon,
+    'country': country,
+    'middleName': middleName,
+    'gender': gender,
+    'dob': dob,
+    'phone': phone,
+    'city': city,
+    'firstName': firstName,
+    'lastName': lastName,
+    'username': username,
+    'email': email,
+    'loginTwoStep': loginTwoStep,
+  };
+
+  factory Primary.fromJson(Map<String, dynamic> json) => Primary(
+    addLineOne: json['addLineOne'],
+    addLineTwo: json['addLineTwo'],
+    stateOrProvince: json['stateOrProvince'],
+    poscodeOrZip: json['poscodeOrZip'],
+    addLat: json['addLat'],
+    addLon: json['addLon'],
+    country: json['country'],
+    middleName: json['middleName'],
+    gender: json['gender'],
+    dob: json['dob'],
+    phone: json['phone'],
+    city: json['city'],
+    firstName: json['firstName'],
+    lastName: json['lastName'],
+    username: json['username'],
+    email: json['email'],
+    loginTwoStep: json['loginTwoStep'],
+  );
 }
+
 
 class Secondary {
   dynamic maritalStatus;
@@ -142,6 +164,30 @@ class Secondary {
           interests: interests,
           business: business,
           occupation: occupation);
+
+  Map<String, dynamic> toJson() => {
+    'maritalStatus': maritalStatus,
+    'work': work,
+    'education': education,
+    'religion': religion,
+    'languages': languages,
+    'interests': interests,
+    'business': business,
+    'occupation': occupation,
+  };
+
+  factory Secondary.fromJson(Map<String, dynamic> json) => Secondary(
+    maritalStatus: json['maritalStatus'],
+    work: List<dynamic>.from(json['work']),
+    education: List<dynamic>.from(json['education']),
+    religion: json['religion'],
+    languages: List<dynamic>.from(json['languages']),
+    interests: List<dynamic>.from(json['interests']),
+    business: List<dynamic>.from(json['business']),
+    occupation: List<dynamic>.from(json['occupation']),
+  );
+
+
 }
 
 // {

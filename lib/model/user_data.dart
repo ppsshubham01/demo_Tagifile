@@ -103,7 +103,7 @@ class Result {
   final int? contentParentId;
   final int? contentSize;
   final DateTime? systemLastModified;
-  final bool? isFile;
+  final bool isFile;
   final int? blocksCount;
   final bool? isDirectory;
   final String? sharedCreatedByName;
@@ -122,7 +122,7 @@ class Result {
     this.contentParentId,
     this.contentSize,
     this.systemLastModified,
-    this.isFile,
+    required this.isFile,
     this.blocksCount,
     this.isDirectory,
     this.sharedCreatedByName,

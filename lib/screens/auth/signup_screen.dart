@@ -44,6 +44,13 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Provider.of<AuthProvider>(context,listen: false).signUpDispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {

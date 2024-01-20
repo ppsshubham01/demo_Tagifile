@@ -43,6 +43,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    Provider.of<AuthProvider>(context,listen: false).signInDispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     /// creating provider instance
     final authProviderInstance = Provider.of<AuthProvider>(context);

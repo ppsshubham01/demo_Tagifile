@@ -130,7 +130,7 @@ class PopDialog {
 
 
 // loginFail DialogBox
-  Future<void> _showMyDialog(BuildContext context) async {
+  Future<void> showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
