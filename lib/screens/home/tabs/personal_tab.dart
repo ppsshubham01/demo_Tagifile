@@ -200,8 +200,6 @@ class MyFilesTab extends StatelessWidget {
     //    items.length,
     itemBuilder: (context, index) {
       if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
-
-
         return Container(
           padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
           decoration: BoxDecoration(
@@ -346,9 +344,13 @@ class MyFilesTab extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
                   children: [
-                    Text(
-                      fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
-                      style: const TextStyle(overflow:TextOverflow.ellipsis,color: Color(0xFF7A7A7A)),
+                    Expanded(
+                      child: FittedBox(
+                        child: Text(
+                          fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
+                          style: const TextStyle(overflow:TextOverflow.ellipsis,color: Color(0xFF7A7A7A)),
+                        ),
+                      ),
                     ),
                     const Spacer(
                       flex: 1,

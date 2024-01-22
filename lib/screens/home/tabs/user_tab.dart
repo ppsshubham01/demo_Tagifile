@@ -22,6 +22,7 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     final userDetailProvider = Provider.of<AuthProvider>(context).details;
+    final ApiServiceProvider = Provider.of<ApiService>(context);
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -145,7 +146,7 @@ class _UserPageState extends State<UserPage> {
               icon: Icons.logout_outlined,
               text: 'S I G N O U T',
               onTap: () async {
-                await ApiService().logout();
+                ApiServiceProvider.logout();
               },
             ),
           ],
@@ -178,12 +179,12 @@ class _UserPageState extends State<UserPage> {
                     height: 10,
                   ),
                   Text(
-                    userDetailProvider!.data!.primary!.firstName,
+                    userDetailProvider?.data?.primary?.firstName ?? '',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFF566476)),
                   ),
                   Text(
-                    userDetailProvider.data!.primary!.email,
+                    userDetailProvider?.data?.primary?.email ?? '',
                     style: const TextStyle(color: Color(0xFFA8A7A7)),
                   ),
                 ],

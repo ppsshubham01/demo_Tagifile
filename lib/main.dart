@@ -125,22 +125,26 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(value: ApiService()),
         ChangeNotifierProvider.value(value: CreateFolderProvider()),
       ],
-      child: Consumer<ApiService>(
-        builder: (context, apiServiceInstanceProvider, child) =>
-            MaterialApp(
-                debugShowCheckedModeBanner: false,
-                // theme: ThemeData(fontFamily: 'Helvetica'),
-                home: apiServiceInstanceProvider.isToken
-                    ? const HomePage()
-                    : FutureBuilder(
-                  future: apiServiceInstanceProvider.tryAutoLogin(),
-                  builder: (context, snapshot) =>
-                  snapshot.connectionState == ConnectionState.waiting
-                      ? const LoadingScreen()
-                      : const WelcomeScreen(),
-                )
-              // const WelcomeScreen(),
-            ),
+      child: Builder(
+        builder: (context) {
+          return Consumer<ApiService>(
+            builder: (context, apiServiceInstanceProvider, child) =>
+                MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    // theme: ThemeData(fontFamily: 'Helvetica'),
+                    home: apiServiceInstanceProvider.isToken
+                        ? const HomePage()
+                        : FutureBuilder(
+                      future: apiServiceInstanceProvider.tryAutoLogin(),
+                      builder: (context, snapshot) =>
+                      snapshot.connectionState == ConnectionState.waiting
+                          ? const LoadingScreen()
+                          : const WelcomeScreen(),
+                    )
+                  // const WelcomeScreen(),
+                ),
+          );
+        }
       ),
     );
   }
