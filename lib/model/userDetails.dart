@@ -1,17 +1,17 @@
 
 
 class UserdetailsModel {
-  Data data;
+  Data? data;
 
   UserdetailsModel({
-    required this.data,
+     this.data,
   });
 
   UserdetailsModel copyWih({required Data data}) =>
       UserdetailsModel(data: data);
 
   Map<String, dynamic> toJson() => {
-    'data': data.toJson(),
+    'data': data?.toJson(),
   };
 
   factory UserdetailsModel.fromJson(Map<String, dynamic> json) =>

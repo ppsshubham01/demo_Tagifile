@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -62,6 +61,10 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
+      // if(result == ConnectivityResult.none){
+      //   print("you are offline...");
+      //   showNetworkErrorPopup();
+      // }
     } on PlatformException catch (e) {
       developer.log('Couldn\'t check connectivity status', error: e);
       // print("Couldn\'t check connectivity status: $e");
@@ -76,26 +79,46 @@ class _MyAppState extends State<MyApp> {
     return _updateConnectionStatus(result);
   }
 
+  void showNetworkErrorPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("No Internet Connection"),
+          content: const Text("Please check your internet connection."),
+          actions: [
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
       _connectionStatus = result;
     });
   }
 
-  showConnectivityStatus(BuildContext context) {
-    if(_connectionStatus == ConnectivityResult.none){
-      print("you are offline");
-      // await PopDialog().showMyDialog(context);
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('data'),));
-    } else if(_connectionStatus == ConnectivityResult.mobile || _connectionStatus == ConnectivityResult.wifi)
-    {
-      print("you are online");
-    }
-  }
+  // showConnectivityStatus(BuildContext context) {
+  //   if(_connectionStatus == ConnectivityResult.none){
+  //     print("you are offline");
+  //     // await PopDialog().showMyDialog(context);
+  //     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('data'),));
+  //   } else if(_connectionStatus == ConnectivityResult.mobile || _connectionStatus == ConnectivityResult.wifi)
+  //   {
+  //     print("you are online");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    showConnectivityStatus(context);
+    // showConnectivityStatus(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: AuthProvider()),
@@ -113,8 +136,8 @@ class _MyAppState extends State<MyApp> {
                   future: apiServiceInstanceProvider.tryAutoLogin(),
                   builder: (context, snapshot) =>
                   snapshot.connectionState == ConnectionState.waiting
-                      ? LoadingScreen()
-                      : WelcomeScreen(),
+                      ? const LoadingScreen()
+                      : const WelcomeScreen(),
                 )
               // const WelcomeScreen(),
             ),

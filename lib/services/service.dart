@@ -3,18 +3,15 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
-import 'package:tagifiles/screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
 
   String? _tokenKey;
-
   bool get isToken{
     return _tokenKey != null;
   }
@@ -68,6 +65,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
+
   /// ######################## token
   Future<void> saveTokenToPrefs(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -90,6 +88,7 @@ class ApiService with ChangeNotifier {
     return json.decode(prefs.getString('model').toString());
   }
 
+  /// ######################## fetchDataAfterLogin
   Future<Model> fetchDataAfterLogin() async {
     String? token = await getTokenFromPrefs();
 
@@ -120,8 +119,7 @@ class ApiService with ChangeNotifier {
           "folder_sort_order": "ASC"
         }
       });
-      final response = await http.post(
-        url,
+      final response = await http.post(url,
         headers: {
           'Authorization': 'Token $token',
           "Accept": "application/json",
@@ -153,12 +151,7 @@ class ApiService with ChangeNotifier {
 
 
 
-
-
-
-
-
-  /// #######################ListContent
+  /// #######################ListContent for the contentPath
   Future<Model> fetchListContent() async {
     String? token = await getTokenFromPrefs();
 
@@ -202,8 +195,7 @@ class ApiService with ChangeNotifier {
         print('Fetched data after login: $jsonData');
         return resultData;
       } else {
-        print(
-            'Failed to fetch data after login with status: ${response.statusCode}');
+        print('Failed to fetch data after login with status: ${response.statusCode}');
       }
     }
     return Model();
@@ -281,8 +273,7 @@ class ApiService with ChangeNotifier {
       'reset_method': resetMethod
     });
     try {
-      Response response = await post(
-          Uri.parse(
+      Response response = await post(Uri.parse(
               'http://192.168.1.142:8001/api/v1/auth/forget_pwd_send_code/'),
           body: forgotServerPayload,
           headers: {'Content-Type': 'application/json;charset=utf-8'});
@@ -416,6 +407,10 @@ class ApiService with ChangeNotifier {
        );
        if(response.statusCode==200) {
          final responseData = json.decode(response.body);
+         print("==============================================");
+         print(response.body);
+         print(response.statusCode);
+         print(response.headers);
          return UserdetailsModel.fromJson(responseData);
        } else{
          throw Exception('Failed to load user details, status code: ${response.statusCode}');

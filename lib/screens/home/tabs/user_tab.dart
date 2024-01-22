@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
-import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
 import 'package:tagifiles/services/service.dart';
 
@@ -15,8 +14,14 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   @override
+  void initState() {
+    Provider.of<AuthProvider>(context,listen: false).details;
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    // final userDetailProvider = Provider.of<AuthProvider>(context).details;
+    final userDetailProvider = Provider.of<AuthProvider>(context).details;
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -154,10 +159,10 @@ class _UserPageState extends State<UserPage> {
               color: Colors.white,
               height: 250,
               width: double.infinity,
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage:
                         NetworkImage('https://source.unsplash.com/random'),
@@ -169,17 +174,17 @@ class _UserPageState extends State<UserPage> {
                     //   ),
                     // ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'Lia Nass',
-                    style: TextStyle(
+                    userDetailProvider!.data!.primary!.firstName,
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFF566476)),
                   ),
                   Text(
-                    'xyz@gmail.com',
-                    style: TextStyle(color: Color(0xFFA8A7A7)),
+                    userDetailProvider.data!.primary!.email,
+                    style: const TextStyle(color: Color(0xFFA8A7A7)),
                   ),
                 ],
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
@@ -52,8 +51,10 @@ class AuthProvider with ChangeNotifier {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
       },
-      onError: (value) async{
-        await Fluttertoast.showToast(msg: 'SignUp email should be used!', toastLength: Toast.LENGTH_SHORT );
+      onError: (value) async {
+        loginLoading= false;
+        notifyListeners();
+        PopDialog().showMyDialog(context);
       },
     );
   }
@@ -72,11 +73,11 @@ class AuthProvider with ChangeNotifier {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const HomePage()));
       },
-      onError: (value) async{
+      onError: (value) async {
         loginLoading= false;
         notifyListeners();
         PopDialog().showMyDialog(context);
-      // await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
+        // await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
       },
     );
   }
@@ -105,7 +106,7 @@ class AuthProvider with ChangeNotifier {
 
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
-    ffetchDataafterLogin= fetchedDataAfterLogin;
+    ffetchDataafterLogin = fetchedDataAfterLogin;
     notifyListeners();
   }
 
@@ -117,10 +118,10 @@ class AuthProvider with ChangeNotifier {
 
 
   /// UserDetailProvider
-  late UserdetailsModel _userdetailsModel;
-  UserdetailsModel get details => _userdetailsModel;
-  Future<void> fetchPost() async {
-    _userdetailsModel = await ApiService().serviceUserDetails();
+   UserdetailsModel userdetailsModel = UserdetailsModel();
+  UserdetailsModel? get details => userdetailsModel;
+  Future<void> fetchUserDetails() async {
+    userdetailsModel = await ApiService().serviceUserDetails();
     notifyListeners();
   }
 
