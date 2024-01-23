@@ -117,6 +117,7 @@ class AuthProvider with ChangeNotifier {
   }
 
 
+
   /// UserDetailProvider
    UserdetailsModel userdetailsModel = UserdetailsModel();
   UserdetailsModel? get details => userdetailsModel;

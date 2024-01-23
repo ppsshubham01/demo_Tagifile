@@ -10,7 +10,6 @@ class CreateFolderProvider with ChangeNotifier {
 
 
   void createFolder(BuildContext context){
-
     ApiService().newFolder(
         foldername: createfoldertext.text,
         destinationFolderId: DateTime.now().millisecondsSinceEpoch,

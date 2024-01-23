@@ -46,13 +46,13 @@ class _PersonalPageState extends State<PersonalPage>
     // TODO: implement initState
     // AuthProvider().fetchDataaafterLogin();
     //AuthProvider().ffetchDataafterLogin();
-    Provider.of<AuthProvider>(context,listen: false).fetchDataaafterLogin();
+    Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final fetchedDafterlogin = Provider. of<AuthProvider>(context);
+    final fetchedDafterlogin = Provider.of<AuthProvider>(context);
     var temp = fetchedDafterlogin.ffetchDataafterLogin;
     print("++++++++++++++++++++++++++++++");
     print(temp.result);
@@ -82,7 +82,7 @@ class _PersonalPageState extends State<PersonalPage>
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide:
-                        const BorderSide(color: Colors.white, width: 2.0))),
+                            const BorderSide(color: Colors.white, width: 2.0))),
                 expands: false,
               ),
             ),
@@ -120,14 +120,14 @@ class _PersonalPageState extends State<PersonalPage>
                 // controller: _tabController,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
-                  // color: const Color(0xFF1D55A4),
+                    // color: const Color(0xFF1D55A4),
                     color: const Color(0xFF1D55A4),
                     borderRadius: BorderRadius.circular(5.0)),
                 tabs: const [
                   Tab(
                       child: Text(
-                        "My Files",
-                      )),
+                    "My Files",
+                  )),
                   Tab(
                     child: Text(
                       "Shared Files",
@@ -166,211 +166,367 @@ class _PersonalPageState extends State<PersonalPage>
         backgroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
-
     );
   }
 }
 
 class MyFilesTab extends StatelessWidget {
   AuthProvider fetchedfterlogin;
-  MyFilesTab({super.key,required this.fetchedfterlogin});
 
-  Widget buildScroll()=> const SingleChildScrollView(
+  MyFilesTab({super.key, required this.fetchedfterlogin});
 
-  );
+  Widget buildScroll() => const SingleChildScrollView();
+
   /// Upper Image List
   Widget buildGrid() => GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      childAspectRatio: 0.7,
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-    ),
-    padding: const EdgeInsets.only(top: 0.5),
-    itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
-        ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == true).length
-        : 0,
-    //    items.length,
-    itemBuilder: (context, index) {
-      if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
-        return Container (
-          padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (value) {},
-                  ),
-                  const Icon(
-                    Icons.more_vert,
-                    color: Color(0xFF7A7A7A),
-                  ),
-                ],
-              ),
-              Container(
-                height: 100,
-                width: double.infinity,
-                margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                color: Colors.red,
-
-                // NetworkImage('https://source.unsplash.com/random?sig=$index'),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.7,
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        padding: const EdgeInsets.only(top: 0.5),
+        itemCount: 4,
+        // fetchedfterlogin.ffetchDataafterLogin.result != null
+        //     ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == true).length
+        //     : 0,
+        //    items.length,
+        itemBuilder: (context, index) {
+          // if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
+          //   return Container (
+          //     height: 150,
+          //     width: 50,
+          //     padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+          //     decoration: BoxDecoration(
+          //       color: Colors.blue,
+          //       border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+          //       borderRadius: BorderRadius.circular(8),
+          //     ),
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Row(
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             Checkbox(
+          //               value: false,
+          //               onChanged: (value) {},
+          //             ),
+          //             const Icon(
+          //               Icons.more_vert,
+          //               color: Color(0xFF7A7A7A),
+          //             ),
+          //           ],
+          //         ),
+          //         Container(
+          //           height: 100,
+          //           width: double.infinity,
+          //           margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+          //           color: Colors.red,
+          //
+          //           // NetworkImage('https://source.unsplash.com/random?sig=$index'),
+          //         ),
+          //         Container(
+          //           padding: const EdgeInsets.only(left: 10),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(
+          //                 fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
+          //                 // fetchedfterlogin.ffetchDataafterLogin.result!.,
+          //                 style: const TextStyle(
+          //                     color: Color(0xFF7A7A7A),
+          //                     fontWeight: FontWeight.bold),
+          //               ),
+          //               const Text(
+          //                 'JPEG',
+          //                 style: TextStyle(color: Color(0xFF7A7A7A)),
+          //               ),
+          //               const Text(
+          //                 '155 KB . 27/06/2002',
+          //                 style: TextStyle(color: Color(0xFFBEBEBE)),
+          //               ),
+          //               const Row(
+          //                 children: [
+          //                   Icon(
+          //                     Icons.pattern_sharp,
+          //                     color: Color(0xFF1672F3),
+          //                   ),
+          //                   SizedBox(
+          //                     width: 5,
+          //                   ),
+          //                   Text(
+          //                     '5 version',
+          //                     style: TextStyle(
+          //                         color: Color(0xFF7A7A7A),
+          //                         fontWeight: FontWeight.bold),
+          //                   ),
+          //                   Spacer(),
+          //                   Icon(
+          //                     Icons.mobile_screen_share,
+          //                     color: Color(0xFF566476),
+          //                   )
+          //                 ],
+          //               ),
+          //               const SizedBox(
+          //                 height: 2,
+          //               ),
+          //               const Row(
+          //                 children: [
+          //                   CircleAvatar(
+          //                     radius: 10,
+          //                     backgroundImage: NetworkImage(
+          //                         "https://source.unsplash.com/random"),
+          //                   ),
+          //                   SizedBox(width: 5),
+          //                   Text(
+          //                     'userName',
+          //                     style: TextStyle(color: Color(0xFF7A7A7A)),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ],
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //   );
+          //
+          // }
+          return Container(
+            height: 150,
+            width: 50,
+            padding:
+                const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              // color: Colors.blue,
+              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
-                      // fetchedfterlogin.ffetchDataafterLogin.result!.,
-                      style: const TextStyle(
-                          color: Color(0xFF7A7A7A),
-                          fontWeight: FontWeight.bold),
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
                     ),
-                    const Text(
-                      'JPEG',
-                      style: TextStyle(color: Color(0xFF7A7A7A)),
-                    ),
-                    const Text(
-                      '155 KB . 27/06/2002',
-                      style: TextStyle(color: Color(0xFFBEBEBE)),
-                    ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.pattern_sharp,
-                          color: Color(0xFF1672F3),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          '5 version',
-                          style: TextStyle(
-                              color: Color(0xFF7A7A7A),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.mobile_screen_share,
-                          color: Color(0xFF566476),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    const Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 10,
-                          backgroundImage: NetworkImage(
-                              "https://source.unsplash.com/random"),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'userName',
-                          style: TextStyle(color: Color(0xFF7A7A7A)),
-                        ),
-                      ],
+                    const Icon(
+                      Icons.more_vert,
+                      color: Color(0xFF7A7A7A),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-        );
+                Container(
+                  height: 100,
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                  color: Colors.red,
 
-      }
-
-    },
-  );
+                  // NetworkImage('https://source.unsplash.com/random?sig=$index'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        fetchedfterlogin
+                            .ffetchDataafterLogin.result![index].contentName
+                            .toString(),
+                        // fetchedfterlogin.ffetchDataafterLogin.result!.,
+                        style: const TextStyle(
+                            color: Color(0xFF7A7A7A),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Text(
+                        'JPEG',
+                        style: TextStyle(color: Color(0xFF7A7A7A)),
+                      ),
+                      const Text(
+                        '155 KB . 27/06/2002',
+                        style: TextStyle(color: Color(0xFFBEBEBE)),
+                      ),
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.pattern_sharp,
+                            color: Color(0xFF1672F3),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '5 version',
+                            style: TextStyle(
+                                color: Color(0xFF7A7A7A),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.mobile_screen_share,
+                            color: Color(0xFF566476),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      const Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 10,
+                            backgroundImage: NetworkImage(
+                                "https://source.unsplash.com/random"),
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'userName',
+                            style: TextStyle(color: Color(0xFF7A7A7A)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
 
   /// FolderList
   Widget buildFolderGrid() => GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      childAspectRatio: 0.95,
-      crossAxisCount: 3,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-    ),
-    itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
-        ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == false).length
-        : 0,
-    itemBuilder: (context, index) {
-      if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
-      {
-        return Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child:  Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(
-                    Icons.more_vert,
-                    color: Color(0xFF7A7A7A),
-                  )),
-              const Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: Icon(
-                    Icons.folder,
-                    size: 50,
-                    color: Color(0xFF1672F3),
-                  )),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: FittedBox(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.95,
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: 20,
+        // fetchedfterlogin.ffetchDataafterLogin.result != null
+        //     ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == false).length
+        //     : 0,
+        itemBuilder: (context, index) {
+          // if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
+          // {
+          //   return Container(
+          //     padding: const EdgeInsets.all(5),
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+          //       borderRadius: BorderRadius.circular(8),
+          //     ),
+          //     child:  Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         const Align(
+          //             alignment: Alignment.centerRight,
+          //             child: Icon(
+          //               Icons.more_vert,
+          //               color: Color(0xFF7A7A7A),
+          //             )),
+          //         const Padding(
+          //             padding: EdgeInsets.only(left: 5),
+          //             child: Icon(
+          //               Icons.folder,
+          //               size: 50,
+          //               color: Color(0xFF1672F3),
+          //             )),
+          //         Padding(
+          //           padding: const EdgeInsets.only(left: 10),
+          //           child: Row(
+          //             children: [
+          //               Expanded(
+          //                 child: FittedBox(
+          //                   child: Text(
+          //                     fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
+          //                     style: const TextStyle(overflow:TextOverflow.ellipsis,color: Color(0xFF7A7A7A)),
+          //                   ),
+          //                 ),
+          //               ),
+          //               const Spacer(
+          //                 flex: 1,
+          //               ),
+          //               const Icon(
+          //                 Icons.mobile_screen_share,
+          //                 color: Color(0xFF566476),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //         const Padding(
+          //             padding: EdgeInsets.only(left: 10),
+          //             child: Text(
+          //               '27/06/2002',
+          //               style: TextStyle(color: Color(0xFFBEBEBE)),
+          //             )),
+          //       ],
+          //     ),
+          //   );
+          // }
+          return Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.more_vert,
+                      color: Color(0xFF7A7A7A),
+                    )),
+                const Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Icon(
+                      Icons.folder,
+                      size: 50,
+                      color: Color(0xFF1672F3),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    children: [
+                      Flexible(
                         child: Text(
-                          fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
-                          style: const TextStyle(overflow:TextOverflow.ellipsis,color: Color(0xFF7A7A7A)),
+                          // 'ja',
+                          'fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString()',
+                          style: const TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: Color(0xFF7A7A7A)),
                         ),
                       ),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    const Icon(
-                      Icons.mobile_screen_share,
-                      color: Color(0xFF566476),
-                    )
-                  ],
+                      const Spacer(),
+                      const Icon(
+                        Icons.mobile_screen_share,
+                        color: Color(0xFF566476),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    '27/06/2002',
-                    style: TextStyle(color: Color(0xFFBEBEBE)),
-                  )),
-            ],
-          ),
-        );
-      }
-
-    },
-  );
-
+                const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      '27/06/2002',
+                      style: TextStyle(color: Color(0xFFBEBEBE)),
+                    )),
+              ],
+            ),
+          );
+        },
+      );
 
   String dropDownList = 'Date';
+
 //fetched file and folders
   @override
   Widget build(BuildContext context) {
@@ -423,7 +579,6 @@ class MyFilesTab extends StatelessWidget {
                   }).toList(),
                 ),
               ),
-
               IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -433,34 +588,46 @@ class MyFilesTab extends StatelessWidget {
             ],
           ),
         ),
-
         Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: buildGrid(),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 13),
-          child: Text(
-            'Folders',
-            style: TextStyle(
-                color: Color(0xFF414141),
-                fontWeight: FontWeight.bold,
-                fontSize: 14),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0, right: 10, top: 8.0, bottom: 8.0),
-            child: buildFolderGrid(),
+          child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 350,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: buildGrid(),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 13),
+                    child: Text(
+                      'Folders',
+                      style: TextStyle(
+                          color: Color(0xFF414141),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 350,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10.0, right: 10, top: 8.0, bottom: 8.0),
+                      child: buildFolderGrid(),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],
     );
   }
-
 }

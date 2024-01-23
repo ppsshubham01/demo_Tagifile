@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     final createFolderProviderInstance =
         Provider.of<CreateFolderProvider>(context);
 
+
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: SizedBox(

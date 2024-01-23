@@ -11,7 +11,7 @@ import 'package:tagifiles/model/user_data.dart';
 
 class ApiService with ChangeNotifier {
 
-  String? _tokenKey;
+  String? _tokenKey = "jaimin";
   bool get isToken{
     return _tokenKey != null;
   }

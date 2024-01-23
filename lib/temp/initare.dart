@@ -3,8 +3,8 @@
 // initiate
 // http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/upload/initiate/
 // Get method
-//
-//
+
+
 //     Header
 // Accept:*/*
 // Accept-Encoding:gzip, deflate
@@ -21,9 +21,9 @@
 // Response
 // {
 //     "status": 200,
+//         "upload_tracker_key
 //     "msg": "Successfully created upload tracker.",
-//     "data": {
-//         "upload_tracker_key": "7287d3a7-6ed0-4203-b6af-1cf351d7ff76",
+//     "data": {": "7287d3a7-6ed0-4203-b6af-1cf351d7ff76",
 //         "target_id": 36206
 //     }
 // }
