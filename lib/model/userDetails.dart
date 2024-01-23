@@ -51,16 +51,16 @@ class Primary {
   dynamic addLat;
   dynamic addLon;
   dynamic country;
-  String middleName;
-  String gender;
+  String? middleName;
+  String? gender;
   dynamic dob;
   dynamic phone;
   dynamic city;
-  String firstName;
-  String lastName;
-  String username;
-  String email;
-  bool loginTwoStep;
+  String? firstName;
+  String? lastName;
+  String? username;
+  String? email;
+  bool? loginTwoStep;
 
   Primary({
     required this.addLineOne,
@@ -70,56 +70,56 @@ class Primary {
     required this.addLat,
     required this.addLon,
     required this.country,
-    required this.middleName,
-    required this.gender,
+     this.middleName,
+     this.gender,
     required this.dob,
     required this.phone,
     required this.city,
-    required this.firstName,
-    required this.lastName,
-    required this.username,
-    required this.email,
-    required this.loginTwoStep,
+     this.firstName,
+     this.lastName,
+     this.username,
+     this.email,
+     this.loginTwoStep,
   });
 
   Map<String, dynamic> toJson() => {
-    'addLineOne': addLineOne,
-    'addLineTwo': addLineTwo,
-    'stateOrProvince': stateOrProvince,
-    'poscodeOrZip': poscodeOrZip,
-    'addLat': addLat,
-    'addLon': addLon,
+    'add_line_one': addLineOne,
+    'add_line_two': addLineTwo,
+    'state_or_province': stateOrProvince,
+    'poscode_or_zip': poscodeOrZip,
+    'add_lat': addLat,
+    'add_lon': addLon,
     'country': country,
-    'middleName': middleName,
+    'middle_name': middleName,
     'gender': gender,
     'dob': dob,
     'phone': phone,
     'city': city,
-    'firstName': firstName,
-    'lastName': lastName,
+    'first_name': firstName,
+    'last_name': lastName,
     'username': username,
     'email': email,
-    'loginTwoStep': loginTwoStep,
+    'login_two_step': loginTwoStep,
   };
 
   factory Primary.fromJson(Map<String, dynamic> json) => Primary(
-    addLineOne: json['addLineOne'],
-    addLineTwo: json['addLineTwo'],
-    stateOrProvince: json['stateOrProvince'],
-    poscodeOrZip: json['poscodeOrZip'],
-    addLat: json['addLat'],
-    addLon: json['addLon'],
+    addLineOne: json['add_line_one'],
+    addLineTwo: json['add_line_two'],
+    stateOrProvince: json['state_or_province'],
+    poscodeOrZip: json['poscode_or_zip'],
+    addLat: json['add_lat'],
+    addLon: json['add_lon'],
     country: json['country'],
-    middleName: json['middleName'],
+    middleName: json['middle_name'],
     gender: json['gender'],
     dob: json['dob'],
     phone: json['phone'],
     city: json['city'],
-    firstName: json['firstName'],
-    lastName: json['lastName'],
+    firstName: json['first_name'],
+    lastName: json['last_name'],
     username: json['username'],
     email: json['email'],
-    loginTwoStep: json['loginTwoStep'],
+    loginTwoStep: json['login_two_step'],
   );
 }
 
@@ -166,7 +166,7 @@ class Secondary {
           occupation: occupation);
 
   Map<String, dynamic> toJson() => {
-    'maritalStatus': maritalStatus,
+    'marital_status': maritalStatus,
     'work': work,
     'education': education,
     'religion': religion,
@@ -177,7 +177,7 @@ class Secondary {
   };
 
   factory Secondary.fromJson(Map<String, dynamic> json) => Secondary(
-    maritalStatus: json['maritalStatus'],
+    maritalStatus: json['marital_status'],
     work: List<dynamic>.from(json['work']),
     education: List<dynamic>.from(json['education']),
     religion: json['religion'],

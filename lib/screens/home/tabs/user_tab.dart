@@ -15,14 +15,14 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   void initState() {
-    Provider.of<AuthProvider>(context,listen: false).details;
+    Provider.of<AuthProvider>(context,listen: false).fetchUserDetails();
     // TODO: implement initState
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     final userDetailProvider = Provider.of<AuthProvider>(context).details;
-    final ApiServiceProvider = Provider.of<ApiService>(context);
+    final ApiServiceProvider = Provider.of<ApiService>(context); // for logOut
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -39,15 +39,15 @@ class _UserPageState extends State<UserPage> {
         child: Column(
           children: [
             /// Header
-            const DrawerHeader(
+             DrawerHeader(
                 child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
                   backgroundImage:
                       NetworkImage("https://source.unsplash.com/random"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 SingleChildScrollView(
@@ -55,17 +55,17 @@ class _UserPageState extends State<UserPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Lia Nass ",
-                        style: TextStyle(color: Colors.white),
+                        userDetailProvider?.data?.primary?.firstName ?? '',
+                        style: const TextStyle(color: Colors.white),
                       ),
-                      Text(
-                        "xyz@gmail.com",
-                        style: TextStyle(color: Color(0xFFA8A7A7)),
+                       Text(
+                        userDetailProvider?.data?.primary?.email ?? '',
+                        style: const TextStyle(color: Color(0xFFA8A7A7)),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
                 Icon(
@@ -169,8 +169,7 @@ class _UserPageState extends State<UserPage> {
                         NetworkImage('https://source.unsplash.com/random'),
                     // child: InkWell(
                     //   child: Ink.image(
-                    //     image:
-                    //         NetworkImage('https://source.unsplash.com/random'),
+                    //     image: NetworkImage('https://source.unsplash.com/random'),
                     //     fit: BoxFit.cover,
                     //   ),
                     // ),

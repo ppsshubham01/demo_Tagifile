@@ -120,6 +120,7 @@ class AuthProvider with ChangeNotifier {
   /// UserDetailProvider
    UserdetailsModel userdetailsModel = UserdetailsModel();
   UserdetailsModel? get details => userdetailsModel;
+
   Future<void> fetchUserDetails() async {
     userdetailsModel = await ApiService().serviceUserDetails();
     notifyListeners();
@@ -128,7 +129,7 @@ class AuthProvider with ChangeNotifier {
   signInDispose(){
     emailController2.clear();
     passwordController2.clear();
-    notifyListeners();
+    // notifyListeners();
   }
 
   signUpDispose(){
@@ -136,7 +137,7 @@ class AuthProvider with ChangeNotifier {
     lastNameController.clear();
     emailController.clear();
     passwordController.clear();
-    notifyListeners();
+    // notifyListeners();
   }
 
 

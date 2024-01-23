@@ -194,16 +194,16 @@ class MyFilesTab extends StatelessWidget {
       mainAxisSpacing: 10,
     ),
     padding: const EdgeInsets.only(top: 0.5),
-    itemCount:
-    fetchedfterlogin.ffetchDataafterLogin.result!= null
-        ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == true).length : 0,
+    itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
+        ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == true).length
+        : 0,
     //    items.length,
     itemBuilder: (context, index) {
       if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
-        return Container(
+        return Container (
           padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blue,
             border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -297,6 +297,7 @@ class MyFilesTab extends StatelessWidget {
             ],
           ),
         );
+
       }
 
     },
@@ -440,6 +441,7 @@ class MyFilesTab extends StatelessWidget {
             ],
           ),
         ),
+
         Expanded(
           flex: 3,
           child: Padding(

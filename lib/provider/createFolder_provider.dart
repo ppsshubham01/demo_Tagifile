@@ -2,9 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tagifiles/screens/home/tabs/new_tab.dart';
-import 'package:tagifiles/screens/home/tabs/user_tab.dart';
 import 'package:tagifiles/services/service.dart';
 
 class CreateFolderProvider with ChangeNotifier {
@@ -23,7 +20,7 @@ class CreateFolderProvider with ChangeNotifier {
           // Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> const NewPage()) );
         },
         onError: (value) async{
-          await Fluttertoast.showToast(msg: 'Try Again..create folder Again!', toastLength: Toast.LENGTH_SHORT );
+          // await Fluttertoast.showToast(msg: 'Try Again..create folder Again!', toastLength: Toast.LENGTH_SHORT );
         },
     );
   }
