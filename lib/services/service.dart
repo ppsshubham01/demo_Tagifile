@@ -394,7 +394,7 @@ class ApiService with ChangeNotifier {
          );
   }
 
-
+///Ferching userDetails
   Future<UserdetailsModel> serviceUserDetails()async{
 
     String? userToken = await getTokenFromPrefs();

@@ -174,13 +174,6 @@ class _PersonalPageState extends State<PersonalPage>
 class MyFilesTab extends StatelessWidget {
   AuthProvider fetchedfterlogin;
   MyFilesTab({super.key,required this.fetchedfterlogin});
-  final List<String> items = [
-    'Pratik',
-    'Dharti',
-    'Shubham',
-    'Jaimin',
-    'Bhargav',
-  ];
 
   Widget buildScroll()=> const SingleChildScrollView(
 
@@ -313,7 +306,6 @@ class MyFilesTab extends StatelessWidget {
     ),
     itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
         ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == false).length
-    // fetchedfterlogin.ffetchDataafterLogin.result?.length
         : 0,
     itemBuilder: (context, index) {
       if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
