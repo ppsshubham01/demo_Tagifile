@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -386,12 +387,15 @@ class ApiService with ChangeNotifier {
       'org_owner_id': orgOwnerId,
     });
 
-      Response response = await post(Uri.parse(
+    MultipartRequest request = await http.MultipartRequest("POST",Uri.parse(
           'http://192.168.1.142:8006/tf/core/api/service/dev/v1/personal/content/file/v1/upload/'
       ),
-          body: uploadServerpayload,
-          headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarywi229qlFZwAtkioi'}
+          // body: uploadServerpayload,
+          // headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarywi229qlFZwAtkioi'}
          );
+    request.files.add(await http.MultipartFile.fromPath("file", "filePath"));
+    StreamedResponse response=await request.send();
+
   }
 
 ///Ferching userDetails

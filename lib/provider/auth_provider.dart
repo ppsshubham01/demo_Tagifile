@@ -110,6 +110,9 @@ class AuthProvider with ChangeNotifier {
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
     ffetchDataafterLogin = fetchedDataAfterLogin;
+    fileList.clear();
+    folderList.clear();
+    notifyListeners();
     ffetchDataafterLogin.result?.forEach((element) {
       if(element.isFile){
         fileList.add(element);
