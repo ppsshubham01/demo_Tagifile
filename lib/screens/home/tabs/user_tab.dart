@@ -15,10 +15,11 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   void initState() {
-    Provider.of<AuthProvider>(context,listen: false).fetchUserDetails();
+    Provider.of<AuthProvider>(context, listen: false).fetchUserDetails();
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final userDetailProvider = Provider.of<AuthProvider>(context).details;
@@ -39,40 +40,106 @@ class _UserPageState extends State<UserPage> {
         child: Column(
           children: [
             /// Header
-             DrawerHeader(
+            DrawerHeader(
                 child: Row(
               children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage:
-                      NetworkImage("https://source.unsplash.com/random"),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                SingleChildScrollView(
+                // const CircleAvatar(
+                //   radius: 30,
+                //   backgroundImage:
+                //       NetworkImage("https://source.unsplash.com/random"),
+                // ),
+                Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        userDetailProvider?.data?.primary?.firstName ?? '',
-                        style: const TextStyle(color: Colors.white),
+                      Theme(
+                        data: Theme.of(context)
+                            .copyWith(dividerColor: Colors.transparent),
+                        child: ExpansionTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                userDetailProvider?.data?.primary?.firstName ??
+                                    '',
+                                style: const TextStyle(color: Colors.white),
+                              ),SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                userDetailProvider?.data?.primary?.lastName ??
+                                    '',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          subtitle: Text(
+                            maxLines: 1,
+                            userDetailProvider?.data?.primary?.email ?? '',
+                            style: const TextStyle(color: Color(0xFFA8A7A7)),
+                          ),
+                          leading: const CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                                "https://source.unsplash.com/random"),
+                          ),
+                          iconColor: Colors.white,
+                          collapsedIconColor: Colors.white,
+                          childrenPadding: const EdgeInsets.all(0),
+                          // textColor: Colors.greenAccent,
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 18,
+                                      backgroundImage: NetworkImage(
+                                          "https://source.unsplash.com/random"),
+                                    ),
+                                    title: Text(
+                                      'P R O F I L E',
+                                      style:
+                                          TextStyle(color: Color(0xFF6395D9)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                       Text(
-                        userDetailProvider?.data?.primary?.email ?? '',
-                        style: const TextStyle(color: Color(0xFFA8A7A7)),
-                      ),
+                      // Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  width: 25,
-                ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.white,
-                  size: 30,
-                )
+
+                // const SizedBox(
+                //   width: 10,
+                // ),
+                // SingleChildScrollView(
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         userDetailProvider?.data?.primary?.firstName ?? '',
+                //         style: const TextStyle(color: Colors.white),
+                //       ),
+                //        Text(
+                //         userDetailProvider?.data?.primary?.email ?? '',
+                //         style: const TextStyle(color: Color(0xFFA8A7A7)),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // const SizedBox(
+                //   width: 25,
+                // ),
+                // Icon(
+                //   Icons.arrow_drop_down,
+                //   color: Colors.white,
+                //   size: 30,
+                // )
               ],
             )),
             // ListTile(),
@@ -160,7 +227,7 @@ class _UserPageState extends State<UserPage> {
               color: Colors.white,
               height: 250,
               width: double.infinity,
-              child:  Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CircleAvatar(
@@ -177,10 +244,25 @@ class _UserPageState extends State<UserPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    userDetailProvider?.data?.primary?.firstName ?? '',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xFF566476)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        userDetailProvider?.data?.primary?.firstName ?? '',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF566476)),
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        userDetailProvider?.data?.primary?.lastName ?? '',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF566476)),
+                      ),
+                    ],
                   ),
                   Text(
                     userDetailProvider?.data?.primary?.email ?? '',

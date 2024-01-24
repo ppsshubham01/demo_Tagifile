@@ -186,114 +186,11 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         padding: const EdgeInsets.only(top: 0.5),
-        itemCount: 4,
-        // fetchedfterlogin.ffetchDataafterLogin.result != null
-        //     ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == true).length
-        //     : 0,
-        //    items.length,
+        itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? fetchedfterlogin.fileList.length
+            : 0,
         itemBuilder: (context, index) {
           // if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
-          //   return Container (
-          //     height: 150,
-          //     width: 50,
-          //     padding: const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
-          //     decoration: BoxDecoration(
-          //       color: Colors.blue,
-          //       border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-          //       borderRadius: BorderRadius.circular(8),
-          //     ),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Checkbox(
-          //               value: false,
-          //               onChanged: (value) {},
-          //             ),
-          //             const Icon(
-          //               Icons.more_vert,
-          //               color: Color(0xFF7A7A7A),
-          //             ),
-          //           ],
-          //         ),
-          //         Container(
-          //           height: 100,
-          //           width: double.infinity,
-          //           margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-          //           color: Colors.red,
-          //
-          //           // NetworkImage('https://source.unsplash.com/random?sig=$index'),
-          //         ),
-          //         Container(
-          //           padding: const EdgeInsets.only(left: 10),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               Text(
-          //                 fetchedfterlogin.ffetchDataafterLogin.result![0].contentName.toString(),
-          //                 // fetchedfterlogin.ffetchDataafterLogin.result!.,
-          //                 style: const TextStyle(
-          //                     color: Color(0xFF7A7A7A),
-          //                     fontWeight: FontWeight.bold),
-          //               ),
-          //               const Text(
-          //                 'JPEG',
-          //                 style: TextStyle(color: Color(0xFF7A7A7A)),
-          //               ),
-          //               const Text(
-          //                 '155 KB . 27/06/2002',
-          //                 style: TextStyle(color: Color(0xFFBEBEBE)),
-          //               ),
-          //               const Row(
-          //                 children: [
-          //                   Icon(
-          //                     Icons.pattern_sharp,
-          //                     color: Color(0xFF1672F3),
-          //                   ),
-          //                   SizedBox(
-          //                     width: 5,
-          //                   ),
-          //                   Text(
-          //                     '5 version',
-          //                     style: TextStyle(
-          //                         color: Color(0xFF7A7A7A),
-          //                         fontWeight: FontWeight.bold),
-          //                   ),
-          //                   Spacer(),
-          //                   Icon(
-          //                     Icons.mobile_screen_share,
-          //                     color: Color(0xFF566476),
-          //                   )
-          //                 ],
-          //               ),
-          //               const SizedBox(
-          //                 height: 2,
-          //               ),
-          //               const Row(
-          //                 children: [
-          //                   CircleAvatar(
-          //                     radius: 10,
-          //                     backgroundImage: NetworkImage(
-          //                         "https://source.unsplash.com/random"),
-          //                   ),
-          //                   SizedBox(width: 5),
-          //                   Text(
-          //                     'userName',
-          //                     style: TextStyle(color: Color(0xFF7A7A7A)),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ],
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   );
-          //
-          // }
           return Container(
             height: 150,
             width: 50,
@@ -334,14 +231,16 @@ class MyFilesTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        fetchedfterlogin
-                            .ffetchDataafterLogin.result![index].contentName
-                            .toString(),
-                        // fetchedfterlogin.ffetchDataafterLogin.result!.,
-                        style: const TextStyle(
-                            color: Color(0xFF7A7A7A),
-                            fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          fetchedfterlogin.fileList[index].contentName.toString(),
+                          // fetchedfterlogin.ffetchDataafterLogin.result!.,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Color(0xFF7A7A7A),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const Text(
                         'JPEG',
@@ -396,6 +295,7 @@ class MyFilesTab extends StatelessWidget {
               ],
             ),
           );
+          // }
         },
       );
 
@@ -407,67 +307,12 @@ class MyFilesTab extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: 20,
-        // fetchedfterlogin.ffetchDataafterLogin.result != null
-        //     ? fetchedfterlogin.ffetchDataafterLogin.result?.where((element) => element.isFile == false).length
-        //     : 0,
+        itemCount:
+        fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? fetchedfterlogin.folderList.length
+            : 0,
         itemBuilder: (context, index) {
           // if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
-          // {
-          //   return Container(
-          //     padding: const EdgeInsets.all(5),
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-          //       borderRadius: BorderRadius.circular(8),
-          //     ),
-          //     child:  Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         const Align(
-          //             alignment: Alignment.centerRight,
-          //             child: Icon(
-          //               Icons.more_vert,
-          //               color: Color(0xFF7A7A7A),
-          //             )),
-          //         const Padding(
-          //             padding: EdgeInsets.only(left: 5),
-          //             child: Icon(
-          //               Icons.folder,
-          //               size: 50,
-          //               color: Color(0xFF1672F3),
-          //             )),
-          //         Padding(
-          //           padding: const EdgeInsets.only(left: 10),
-          //           child: Row(
-          //             children: [
-          //               Expanded(
-          //                 child: FittedBox(
-          //                   child: Text(
-          //                     fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString(),
-          //                     style: const TextStyle(overflow:TextOverflow.ellipsis,color: Color(0xFF7A7A7A)),
-          //                   ),
-          //                 ),
-          //               ),
-          //               const Spacer(
-          //                 flex: 1,
-          //               ),
-          //               const Icon(
-          //                 Icons.mobile_screen_share,
-          //                 color: Color(0xFF566476),
-          //               )
-          //             ],
-          //           ),
-          //         ),
-          //         const Padding(
-          //             padding: EdgeInsets.only(left: 10),
-          //             child: Text(
-          //               '27/06/2002',
-          //               style: TextStyle(color: Color(0xFFBEBEBE)),
-          //             )),
-          //       ],
-          //     ),
-          //   );
           // }
           return Container(
             padding: const EdgeInsets.all(5),
@@ -498,8 +343,7 @@ class MyFilesTab extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          // 'ja',
-                          'fetchedfterlogin.ffetchDataafterLogin.result![index].contentName.toString()',
+                          fetchedfterlogin.folderList[index].contentName.toString(),
                           style: const TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: Color(0xFF7A7A7A)),
@@ -556,7 +400,6 @@ class MyFilesTab extends StatelessWidget {
                   // Hide the default underline
                   onChanged: (String? newValue) {
                     if (newValue != null) {
-                      // Update the selected value on user interaction
                       dropDownList = newValue;
                     }
                   },
@@ -569,9 +412,7 @@ class MyFilesTab extends StatelessWidget {
                             Icons.sort,
                             color: Color(0xFF566476),
                           ),
-                          // Leading icon
                           const SizedBox(width: 8),
-                          // Adjust the spacing
                           Text(value),
                         ],
                       ),

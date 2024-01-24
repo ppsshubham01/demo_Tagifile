@@ -70,3 +70,65 @@
 // sort_order: "NULL"
 
 // dETAILS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <key>NSAllowsArbitraryLoads</key>
+// <true/>
+// <key>CFBundleURLTypes</key>
+// <array>
+// <dict>
+// <key>CFBundleURLSchemes</key>
+// <array>
+// <!-- Replace 'com.example.myapp' with your app's bundle identifier -->
+// <string>com.example.myapp</string>
+// </array>
+// </dict>
+// </array>
+// <key>UTExportedTypeDeclarations</key>
+// <array>
+// <!-- Add the following entry for sharing files -->
+// <dict>
+// <key>UTTypeIdentifier</key>
+// <string>public.data</string>
+// <key>UTTypeDescription</key>
+// <string>All Files</string>
+// <key>UTTypeConformsTo</key>
+// <array>
+// <string>public.item</string>
+// </array>
+// <key>UTTypeTagSpecification</key>
+// <dict>
+// <key>public.filename-extension</key>
+// <array>
+// <string>*</string>
+// </array>
+// </dict>
+// </dict>
+// </array>

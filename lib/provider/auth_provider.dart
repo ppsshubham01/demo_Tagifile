@@ -35,6 +35,9 @@ class AuthProvider with ChangeNotifier {
   Model ffetchDataafterLogin= Model();
   var finalListContentData;
 
+  ///
+   List<Result> fileList = [];
+   List<Result> folderList = [];
 
   /// for signUp method
   void signUpUser(BuildContext context) {
@@ -107,6 +110,13 @@ class AuthProvider with ChangeNotifier {
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
     ffetchDataafterLogin = fetchedDataAfterLogin;
+    ffetchDataafterLogin.result?.forEach((element) {
+      if(element.isFile){
+        fileList.add(element);
+      } else {
+        folderList.add(element);
+      }
+    });
     notifyListeners();
   }
 

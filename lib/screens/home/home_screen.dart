@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext bc) {
-                    return Container(
+                    return SizedBox(
                       height: MediaQuery.of(context).size.height * .60,
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -85,8 +85,7 @@ class _HomePageState extends State<HomePage> {
                                         width: 100,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            showCreateFolderBottomSheet(context,
-                                                createFolderProviderInstance);
+                                            showCreateFolderBottomSheet(context, createFolderProviderInstance);
                                           },
                                           style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
@@ -313,9 +312,6 @@ class _HomePageState extends State<HomePage> {
                                     const BorderSide(color: Color(0xFF1D55A4)),
                               ),
                             ),
-                            onTap: () {}
-                            // onTap: authProviderInstance.focusEmailTap(),
-
                             ),
                       ],
                     ),

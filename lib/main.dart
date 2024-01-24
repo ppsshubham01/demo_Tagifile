@@ -10,11 +10,7 @@ import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/provider/createFolder_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
-import 'package:tagifiles/screens/verification/email_pending.dart';
-import 'package:tagifiles/screens/verification/email_verify.dart';
-import 'package:tagifiles/screens/verification/two_factor_auth.dart';
 import 'package:tagifiles/services/service.dart';
-import 'package:tagifiles/util/dialog_box.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
