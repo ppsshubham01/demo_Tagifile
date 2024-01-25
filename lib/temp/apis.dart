@@ -86,126 +86,136 @@
 // {
 // "result": [
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "parent_id": 37439,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-11T05:31:05.144888Z",
-// "update_date": "2024-01-11T05:31:05.465245Z",
-// "content_name": "55587lkjhgf4",
-// "content_id": 37298,
-// "content_parent_id": 36206,
+// "create_date": "2024-01-25T06:53:38.974157Z",
+// "update_date": "2024-01-25T06:53:39.304467Z",
+// "content_name": "ssq",
+// "content_id": 37464,
+// "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-11T05:31:05.465286Z",
+// "system_last_modified": "2024-01-25T06:53:39.304507Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": ""
+// "shared_updated_by_name": "",
+// "shared_created_by_username": "",
+// "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "parent_id": 37439,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-11T05:27:55.353652Z",
-// "update_date": "2024-01-11T05:27:55.941476Z",
-// "content_name": "5874",
-// "content_id": 37295,
-// "content_parent_id": 36206,
+// "create_date": "2024-01-25T06:44:54.509082Z",
+// "update_date": "2024-01-25T06:44:55.197406Z",
+// "content_name": "aa",
+// "content_id": 37463,
+// "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-11T05:27:55.941515Z",
+// "system_last_modified": "2024-01-25T06:44:55.197449Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": ""
+// "shared_updated_by_name": "",
+// "shared_created_by_username": "",
+// "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "parent_id": 37439,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-11T05:25:34.263847Z",
-// "update_date": "2024-01-11T05:25:34.621276Z",
-// "content_name": "kk5678",
-// "content_id": 37294,
-// "content_parent_id": 36206,
+// "create_date": "2024-01-24T11:11:48.989212Z",
+// "update_date": "2024-01-24T11:11:49.226163Z",
+// "content_name": "G-an",
+// "content_id": 37462,
+// "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-11T05:25:34.621320Z",
+// "system_last_modified": "2024-01-24T11:11:49.226203Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": ""
+// "shared_updated_by_name": "",
+// "shared_created_by_username": "",
+// "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "parent_id": 37439,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-11T05:04:48.077732Z",
-// "update_date": "2024-01-11T05:04:48.750942Z",
-// "content_name": "abc",
-// "content_id": 37292,
-// "content_parent_id": 36206,
+// "create_date": "2024-01-22T11:05:22.537702Z",
+// "update_date": "2024-01-22T11:05:22.539537Z",
+// "content_name": "tagi-Audio",
+// "content_id": 37452,
+// "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-11T05:04:48.750985Z",
+// "system_last_modified": "2024-01-22T11:05:22.539573Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": ""
+// "shared_updated_by_name": "",
+// "shared_created_by_username": "",
+// "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "parent_id": 37439,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-10T05:27:49.942520Z",
-// "update_date": "2024-01-10T05:27:50.312979Z",
-// "content_name": "abcd",
-// "content_id": 37260,
-// "content_parent_id": 36206,
+// "create_date": "2024-01-19T07:54:31.593625Z",
+// "update_date": "2024-01-19T07:54:31.852500Z",
+// "content_name": "gavar1",
+// "content_id": 37440,
+// "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-10T05:27:50.313019Z",
+// "system_last_modified": "2024-01-19T07:54:31.852528Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": ""
+// "shared_updated_by_name": "",
+// "shared_created_by_username": "",
+// "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 36206,
-// "user_id": 552,
+// "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2023-12-28T05:09:16.623319Z",
-// "update_date": "2023-12-28T05:09:16.891936Z",
-// "content_name": "123",
-// "content_id": 36729,
-// "content_parent_id": 36206,
-// "content_size": 0,
-// "system_last_modified": "2023-12-28T05:09:16.891976Z",
-// "is_file": false,
-// "blocks_count": 0,
-// "is_directory": true,
-// "shared_created_by_name": "",
-// "shared_updated_by_name": ""
-// },
-// {
-// "user_id": 552,
-// "shared_created_by_id": null,
-// "shared_updated_by_id": null,
-// "create_date": "2023-11-22T06:46:13.629619Z",
-// "update_date": "2023-11-22T06:46:16.825832Z",
-// "content_name": "tagifiles-logo_White.svg",
-// "content_id": 193595,
-// "content_size": 2510,
-// "parent_id": 36206,
+// "create_date": "2024-01-24T11:11:03.308167Z",
+// "update_date": "2024-01-24T11:11:05.920146Z",
+// "content_name": "photo-1705318778520-3367daf5ace7.jpg",
+// "content_id": 195890,
+// "content_size": 122779,
+// "parent_id": 37439,
 // "is_file": true,
-// "content_parent_id": 36206,
-// "system_last_modified": "2023-11-22T06:46:16.825865Z",
+// "content_parent_id": 37439,
+// "system_last_modified": "2024-01-24T11:11:05.920178Z",
+// "blocks_count": 1,
+// "is_directory": false,
+// "shared_created_by_name": "",
+// "shared_updated_by_name": ""
+// },
+// {
+// "user_id": 610,
+// "shared_created_by_id": null,
+// "shared_updated_by_id": null,
+// "create_date": "2024-01-19T07:57:06.825433Z",
+// "update_date": "2024-01-19T07:57:09.513936Z",
+// "content_name": "lake.jpg",
+// "content_id": 195723,
+// "content_size": 278910,
+// "parent_id": 37439,
+// "is_file": true,
+// "content_parent_id": 37439,
+// "system_last_modified": "2024-01-19T07:57:09.513970Z",
 // "blocks_count": 1,
 // "is_directory": false,
 // "shared_created_by_name": "",
@@ -213,41 +223,41 @@
 // }
 // ],
 // "path": "",
-// "current_parent": 36206,
+// "current_parent": 37439,
 // "sharing_data": {
-// "193595": {
+// "195890": {
 // "groups": false,
 // "users": false
 // },
-// "D37298": {
+// "195723": {
+// "groups": false,
+// "users": true
+// },
+// "D37464": {
+// "users": true,
+// "groups": false
+// },
+// "D37463": {
 // "users": false,
 // "groups": false
 // },
-// "D37295": {
+// "D37462": {
 // "users": false,
 // "groups": false
 // },
-// "D37294": {
+// "D37452": {
 // "users": false,
 // "groups": false
 // },
-// "D37292": {
-// "users": false,
-// "groups": false
-// },
-// "D37260": {
-// "users": false,
-// "groups": false
-// },
-// "D36729": {
+// "D37440": {
 // "users": false,
 // "groups": false
 // }
 // },
 // "shared_with": [],
 // "page_data": {
-// "count_of_files": 1,
-// "count_of_folders": 6
+// "count_of_files": 2,
+// "count_of_folders": 5
 // }
 // }
 

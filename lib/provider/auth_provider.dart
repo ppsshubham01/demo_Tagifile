@@ -25,19 +25,18 @@ class AuthProvider with ChangeNotifier {
   final TextEditingController forgorPasswordText = TextEditingController();
 
 
-
   /// for focusIcon
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   bool _isSelected = true;
 
   /// for the fetchingData
-  Model ffetchDataafterLogin= Model();
+  Model ffetchDataafterLogin = Model();
   var finalListContentData;
 
   ///
-   List<Result> fileList = [];
-   List<Result> folderList = [];
+  List<Result> fileList = [];
+  List<Result> folderList = [];
 
   /// for signUp method
   void signUpUser(BuildContext context) {
@@ -55,7 +54,7 @@ class AuthProvider with ChangeNotifier {
             context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
       },
       onError: (value) async {
-        loginLoading= false;
+        loginLoading = false;
         notifyListeners();
         PopDialog().showMyDialog(context);
       },
@@ -77,7 +76,7 @@ class AuthProvider with ChangeNotifier {
             context, MaterialPageRoute(builder: (_) => const HomePage()));
       },
       onError: (value) async {
-        loginLoading= false;
+        loginLoading = false;
         notifyListeners();
         PopDialog().showMyDialog(context);
         // await Fluttertoast.showToast(msg: 'LogIn password/email is wrong!', toastLength: Toast.LENGTH_SHORT );
@@ -86,7 +85,7 @@ class AuthProvider with ChangeNotifier {
   }
 
 
-  void forgotPassword(BuildContext context){
+  void forgotPassword(BuildContext context) {
 
     /// Preview for the  save in object new created folder
     // {msg: "Created folder successfully!",…}
@@ -114,7 +113,7 @@ class AuthProvider with ChangeNotifier {
     folderList.clear();
     notifyListeners();
     ffetchDataafterLogin.result?.forEach((element) {
-      if(element.isFile){
+      if (element.isFile) {
         fileList.add(element);
       } else {
         folderList.add(element);
@@ -123,16 +122,16 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void listContentData() async{
+  void listContentData() async {
     final listContentData = await ApiService().fetchListContent();
     finalListContentData = listContentData;
     notifyListeners();
   }
 
 
-
   /// UserDetailProvider
-   UserdetailsModel userdetailsModel = UserdetailsModel();
+  UserdetailsModel userdetailsModel = UserdetailsModel();
+
   UserdetailsModel? get details => userdetailsModel;
 
   Future<void> fetchUserDetails() async {
@@ -140,13 +139,13 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  signInDispose(){
+  signInDispose() {
     emailController2.clear();
     passwordController2.clear();
     // notifyListeners();
   }
 
-  signUpDispose(){
+  signUpDispose() {
     firstNameController.clear();
     lastNameController.clear();
     emailController.clear();
@@ -154,5 +153,47 @@ class AuthProvider with ChangeNotifier {
     // notifyListeners();
   }
 
+
+  ///For the CreateNewFolder
+  final TextEditingController createfoldertext = TextEditingController();
+
+  Future<void> createnewFolder(BuildContext context) async {
+    loginLoading = true;
+    notifyListeners();
+    ApiService().newFolder(
+      foldername: createfoldertext.text,
+      destinationFolderId: ffetchDataafterLogin.currentParent ?? -1,
+      onSuccess: (value) {
+        loginLoading = false;
+        notifyListeners();
+        Navigator.of(context,rootNavigator: true).pop();
+        Navigator.of(context,rootNavigator: true).pop();
+        notifyListeners();
+      },
+      onError: (value) async {
+        loginLoading = false;
+        notifyListeners();
+      },
+    );
+  }
+  /// for deleteFolder
+ Future<void> deleteFolder(BuildContext context) async {
+    loginLoading = true;
+    notifyListeners();
+    ApiService().removeFolder(
+      // files: ,
+      // folders: ,
+      onSuccess: (value) {
+        loginLoading = false;
+        notifyListeners();
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      },
+      onError: (value) async {
+        loginLoading = false;
+        notifyListeners();
+      },
+    );
+  }
 
 }

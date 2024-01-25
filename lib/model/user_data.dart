@@ -63,7 +63,7 @@ class Model {
 class PageData {
   final int? countOfFiles;
   final int? countOfFolders;
-
+// is this for how many files & Folder Have
   PageData({
     this.countOfFiles,
     this.countOfFolders,
@@ -213,7 +213,7 @@ class Result {
 class SharingDatum {
   final bool? groups;
   final bool? users;
-
+// is this for where files/Folder Shared
   SharingDatum({
     this.groups,
     this.users,

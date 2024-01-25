@@ -172,7 +172,6 @@ class _PersonalPageState extends State<PersonalPage>
 
 class MyFilesTab extends StatelessWidget {
   AuthProvider fetchedfterlogin;
-
   MyFilesTab({super.key, required this.fetchedfterlogin});
 
   Widget buildScroll() => const SingleChildScrollView();
@@ -324,19 +323,68 @@ class MyFilesTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Align(
-                    alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.more_vert,
-                      color: Color(0xFF7A7A7A),
-                    )),
-                const Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Icon(
-                      Icons.folder,
-                      size: 50,
-                      color: Color(0xFF1672F3),
-                    )),
+
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     const Padding(
+                         padding: EdgeInsets.only(left: 5),
+                         child: Icon(
+                           Icons.folder,
+                           size: 50,
+                           color: Color(0xFF1672F3),
+                         )),
+                     Align(
+                      alignment: Alignment.centerRight,
+                      child: PopupMenuButton<String>(
+                        onSelected: (value) {
+                          if (value == 'details') {
+                            print('Detailes selected');
+                          } else if (value == 'delete') {
+                            print('Delete selected');
+                          } else if (value == 'rename') {
+                            print('rename selected');
+                          }
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            const PopupMenuItem<String>(
+                              value: 'details',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.info_outline_rounded),
+                                  SizedBox(width: 8),
+                                  Text('Details'),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem<String>(
+                              value: 'delete',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.delete),
+                                  SizedBox(width: 8),
+                                  Text('Delete'),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem<String>(
+                              value: 'rename',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.edit),
+                                  SizedBox(width: 8),
+                                  Text('Rename'),
+                                ],
+                              ),
+                            ),
+                          ];
+                        },
+                      ),
+                                     ),
+                   ],
+                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Row(

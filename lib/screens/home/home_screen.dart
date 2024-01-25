@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/chats/newGroup_page.dart';
 import 'package:tagifiles/screens/home/tabs/collaborate_tab.dart';
 import 'package:tagifiles/screens/home/tabs/new_tab.dart';
 import 'package:tagifiles/screens/home/tabs/personal_tab.dart';
 import 'package:tagifiles/screens/home/tabs/user_tab.dart';
-
-import '../../provider/createFolder_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,8 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final createFolderProviderInstance =
-        Provider.of<CreateFolderProvider>(context);
+    final createFolderProviderInstance = Provider.of<AuthProvider>(context);
 
 
     return Scaffold(
@@ -247,7 +245,7 @@ class _HomePageState extends State<HomePage> {
 
   /// createNew Folder Method
   void showCreateFolderBottomSheet(
-      BuildContext context, CreateFolderProvider createFolderProviderInstance) {
+      BuildContext context, AuthProvider createFolderProviderInstance) {
     // final createfolderProvider= Provider.of<CreateFolderProvider>(context);
     showModalBottomSheet(
       context: context,
@@ -323,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                               if (createFolderProviderInstance
                                   .createfoldertext.text.isNotEmpty) {
                                 print("no Name is there..............................");
-                                createFolderProviderInstance.createFolder(context);
+                                createFolderProviderInstance.createnewFolder(context);
                               }
                               // createfolderProvider.createfoldertext;
                             },

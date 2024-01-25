@@ -82,6 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       right: 0,
                       child: Center(
                         child: CircularProgressIndicator(
+                          backgroundColor: Colors.grey,
                           color: Color(0xFF1D55A4),
                         ),
                       )

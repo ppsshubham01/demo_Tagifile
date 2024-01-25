@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider.value(value: AuthProvider()),
         ChangeNotifierProvider.value(value: ApiService()),
-        ChangeNotifierProvider.value(value: CreateFolderProvider()),
+        // ChangeNotifierProvider.value(value: CreateFolderProvider()),
       ],
       child: Builder(
         builder: (context) {

@@ -79,20 +79,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-#    - splash/
-#      - splash_screen.png (default image)
-#      - splash_screen@2x.png (2x resolution image)
-#      - splash_screen@3x.png (3x resolution image)
       - images/
-#     - images/tegisplash.png
-#     - images/4xTagiback.png
-#     - images/tagilogoWhite.png
-#     - images/tagilogoWhite.svg
-#     - images/google.svg
-#     - images/Facebook.svg
-#     - images/Twitter.svg
-#     - images/loginbgpic.png
-  #   - images/a_dot_ham.jpeg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

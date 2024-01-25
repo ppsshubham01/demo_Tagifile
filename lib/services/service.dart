@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,11 +9,14 @@ import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
 class ApiService with ChangeNotifier {
-
   String? _tokenKey;
-  bool get isToken{
+
+  bool get isToken {
     return _tokenKey != null;
   }
+
+  // flutter_launcher_icons: ^0.13.1
+  //
 
   /// ########################  Login
   Future<void> login({
@@ -65,7 +66,6 @@ class ApiService with ChangeNotifier {
       print('Error: $e');
     }
   }
-
 
   /// ######################## token
   Future<void> saveTokenToPrefs(String token) async {
@@ -120,7 +120,8 @@ class ApiService with ChangeNotifier {
           "folder_sort_order": "ASC"
         }
       });
-      final response = await http.post(url,
+      final response = await http.post(
+        url,
         headers: {
           'Authorization': 'Token $token',
           "Accept": "application/json",
@@ -150,8 +151,6 @@ class ApiService with ChangeNotifier {
     return Model();
   }
 
-
-
   /// #######################ListContent for the contentPath
   Future<Model> fetchListContent() async {
     String? token = await getTokenFromPrefs();
@@ -168,10 +167,7 @@ class ApiService with ChangeNotifier {
         "filter_by": "",
         "content_path": "",
         "only_dirs": false,
-        "page_range": {
-          "pg_from": 0,
-          "pg_to": 100
-        },
+        "page_range": {"pg_from": 0, "pg_to": 100},
         "org_id": null
       });
       final response = await http.post(
@@ -196,12 +192,12 @@ class ApiService with ChangeNotifier {
         print('Fetched data after login: $jsonData');
         return resultData;
       } else {
-        print('Failed to fetch data after login with status: ${response.statusCode}');
+        print(
+            'Failed to fetch data after login with status: ${response.statusCode}');
       }
     }
     return Model();
   }
-
 
   /// ########################  Sign_Up
   Future<void> signup({
@@ -274,7 +270,8 @@ class ApiService with ChangeNotifier {
       'reset_method': resetMethod
     });
     try {
-      Response response = await post(Uri.parse(
+      Response response = await post(
+          Uri.parse(
               'http://192.168.1.142:8001/api/v1/auth/forget_pwd_send_code/'),
           body: forgotServerPayload,
           headers: {'Content-Type': 'application/json;charset=utf-8'});
@@ -301,6 +298,7 @@ class ApiService with ChangeNotifier {
     required ValueSetter onSuccess,
     required ValueSetter onError,
   }) async {
+    String? token = await getTokenFromPrefs();
     String crateserverpayload = json.encode({
       'folder_name': foldername,
       'destination_folder_id': destinationFolderId,
@@ -315,7 +313,10 @@ class ApiService with ChangeNotifier {
           Uri.parse(
               'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/create/'),
           body: crateserverpayload,
-          headers: {'Content-Type': 'application/json'});
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token $token',
+          });
 
       if (response.statusCode == 200) {
         print(response.body);
@@ -329,32 +330,34 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  ///########################## removeFolder
-//   Future<void> removeFolder({
-// // Payload :--------- {files: [], folders: [37295]}
-// //     response:- {"msg":"Successfully deleted","data":{"job_id":-1},"errors":null,"status":200}
-//      }) async{
-//     String removeServerpayload = json.encode({
-//
-//     });
-//     try{
-//       Response response = await post(Uri.parse('http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
-//           body: removeServerpayload,
-//           headers: { 'Content-Type': 'application/json'}
-//          );
-//
-//       if(response.statusCode ==200){
-//         print(response.body);
-//       }else{
-//         print(response.statusCode);
-//         print('------------------');
-//         print(response.body);
-//       }
-//     }catch(e){
-//       print('Folder error!');
-//     }
-//   }
+  /// removeFolder
+// Payload :--------- {files: [], folders: [37295]}
+  Future<void> removeFolder({int? files, int? folders,required ValueSetter onSuccess,
+    required ValueSetter onError,}) async {
+    String? token = await getTokenFromPrefs();
+    String removeServerpayload =
+        json.encode({"files": files, "folders": folders});
+    try {
+      Response response = await post(
+          Uri.parse(
+              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
+          body: removeServerpayload,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token $token',
+          });
 
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print(response.statusCode);
+        print('------------------');
+        print(response.body);
+      }
+    } catch (e) {
+      print('Folder error!');
+    }
+  }
 
   // name: krishna.jpg
   // B_size: 70008
@@ -374,9 +377,8 @@ class ApiService with ChangeNotifier {
     String? file,
     String? orgId,
     String? orgOwnerId,
-     }) async{
+  }) async {
     String uploadServerpayload = json.encode({
-
       'name': name,
       'B_size': bsize,
       'upload_to': uploadTo,
@@ -387,41 +389,42 @@ class ApiService with ChangeNotifier {
       'org_owner_id': orgOwnerId,
     });
 
-    MultipartRequest request = await http.MultipartRequest("POST",Uri.parse(
-          'http://192.168.1.142:8006/tf/core/api/service/dev/v1/personal/content/file/v1/upload/'
-      ),
-          // body: uploadServerpayload,
-          // headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarywi229qlFZwAtkioi'}
-         );
+    MultipartRequest request = await http.MultipartRequest(
+      "POST",
+      Uri.parse(
+          'http://192.168.1.142:8006/tf/core/api/service/dev/v1/personal/content/file/v1/upload/'),
+      // body: uploadServerpayload,
+      // headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarywi229qlFZwAtkioi'}
+    );
     request.files.add(await http.MultipartFile.fromPath("file", "filePath"));
-    StreamedResponse response=await request.send();
-
+    StreamedResponse response = await request.send();
   }
 
-///Ferching userDetails
-  Future<UserdetailsModel> serviceUserDetails()async{
-
+  ///Ferching userDetails
+  Future<UserdetailsModel> serviceUserDetails() async {
     String? userToken = await getTokenFromPrefs();
-     try{
-       Response response = await http.get(Uri.parse("http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/" ),
-           headers: {'Content-Type': 'application/json',
-           'Authorization': 'Token $userToken',
-           },
-       );
-       if(response.statusCode==200) {
-         final responseData = json.decode(response.body);
-         print("==============================================");
-         print(response.body);
-         print(response.statusCode);
-         print(response.headers);
-         return UserdetailsModel.fromJson(responseData);
-       } else{
-         throw Exception('Failed to load user details, status code: ${response.statusCode}');
-       }
-     }catch(error) {
-       throw Exception('an error occurred: $error');
-     }
-}
-
-
+    try {
+      Response response = await http.get(
+        Uri.parse(
+            "http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $userToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        print("==============================================");
+        print(response.body);
+        print(response.statusCode);
+        print(response.headers);
+        return UserdetailsModel.fromJson(responseData);
+      } else {
+        throw Exception(
+            'Failed to load user details, status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('an error occurred: $error');
+    }
+  }
 }
