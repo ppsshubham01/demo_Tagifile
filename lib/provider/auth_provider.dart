@@ -20,10 +20,10 @@ class AuthProvider with ChangeNotifier {
   /// for handling loadingIndigator
   bool loginLoading = false;
   bool signUpLoading = false;
+  bool deleteLoading = false;
 
   /// forgotPassword Emailtext
   final TextEditingController forgorPasswordText = TextEditingController();
-
 
   /// for focusIcon
   final FocusNode _emailFocusNode = FocusNode();
@@ -54,7 +54,7 @@ class AuthProvider with ChangeNotifier {
             context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
       },
       onError: (value) async {
-        loginLoading = false;
+        signUpLoading = false;
         notifyListeners();
         PopDialog().showMyDialog(context);
       },
@@ -84,9 +84,7 @@ class AuthProvider with ChangeNotifier {
     );
   }
 
-
   void forgotPassword(BuildContext context) {
-
     /// Preview for the  save in object new created folder
     // {msg: "Created folder successfully!",…}
     // data: {is_directory: true, content_name: "abc", content_size: 0, content_id: 37292, content_thumbnails: [],…}
@@ -101,10 +99,9 @@ class AuthProvider with ChangeNotifier {
     // errors: null
     // msg: "Created folder successfully!"
     // status: 201
-    ApiService().forgotPassword(
-        forgotPasswordEmailPhone: forgorPasswordText.text);
+    ApiService()
+        .forgotPassword(forgotPasswordEmailPhone: forgorPasswordText.text);
   }
-
 
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
@@ -127,7 +124,6 @@ class AuthProvider with ChangeNotifier {
     finalListContentData = listContentData;
     notifyListeners();
   }
-
 
   /// UserDetailProvider
   UserdetailsModel userdetailsModel = UserdetailsModel();
@@ -153,7 +149,6 @@ class AuthProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-
   ///For the CreateNewFolder
   final TextEditingController createfoldertext = TextEditingController();
 
@@ -166,28 +161,9 @@ class AuthProvider with ChangeNotifier {
       onSuccess: (value) {
         loginLoading = false;
         notifyListeners();
-        Navigator.of(context,rootNavigator: true).pop();
-        Navigator.of(context,rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop();
         notifyListeners();
-      },
-      onError: (value) async {
-        loginLoading = false;
-        notifyListeners();
-      },
-    );
-  }
-  /// for deleteFolder
- Future<void> deleteFolder(BuildContext context) async {
-    loginLoading = true;
-    notifyListeners();
-    ApiService().removeFolder(
-      // files: ,
-      // folders: ,
-      onSuccess: (value) {
-        loginLoading = false;
-        notifyListeners();
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
       },
       onError: (value) async {
         loginLoading = false;
@@ -196,4 +172,27 @@ class AuthProvider with ChangeNotifier {
     );
   }
 
+  /// for deleteFolder
+  Future<void> deleteFolder({
+    required BuildContext context,
+    int? fileId,
+    int? folderId,
+  }) async {
+    deleteLoading = true;
+    notifyListeners();
+    ApiService().removeFolder(
+      files: fileId,
+      folders: folderId,
+      onSuccess: (value) {
+        deleteLoading = false;
+        // fileList.removeWhere((element) => element.contentId == fileId);
+        // folderList.removeWhere((element) => element.contentId == fileId);
+        notifyListeners();
+      },
+      onError: (value) async {
+        deleteLoading = false;
+        notifyListeners();
+      },
+    );
+  }
 }

@@ -132,3 +132,120 @@
 // </dict>
 // </dict>
 // </array>
+
+
+
+
+
+
+
+
+
+//
+//
+// To achieve the desired effect of displaying a line in a `DialogBox` in Flutter that gradually decreases in length over a 5-second duration, you can use the `AnimatedBuilder` widget along with the `Tween` and `AnimationController` classes. Here's a simple example to get you started:
+//
+// ```dart
+// import 'package:flutter/material.dart';
+//
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyDialog(),
+//     );
+//   }
+// }
+//
+// class MyDialog extends StatefulWidget {
+//   @override
+//   _MyDialogState createState() => _MyDialogState();
+// }
+//
+// class _MyDialogState extends State<MyDialog> with TickerProviderStateMixin {
+//   late AnimationController _controller;
+//   late Animation<double> _animation;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     // Create AnimationController
+//     _controller = AnimationController(
+//       vsync: this,
+//       duration: Duration(seconds: 5),
+//     );
+//
+//     // Create Tween for the line length
+//     Tween<double> _tween = Tween<double>(begin: 100.0, end: 0.0);
+//
+//     // Create Animation using Tween and AnimationController
+//     _animation = _tween.animate(_controller);
+//
+//     // Start the animation
+//     _controller.forward();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Line Animation Dialog'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () {
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) {
+//                 return AlertDialog(
+//                   content: MyAnimatedLine(animation: _animation),
+//                 );
+//               },
+//             );
+//           },
+//           child: Text('Show Dialog'),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+// }
+//
+// class MyAnimatedLine extends StatelessWidget {
+//   final Animation<double> animation;
+//
+//   MyAnimatedLine({required this.animation});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AnimatedBuilder(
+//       animation: animation,
+//       builder: (context, child) {
+//         return Container(
+//           height: 2.0, // Fixed height for the line
+//           width: animation.value,
+//           color: Colors.blue,
+//         );
+//       },
+//     );
+//   }
+// }
+// ```
+//
+// In this example:
+//
+// 1. `MyDialog` is a `StatefulWidget` that contains the `AnimationController` and initializes it in the `initState` method.
+// 2. The `MyAnimatedLine` widget is responsible for building the line based on the current value of the animation. It uses an `AnimatedBuilder` to rebuild the widget when the animation value changes.
+// 3. When the "Show Dialog" button is pressed, it triggers the display of an `AlertDialog` with the animated line.
+//
+// Feel free to customize the code according to your specific requirements.

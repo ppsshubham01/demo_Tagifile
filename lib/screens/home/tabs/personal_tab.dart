@@ -170,9 +170,16 @@ class _PersonalPageState extends State<PersonalPage>
   }
 }
 
-class MyFilesTab extends StatelessWidget {
+class MyFilesTab extends StatefulWidget {
   AuthProvider fetchedfterlogin;
   MyFilesTab({super.key, required this.fetchedfterlogin});
+
+  @override
+  State<MyFilesTab> createState() => _MyFilesTabState();
+}
+
+class _MyFilesTabState extends State<MyFilesTab> {
+  bool isList = false;
 
   Widget buildScroll() => const SingleChildScrollView();
 
@@ -185,8 +192,8 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         padding: const EdgeInsets.only(top: 0.5),
-        itemCount: fetchedfterlogin.ffetchDataafterLogin.result != null
-            ? fetchedfterlogin.fileList.length
+        itemCount: widget.fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? widget.fetchedfterlogin.fileList.length
             : 0,
         itemBuilder: (context, index) {
           // if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
@@ -233,7 +240,7 @@ class MyFilesTab extends StatelessWidget {
                       SizedBox(
                         width: 80,
                         child: Text(
-                          fetchedfterlogin.fileList[index].contentName.toString(),
+                          widget.fetchedfterlogin.fileList[index].contentName.toString(),
                           // fetchedfterlogin.ffetchDataafterLogin.result!.,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -307,8 +314,8 @@ class MyFilesTab extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemCount:
-        fetchedfterlogin.ffetchDataafterLogin.result != null
-            ? fetchedfterlogin.folderList.length
+        widget.fetchedfterlogin.ffetchDataafterLogin.result != null
+            ? widget.fetchedfterlogin.folderList.length
             : 0,
         itemBuilder: (context, index) {
           // if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
@@ -323,7 +330,6 @@ class MyFilesTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
@@ -358,14 +364,19 @@ class MyFilesTab extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const PopupMenuItem<String>(
+                             PopupMenuItem<String>(
                               value: 'delete',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.delete),
-                                  SizedBox(width: 8),
-                                  Text('Delete'),
-                                ],
+                              child: GestureDetector(
+                                onTap: () {
+                                  widget.fetchedfterlogin.deleteFolder(context: context,folderId: widget.fetchedfterlogin.folderList[index].contentId );
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.delete),
+                                    SizedBox(width: 8),
+                                    Text('Delete'),
+                                  ],
+                                ),
                               ),
                             ),
                             const PopupMenuItem<String>(
@@ -391,7 +402,7 @@ class MyFilesTab extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          fetchedfterlogin.folderList[index].contentName.toString(),
+                          widget.fetchedfterlogin.folderList[index].contentName.toString(),
                           style: const TextStyle(
                               overflow: TextOverflow.ellipsis,
                               color: Color(0xFF7A7A7A)),
@@ -469,7 +480,11 @@ class MyFilesTab extends StatelessWidget {
                 ),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      isList = !isList;
+                    });
+                  },
                   icon: const Icon(
                     Icons.grid_view_rounded,
                     color: Color(0xFF1672F3),
@@ -502,13 +517,16 @@ class MyFilesTab extends StatelessWidget {
                           fontSize: 14),
                     ),
                   ),
-                  Container(
+                  widget.fetchedfterlogin.deleteLoading ? Center(
+                    child: CircularProgressIndicator(),
+                  ) : Container(
                     width: double.infinity,
                     height: 350,
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10, top: 8.0, bottom: 8.0),
-                      child: buildFolderGrid(),
+                      child:  buildFolderGrid(),
+                      // child: isList ? buildFolderList() : buildFolderGrid(),
                     ),
                   ),
                 ],

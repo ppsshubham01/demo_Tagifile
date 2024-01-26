@@ -9,7 +9,7 @@ import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
 class ApiService with ChangeNotifier {
-  String? _tokenKey;
+  String? _tokenKey = 'jaimin';
 
   bool get isToken {
     return _tokenKey != null;
@@ -320,13 +320,15 @@ class ApiService with ChangeNotifier {
 
       if (response.statusCode == 200) {
         print(response.body);
+        onSuccess.call(response.body);
       } else {
         print(response.statusCode);
         print('--------------------------------------------------------------');
         print(response.body);
       }
     } catch (e) {
-      print('Folder error'!);
+      onError.call('Error Occurred!');
+      print('Folder error!');
     }
   }
 
@@ -358,6 +360,33 @@ class ApiService with ChangeNotifier {
       print('Folder error!');
     }
   }
+
+  // Future<void> removeFolder({int? files, int? folders,required ValueSetter onSuccess,
+  //   required ValueSetter onError,}) async {
+  //   String? token = await getTokenFromPrefs();
+  //   String removeServerpayload =
+  //       json.encode({"files": [files], "folders": [folders]});
+  //   try {
+  //     Response response = await post(
+  //         Uri.parse(
+  //             'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
+  //         body: removeServerpayload,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Token $token',
+  //         });
+  //
+  //     if (response.statusCode == 200) {
+  //       print(response.body);
+  //     } else {
+  //       print(response.statusCode);
+  //       print('------------------');
+  //       print(response.body);
+  //     }
+  //   } catch (e) {
+  //     print('Folder error!');
+  //   }
+  // }
 
   // name: krishna.jpg
   // B_size: 70008
