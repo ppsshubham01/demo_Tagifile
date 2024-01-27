@@ -90,6 +90,53 @@
 // Content-Type:image/jpeg
 // Authorization   : Token 1964569068594f476e89391f6bc86f5925e8c085
 
+//Detailos for files jpd or else
+// http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/file/v1/get/195723/
+//
+// Get method
+//
+// Content-Type:application/json
+// Authorization:
+// Token 1964569068594f476e89391f6bc86f5925e8c085
+//
+// Preview
+//
+// data: {is_directory: false, content_name: "lake.jpg", content_size: 278910, content_type: "image/jpeg",…}
+// content_id: 195723
+// content_name: "lake.jpg"
+// content_parent_id: 37439
+// content_path: "Tagifiles/"
+// content_size: 278910
+// content_thumbnails: []
+// content_type: "image/jpeg"
+// create_date: "2024-01-19T07:57:06.825433Z"
+// in_org: false
+// is_directory: false
+// org_id: -1
+// update_date: "2024-01-19T07:57:09.513936Z"
+// msg: "Successfully fetched content!"
+// status: 200
+//
+//
+// Response
+// {
+// "status": 200,
+// "msg": "Successfully fetched content!",
+// "data": {
+// "is_directory": false,
+// "content_name": "lake.jpg",
+// "content_size": 278910,
+// "content_type": "image/jpeg",
+// "content_id": 195723,
+// "content_thumbnails": [],
+// "content_parent_id": 37439,
+// "content_path": "Tagifiles/",
+// "create_date": "2024-01-19T07:57:06.825433Z",
+// "update_date": "2024-01-19T07:57:09.513936Z",
+// "in_org": false,
+// "org_id": -1
+// }
+// }
 
 
 
