@@ -21,6 +21,7 @@ class AuthProvider with ChangeNotifier {
   bool loginLoading = false;
   bool signUpLoading = false;
   bool deleteLoading = false;
+  bool createFolderLoading = false;
 
   /// forgotPassword Emailtext
   final TextEditingController forgorPasswordText = TextEditingController();
@@ -56,7 +57,7 @@ class AuthProvider with ChangeNotifier {
       onError: (value) async {
         signUpLoading = false;
         notifyListeners();
-        PopDialog().showMyDialog(context);
+        PopDialog().signupMyDialog(context);
       },
     );
   }
@@ -153,20 +154,20 @@ class AuthProvider with ChangeNotifier {
   final TextEditingController createfoldertext = TextEditingController();
 
   Future<void> createnewFolder(BuildContext context) async {
-    loginLoading = true;
+    createFolderLoading = true;
     notifyListeners();
     ApiService().newFolder(
       foldername: createfoldertext.text,
       destinationFolderId: ffetchDataafterLogin.currentParent ?? -1,
       onSuccess: (value) {
-        loginLoading = false;
+        createFolderLoading = false;
         notifyListeners();
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.of(context, rootNavigator: true).pop();
         notifyListeners();
       },
       onError: (value) async {
-        loginLoading = false;
+        createFolderLoading = false;
         notifyListeners();
       },
     );

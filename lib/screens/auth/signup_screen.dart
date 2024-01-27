@@ -74,20 +74,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Image.asset("images/cityskyline.png",
                           height: 180)),
 
-                  /// Circlular Logic
-                  const Positioned(
-                      top: 0,
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.grey,
-                          color: Color(0xFF1D55A4),
-                        ),
-                      )
-                  ),
-
                   Positioned(
                     top: 160,
                     left: 0,
@@ -369,9 +355,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           /// signUpButton
                           authProviderInstance.signUpLoading ? const Center(
                             child: CircularProgressIndicator(
-                              color: Colors.red,
+                              backgroundColor: Colors.grey,
+                              color: Color(0xFF1D55A4),
                             ),
-                          ) :
+                          ): const SizedBox(),
+
                           Container(
                             width: double.infinity,
                             margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -381,11 +369,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                 if (formKey.currentState!.validate()) {
                                   authProviderInstance.signUpUser(context);
                                   // print("Validated");
-                                } else {
+                                }
+                                // else {
                                   // Navigator.push(context, MaterialPageRoute(
                                   //     builder: (_) => const EmailPending()));
                                   // print("Not Validated");
-                                }
+                                // }
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color((0xFF1D55A4)),

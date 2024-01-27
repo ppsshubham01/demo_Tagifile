@@ -174,4 +174,49 @@ class PopDialog {
     );
   }
 
+  // SignUPFail DialogBox
+  Future<void> signupMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+          child: SizedBox(
+            height: 160,
+            width: double.infinity,
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)
+              ),
+              backgroundColor: Colors.black.withOpacity(0.7),
+              // title: const Center(child: Icon(Icons.close,color: Colors.white,size: 30,)),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.close, color: Colors.white, size: 40),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                    const Text(
+                      'Error: your email already exist!',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }

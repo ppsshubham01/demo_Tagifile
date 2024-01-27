@@ -255,7 +255,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               color: Color(0xFF1D55A4),
                             ),
                           )
-                              : SizedBox(),
+                              : const SizedBox(),
 
                           /// LogIn Buttom
                           // authProviderInstance.loginLoading ? const CircularProgressIndicator(

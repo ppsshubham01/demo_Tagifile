@@ -370,7 +370,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                 onTap: () {
                                   widget.fetchedfterlogin.deleteFolder(context: context,folderId: widget.fetchedfterlogin.folderList[index].contentId );
                                 },
-                                child: Row(
+                                child: const Row(
                                   children: [
                                     Icon(Icons.delete),
                                     SizedBox(width: 8),
@@ -517,9 +517,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           fontSize: 14),
                     ),
                   ),
-                  widget.fetchedfterlogin.deleteLoading ? Center(
+                  widget.fetchedfterlogin.deleteLoading ? const Center(
                     child: CircularProgressIndicator(),
-                  ) : Container(
+                  ) : SizedBox(
                     width: double.infinity,
                     height: 350,
                     child: Padding(

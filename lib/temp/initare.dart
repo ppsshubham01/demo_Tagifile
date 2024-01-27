@@ -17,7 +17,13 @@
 // Referer:http://192.168.1.142:3000/
 // User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 //
-//
+//Preview
+// data: {upload_tracker_key: "4baf391d-483f-4a9c-8ec2-a63b92f76e88", target_id: 37439}
+// target_id: 37439
+// upload_tracker_key: "4baf391d-483f-4a9c-8ec2-a63b92f76e88"
+// msg: "Successfully created upload tracker."
+// status: 200
+
 // Response
 // {
 //     "status": 200,
@@ -28,6 +34,8 @@
 //     }
 // }
 //
+
+
 // Upload
 // http://192.168.1.142:8006/tf/core/api/service/dev/v1/personal/content/file/v1/upload/
 // POST
@@ -69,7 +77,19 @@
 // sort_by: "NULL"
 // sort_order: "NULL"
 
-// dETAILS
+
+
+// thubNail
+
+// http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/195914/
+// Get method
+
+// in this last one is content-id
+
+// Content-Length:6442
+// Content-Type:image/jpeg
+// Authorization   : Token 1964569068594f476e89391f6bc86f5925e8c085
+
 
 
 
