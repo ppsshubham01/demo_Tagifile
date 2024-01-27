@@ -58,10 +58,13 @@ class _UserPageState extends State<UserPage> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                userDetailProvider?.data?.primary?.firstName ??
-                                    '',
-                                style: const TextStyle(color: Colors.white),
+                              Flexible(
+                                child: Text(
+                                  userDetailProvider?.data?.primary?.firstName ??
+                                      '',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
                               ),SizedBox(
                                 width: 2,
                               ),

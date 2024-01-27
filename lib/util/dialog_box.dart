@@ -182,6 +182,7 @@ class PopDialog {
       builder: (BuildContext context) {
         return Center(
           child: SizedBox(
+
             height: 160,
             width: double.infinity,
             child: AlertDialog(

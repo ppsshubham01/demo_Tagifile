@@ -32,6 +32,13 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final createFolderProviderInstance = Provider.of<AuthProvider>(context);
 

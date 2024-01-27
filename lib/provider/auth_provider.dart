@@ -160,10 +160,12 @@ class AuthProvider with ChangeNotifier {
       foldername: createfoldertext.text,
       destinationFolderId: ffetchDataafterLogin.currentParent ?? -1,
       onSuccess: (value) {
+        print("folder create succesfully");
         createFolderLoading = false;
-        notifyListeners();
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context, rootNavigator: true).pop();
+        fetchDataaafterLogin();
+        // notifyListeners();
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
         notifyListeners();
       },
       onError: (value) async {
@@ -176,8 +178,8 @@ class AuthProvider with ChangeNotifier {
   /// for deleteFolder
   Future<void> deleteFolder({
     required BuildContext context,
-    int? fileId,
-    int? folderId,
+    List<int>? fileId,
+    List<int>? folderId,
   }) async {
     deleteLoading = true;
     notifyListeners();
@@ -196,4 +198,9 @@ class AuthProvider with ChangeNotifier {
       },
     );
   }
+
+  Future<void> thumNail()async{
+
+    ApiService().thumbNail();
+}
 }

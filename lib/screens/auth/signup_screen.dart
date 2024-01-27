@@ -358,7 +358,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               backgroundColor: Colors.grey,
                               color: Color(0xFF1D55A4),
                             ),
-                          ): const SizedBox(),
+                          ): const SizedBox.shrink(),
 
                           Container(
                             width: double.infinity,

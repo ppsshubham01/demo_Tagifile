@@ -142,7 +142,7 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       
-        body:   SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Container(
             color: const Color(0xFDFEDEFF3),
             child: SingleChildScrollView(

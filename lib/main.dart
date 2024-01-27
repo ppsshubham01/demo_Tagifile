@@ -11,12 +11,16 @@ import 'package:tagifiles/provider/createFolder_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/services/service.dart';
+import 'package:tagifiles/util/local_notification.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding)
+  LocalNotificationService.initialize();
+
   await Future.delayed(const Duration(seconds: 1));
   FlutterNativeSplash.remove();
+
   // String? tokenKey = await ApiService().getTokenFromPrefs();
 
   runApp(MyApp());

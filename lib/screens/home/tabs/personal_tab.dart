@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/util/local_notification.dart';
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
@@ -46,7 +47,7 @@ class _PersonalPageState extends State<PersonalPage>
     // TODO: implement initState
     // AuthProvider().fetchDataaafterLogin();
     //AuthProvider().ffetchDataafterLogin();
-    Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
+    // Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
     super.initState();
   }
 
@@ -82,7 +83,7 @@ class _PersonalPageState extends State<PersonalPage>
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0))),
+                        const BorderSide(color: Colors.white, width: 2.0))),
                 expands: false,
               ),
             ),
@@ -93,7 +94,9 @@ class _PersonalPageState extends State<PersonalPage>
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // LocalNotificationService.display('titleText', 'bodyText');
+              },
               child: const Icon(
                 Icons.notifications_none,
                 color: Colors.white,
@@ -120,14 +123,14 @@ class _PersonalPageState extends State<PersonalPage>
                 // controller: _tabController,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
-                    // color: const Color(0xFF1D55A4),
+                  // color: const Color(0xFF1D55A4),
                     color: const Color(0xFF1D55A4),
                     borderRadius: BorderRadius.circular(5.0)),
                 tabs: const [
                   Tab(
                       child: Text(
-                    "My Files",
-                  )),
+                        "My Files",
+                      )),
                   Tab(
                     child: Text(
                       "Shared Files",
@@ -172,6 +175,7 @@ class _PersonalPageState extends State<PersonalPage>
 
 class MyFilesTab extends StatefulWidget {
   AuthProvider fetchedfterlogin;
+
   MyFilesTab({super.key, required this.fetchedfterlogin});
 
   @override
@@ -180,11 +184,15 @@ class MyFilesTab extends StatefulWidget {
 
 class _MyFilesTabState extends State<MyFilesTab> {
   bool isList = false;
+  bool isSelectable = false;
+  List<int>? selectedFolderItems = [];
+  List<int>? selectedFileItems = [];
 
   Widget buildScroll() => const SingleChildScrollView();
 
   /// Upper Image List
-  Widget buildGrid() => GridView.builder(
+  Widget buildGrid() =>
+      GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.7,
           crossAxisCount: 2,
@@ -201,7 +209,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
             height: 150,
             width: 50,
             padding:
-                const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+            const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
             decoration: BoxDecoration(
               // color: Colors.blue,
               border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
@@ -229,7 +237,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   width: double.infinity,
                   margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
                   color: Colors.red,
-
+                  child: Image.network(
+                      'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget
+                          .fetchedfterlogin.folderList[index].contentId}/'),
                   // NetworkImage('https://source.unsplash.com/random?sig=$index'),
                 ),
                 Container(
@@ -240,7 +250,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                       SizedBox(
                         width: 80,
                         child: Text(
-                          widget.fetchedfterlogin.fileList[index].contentName.toString(),
+                          widget.fetchedfterlogin.fileList[index].contentName
+                              .toString(),
                           // fetchedfterlogin.ffetchDataafterLogin.result!.,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -306,127 +317,183 @@ class _MyFilesTabState extends State<MyFilesTab> {
       );
 
   /// FolderList
-  Widget buildFolderGrid() => GridView.builder(
+  Widget buildFolderGrid() =>
+      GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.95,
           crossAxisCount: 3,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount:
-        widget.fetchedfterlogin.ffetchDataafterLogin.result != null
+        // itemCount: 5,
+        itemCount: widget.fetchedfterlogin.ffetchDataafterLogin.result != null
             ? widget.fetchedfterlogin.folderList.length
             : 0,
         itemBuilder: (context, index) {
           // if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
           // }
-          return Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     const Padding(
-                         padding: EdgeInsets.only(left: 5),
-                         child: Icon(
-                           Icons.folder,
-                           size: 50,
-                           color: Color(0xFF1672F3),
-                         )),
-                     Align(
-                      alignment: Alignment.centerRight,
-                      child: PopupMenuButton<String>(
-                        onSelected: (value) {
-                          if (value == 'details') {
-                            print('Detailes selected');
-                          } else if (value == 'delete') {
-                            print('Delete selected');
-                          } else if (value == 'rename') {
-                            print('rename selected');
-                          }
-                        },
-                        itemBuilder: (BuildContext context) {
-                          return [
-                            const PopupMenuItem<String>(
-                              value: 'details',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.info_outline_rounded),
-                                  SizedBox(width: 8),
-                                  Text('Details'),
-                                ],
-                              ),
-                            ),
-                             PopupMenuItem<String>(
-                              value: 'delete',
-                              child: GestureDetector(
-                                onTap: () {
-                                  widget.fetchedfterlogin.deleteFolder(context: context,folderId: widget.fetchedfterlogin.folderList[index].contentId );
-                                },
-                                child: const Row(
+
+          bool isSelected = selectedFolderItems?.contains(
+              widget.fetchedfterlogin.folderList[index].contentId) ??
+              false;
+
+          // bool isSelected = selectedFolderItems?.contains(index) ??
+          //     false;
+
+          return GestureDetector(
+            // onLongPress: () {
+            //   setState(() {
+            //     isSelectable = true;
+            //     if (isSelected) {
+            //       selectedFolderItems?.remove(index);
+            //     } else {
+            //       selectedFolderItems?.add(index);
+            //     }
+            //   });
+            // },
+            onTap: () {
+              if (isSelectable) {
+                if (isSelected) {
+                  setState(() {
+                    selectedFolderItems?.remove(widget
+                        .fetchedfterlogin.folderList[index].contentId!
+                        .toInt());
+                  });
+                } else {
+                  // selectedFolderItems?.add(widget.fetchedfterlogin.folderList[index].contentId!.toInt());
+                  setState(() {
+                    selectedFolderItems?.add(widget
+                        .fetchedfterlogin.folderList[index].contentId!
+                        .toInt());
+                  });
+                }
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: isSelected ? Colors.blueAccent : Colors.white,
+                border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Icon(
+                            Icons.folder,
+                            size: 50,
+                            color: Color(0xFF1672F3),
+                          )),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            if (value == 'details') {
+                              print('Detailes selected');
+                            } else if (value == 'delete') {
+                              print('Delete selected');
+                            } else if (value == 'rename') {
+                              print('rename selected');
+                            }
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return [
+                              const PopupMenuItem<String>(
+                                value: 'details',
+                                child: Row(
                                   children: [
-                                    Icon(Icons.delete),
+                                    Icon(Icons.info_outline_rounded),
                                     SizedBox(width: 8),
-                                    Text('Delete'),
+                                    Text('Details'),
                                   ],
                                 ),
                               ),
-                            ),
-                            const PopupMenuItem<String>(
-                              value: 'rename',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.edit),
-                                  SizedBox(width: 8),
-                                  Text('Rename'),
-                                ],
+                              PopupMenuItem<String>(
+                                value: 'delete',
+                                child: GestureDetector(
+                                  onTap: () {
+                                    widget.fetchedfterlogin.deleteFolder(
+                                        context: context,
+                                        folderId: [
+                                          widget.fetchedfterlogin
+                                              .folderList[index].contentId!
+                                              .toInt()
+                                        ]);
+                                    // Navigator.of(context).pop();
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.delete),
+                                      SizedBox(width: 8),
+                                      Text('Delete'),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ];
-                        },
-                      ),
-                                     ),
-                   ],
-                 ),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          widget.fetchedfterlogin.folderList[index].contentName.toString(),
-                          style: const TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              color: Color(0xFF7A7A7A)),
+                              const PopupMenuItem<String>(
+                                value: 'rename',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.edit),
+                                    SizedBox(width: 8),
+                                    Text('Rename'),
+                                  ],
+                                ),
+                              ),
+                            ];
+                          },
                         ),
                       ),
-                      const Spacer(),
-                      const Icon(
-                        Icons.mobile_screen_share,
-                        color: Color(0xFF566476),
-                      )
                     ],
                   ),
-                ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      '27/06/2002',
-                      style: TextStyle(color: Color(0xFFBEBEBE)),
-                    )),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            widget
+                                .fetchedfterlogin.folderList[index].contentName
+                                .toString(),
+                            style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                color: Color(0xFF7A7A7A)),
+                          ),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.mobile_screen_share,
+                          color: Color(0xFF566476),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        '27/06/2002',
+                        style: TextStyle(color: Color(0xFFBEBEBE)),
+                      )),
+                ],
+              ),
             ),
           );
         },
       );
+
+  int get selectedItemCount {
+    int fileCount =
+    selectedFileItems!.isNotEmpty ? selectedFileItems!.length : 0;
+    int folderCount =
+    selectedFolderItems!.isNotEmpty ? selectedFolderItems!.length : 0;
+    int itemCount = fileCount + folderCount;
+    return itemCount;
+  }
 
   String dropDownList = 'Date';
 
@@ -479,16 +546,57 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   }).toList(),
                 ),
               ),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isList = !isList;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.grid_view_rounded,
-                    color: Color(0xFF1672F3),
-                  ))
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      selectedItemCount > 0
+                          ? GestureDetector(
+                        onTap: () {
+                          widget.fetchedfterlogin.deleteFolder(
+                            context: context,
+                            fileId: selectedFileItems,
+                            folderId: selectedFolderItems,
+                          );
+                        },
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                      )
+                          : SizedBox.shrink(),
+                      selectedItemCount > 0
+                          ? Text(
+                        '$selectedItemCount selected',
+                        style: TextStyle(fontSize: 16),
+                      )
+                          : SizedBox.shrink(),
+                      Checkbox(
+                        value: isSelectable,
+                        onChanged: (value) {
+                          setState(() {
+                            isSelectable = !isSelectable;
+                            if (!isSelectable) {
+                              selectedFileItems?.clear();
+                              selectedFolderItems?.clear();
+                            }
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isList = !isList;
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.grid_view_rounded,
+                        color: Color(0xFF1672F3),
+                      )),
+                ],
+              )
             ],
           ),
         ),
@@ -517,15 +625,17 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           fontSize: 14),
                     ),
                   ),
-                  widget.fetchedfterlogin.deleteLoading ? const Center(
+                  widget.fetchedfterlogin.deleteLoading
+                      ? const Center(
                     child: CircularProgressIndicator(),
-                  ) : SizedBox(
+                  )
+                      : SizedBox(
                     width: double.infinity,
                     height: 350,
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10, top: 8.0, bottom: 8.0),
-                      child:  buildFolderGrid(),
+                      child: buildFolderGrid(),
                       // child: isList ? buildFolderList() : buildFolderGrid(),
                     ),
                   ),

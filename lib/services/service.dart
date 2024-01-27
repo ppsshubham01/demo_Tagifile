@@ -9,7 +9,8 @@ import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
 class ApiService with ChangeNotifier {
-  String? _tokenKey = 'jaimin';
+
+  String? _tokenKey;
 
   bool get isToken {
     return _tokenKey != null;
@@ -227,14 +228,15 @@ class ApiService with ChangeNotifier {
         headers: {"Content-Type": "application/json"},
       );
       // print("++++++++++++++++++++++++++++++++++++++");
-      // print(response.body);
-      // print(response.statusCode);
+      print(response.body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         print(response.body);
         onSuccess.call(response.body);
-      } else {
+      } else if (response.statusCode == 400){
         print(response.body);
         print(response.statusCode);
+        onError.call("");
       }
     } catch (e) {
       onError.call("");
@@ -318,13 +320,14 @@ class ApiService with ChangeNotifier {
             'Authorization': 'Token $token',
           });
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         print(response.body);
-        onSuccess.call(response.body);
+        onSuccess.call('');
       } else {
         print(response.statusCode);
         print('--------------------------------------------------------------');
         print(response.body);
+        onError.call("");
       }
     } catch (e) {
       onError.call('Error Occurred!');
@@ -361,11 +364,17 @@ class ApiService with ChangeNotifier {
 //     }
 //   }
 
-  Future<void> removeFolder({int? files, int? folders,required ValueSetter onSuccess,
-    required ValueSetter onError,}) async {
+  Future<void> removeFolder({
+    List<int>? files,
+    List<int>? folders,
+    required ValueSetter onSuccess,
+    required ValueSetter onError,
+  }) async {
     String? token = await getTokenFromPrefs();
-    String removeServerpayload =
-        json.encode({"files": [files], "folders": [folders]});
+    String removeServerpayload = json.encode({
+      "files": [files],
+      "folders": [folders]
+    });
     try {
       Response response = await post(
           Uri.parse(
@@ -451,6 +460,28 @@ class ApiService with ChangeNotifier {
       } else {
         throw Exception(
             'Failed to load user details, status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('an error occurred: $error');
+    }
+  }
+
+  Future<void> thumbNail() async {
+    String? userToken = await getTokenFromPrefs();
+    try {
+      Response response = await http.get(
+        Uri.parse(
+            "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/195914/"),
+        headers: {
+          'Content-Type': 'image/jpeg',
+          'Authorization': 'Token $userToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        throw Exception(
+            'Failed to load images, status code: ${response.statusCode}');
       }
     } catch (error) {
       throw Exception('an error occurred: $error');
