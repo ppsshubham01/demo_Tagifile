@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
+
+import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
 
@@ -452,7 +452,6 @@ class ApiService with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        print("==============================================");
         print(response.body);
         print(response.statusCode);
         print(response.headers);

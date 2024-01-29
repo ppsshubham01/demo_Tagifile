@@ -90,13 +90,13 @@
 // "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-25T06:53:38.974157Z",
-// "update_date": "2024-01-25T06:53:39.304467Z",
-// "content_name": "ssq",
-// "content_id": 37464,
+// "create_date": "2024-01-29T06:38:21.271123Z",
+// "update_date": "2024-01-29T06:38:21.867282Z",
+// "content_name": "daq",
+// "content_id": 37492,
 // "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-25T06:53:39.304507Z",
+// "system_last_modified": "2024-01-29T06:38:21.867326Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
@@ -110,33 +110,13 @@
 // "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-25T06:44:54.509082Z",
-// "update_date": "2024-01-25T06:44:55.197406Z",
-// "content_name": "aa",
-// "content_id": 37463,
+// "create_date": "2024-01-28T05:27:40.737354Z",
+// "update_date": "2024-01-28T05:27:41.513071Z",
+// "content_name": "shubh",
+// "content_id": 37484,
 // "content_parent_id": 37439,
 // "content_size": 0,
-// "system_last_modified": "2024-01-25T06:44:55.197449Z",
-// "is_file": false,
-// "blocks_count": 0,
-// "is_directory": true,
-// "shared_created_by_name": "",
-// "shared_updated_by_name": "",
-// "shared_created_by_username": "",
-// "shared_updated_by_username": ""
-// },
-// {
-// "parent_id": 37439,
-// "user_id": 610,
-// "shared_created_by_id": null,
-// "shared_updated_by_id": null,
-// "create_date": "2024-01-24T11:11:48.989212Z",
-// "update_date": "2024-01-24T11:11:49.226163Z",
-// "content_name": "G-an",
-// "content_id": 37462,
-// "content_parent_id": 37439,
-// "content_size": 0,
-// "system_last_modified": "2024-01-24T11:11:49.226203Z",
+// "system_last_modified": "2024-01-28T05:27:41.513113Z",
 // "is_file": false,
 // "blocks_count": 0,
 // "is_directory": true,
@@ -166,24 +146,22 @@
 // "shared_updated_by_username": ""
 // },
 // {
-// "parent_id": 37439,
 // "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-19T07:54:31.593625Z",
-// "update_date": "2024-01-19T07:54:31.852500Z",
-// "content_name": "gavar1",
-// "content_id": 37440,
+// "create_date": "2024-01-19T07:57:06.825433Z",
+// "update_date": "2024-01-19T07:57:09.513936Z",
+// "content_name": "lake.jpg",
+// "content_id": 195723,
+// "content_size": 278910,
+// "parent_id": 37439,
+// "is_file": true,
 // "content_parent_id": 37439,
-// "content_size": 0,
-// "system_last_modified": "2024-01-19T07:54:31.852528Z",
-// "is_file": false,
-// "blocks_count": 0,
-// "is_directory": true,
+// "system_last_modified": "2024-01-19T07:57:09.513970Z",
+// "blocks_count": 1,
+// "is_directory": false,
 // "shared_created_by_name": "",
-// "shared_updated_by_name": "",
-// "shared_created_by_username": "",
-// "shared_updated_by_username": ""
+// "shared_updated_by_name": ""
 // },
 // {
 // "user_id": 610,
@@ -207,15 +185,51 @@
 // "user_id": 610,
 // "shared_created_by_id": null,
 // "shared_updated_by_id": null,
-// "create_date": "2024-01-19T07:57:06.825433Z",
-// "update_date": "2024-01-19T07:57:09.513936Z",
-// "content_name": "lake.jpg",
-// "content_id": 195723,
-// "content_size": 278910,
+// "create_date": "2024-01-27T06:24:03.953493Z",
+// "update_date": "2024-01-27T06:24:06.713801Z",
+// "content_name": "user.jpg",
+// "content_id": 195914,
+// "content_size": 154686,
 // "parent_id": 37439,
 // "is_file": true,
 // "content_parent_id": 37439,
-// "system_last_modified": "2024-01-19T07:57:09.513970Z",
+// "system_last_modified": "2024-01-27T06:24:06.713843Z",
+// "blocks_count": 1,
+// "is_directory": false,
+// "shared_created_by_name": "",
+// "shared_updated_by_name": ""
+// },
+// {
+// "user_id": 610,
+// "shared_created_by_id": null,
+// "shared_updated_by_id": null,
+// "create_date": "2024-01-27T13:01:34.220446Z",
+// "update_date": "2024-01-27T13:01:37.041224Z",
+// "content_name": "ice-creame.mp4",
+// "content_id": 195929,
+// "content_size": 42007,
+// "parent_id": 37439,
+// "is_file": true,
+// "content_parent_id": 37439,
+// "system_last_modified": "2024-01-27T13:01:37.041256Z",
+// "blocks_count": 1,
+// "is_directory": false,
+// "shared_created_by_name": "",
+// "shared_updated_by_name": ""
+// },
+// {
+// "user_id": 610,
+// "shared_created_by_id": null,
+// "shared_updated_by_id": null,
+// "create_date": "2024-01-29T09:06:46.110449Z",
+// "update_date": "2024-01-29T09:06:49.044895Z",
+// "content_name": "917069865887_status_03878ce99dd04157bf87d4b05a036080.mp4",
+// "content_id": 195966,
+// "content_size": 2528409,
+// "parent_id": 37439,
+// "is_file": true,
+// "content_parent_id": 37439,
+// "system_last_modified": "2024-01-29T09:06:49.044928Z",
 // "blocks_count": 1,
 // "is_directory": false,
 // "shared_created_by_name": "",
@@ -225,42 +239,57 @@
 // "path": "",
 // "current_parent": 37439,
 // "sharing_data": {
-// "195890": {
-// "groups": false,
-// "users": false
-// },
 // "195723": {
 // "groups": false,
 // "users": true
 // },
-// "D37464": {
-// "users": true,
-// "groups": false
+// "195890": {
+// "groups": false,
+// "users": false
 // },
-// "D37463": {
+// "195914": {
+// "groups": false,
+// "users": false
+// },
+// "195929": {
+// "groups": false,
+// "users": false
+// },
+// "195966": {
+// "groups": false,
+// "users": false
+// },
+// "D37492": {
 // "users": false,
 // "groups": false
 // },
-// "D37462": {
+// "D37484": {
 // "users": false,
 // "groups": false
 // },
 // "D37452": {
-// "users": false,
-// "groups": false
-// },
-// "D37440": {
-// "users": false,
+// "users": true,
 // "groups": false
 // }
 // },
 // "shared_with": [],
 // "page_data": {
-// "count_of_files": 2,
-// "count_of_folders": 5
+// "count_of_files": 5,
+// "count_of_folders": 3,
+// "page_data": {
+// "next_files_from": 0,
+// "next_files_till": 20,
+// "next_folders_from": 0,
+// "next_folders_till": 20,
+// "file_sort_key": "TYPE",
+// "folder_sort_key": "DATE",
+// "file_sort_order": "ASC",
+// "folder_sort_order": "DESC",
+// "next_files_only": false,
+// "next_folders_only": false
 // }
 // }
-
+// }
 
 // Headers:-
 

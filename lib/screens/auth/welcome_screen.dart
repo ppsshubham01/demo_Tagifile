@@ -60,6 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Form(
             key: formKey,
             child: SizedBox(
+              width: double.infinity,
               height: 900,
               child: Stack(
                 children: [

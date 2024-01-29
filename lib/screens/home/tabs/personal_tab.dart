@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/local_notification.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -55,8 +56,8 @@ class _PersonalPageState extends State<PersonalPage>
   Widget build(BuildContext context) {
     final fetchedDafterlogin = Provider.of<AuthProvider>(context);
     var temp = fetchedDafterlogin.ffetchDataafterLogin;
-    print("++++++++++++++++++++++++++++++");
     print(temp.result);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
 
@@ -83,7 +84,7 @@ class _PersonalPageState extends State<PersonalPage>
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide:
-                        const BorderSide(color: Colors.white, width: 2.0))),
+                            const BorderSide(color: Colors.white, width: 2.0))),
                 expands: false,
               ),
             ),
@@ -123,14 +124,14 @@ class _PersonalPageState extends State<PersonalPage>
                 // controller: _tabController,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
-                  // color: const Color(0xFF1D55A4),
+                    // color: const Color(0xFF1D55A4),
                     color: const Color(0xFF1D55A4),
                     borderRadius: BorderRadius.circular(5.0)),
                 tabs: const [
                   Tab(
                       child: Text(
-                        "My Files",
-                      )),
+                    "My Files",
+                  )),
                   Tab(
                     child: Text(
                       "Shared Files",
@@ -191,8 +192,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
   Widget buildScroll() => const SingleChildScrollView();
 
   /// Upper Image List
-  Widget buildGrid() =>
-      GridView.builder(
+  Widget buildGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.7,
           crossAxisCount: 2,
@@ -204,112 +204,135 @@ class _MyFilesTabState extends State<MyFilesTab> {
             ? widget.fetchedfterlogin.fileList.length
             : 0,
         itemBuilder: (context, index) {
+          bool isSelected = selectedFileItems?.contains(
+                  widget.fetchedfterlogin.fileList[index].contentId) ??
+              false;
           // if(fetchedfterlogin.ffetchDataafterLogin.result![index].isFile){
-          return Container(
-            height: 150,
-            width: 50,
-            padding:
-            const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
-            decoration: BoxDecoration(
-              // color: Colors.blue,
-              border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Checkbox(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                    const Icon(
-                      Icons.more_vert,
-                      color: Color(0xFF7A7A7A),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 100,
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                  color: Colors.red,
-                  child: Image.network(
-                      'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget
-                          .fetchedfterlogin.folderList[index].contentId}/'),
-                  // NetworkImage('https://source.unsplash.com/random?sig=$index'),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          return GestureDetector(
+            onTap: () {
+              if (isSelectable) {
+                if (isSelected) {
+                  setState(() {
+                    selectedFileItems?.remove(widget
+                        .fetchedfterlogin.fileList[index].contentId!
+                        .toInt());
+                  });
+                } else {
+                  selectedFileItems?.add(widget
+                      .fetchedfterlogin.fileList[index].contentId!
+                      .toInt());
+                }
+              }
+            },
+            child: Container(
+              height: 150,
+              width: 50,
+              padding:
+                  const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
+              decoration: BoxDecoration(
+                color: isSelected ? Colors.blueAccent : Colors.white,
+                border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 80,
-                        child: Text(
-                          widget.fetchedfterlogin.fileList[index].contentName
-                              .toString(),
-                          // fetchedfterlogin.ffetchDataafterLogin.result!.,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: Color(0xFF7A7A7A),
-                              fontWeight: FontWeight.bold),
-                        ),
+                      Checkbox(
+                        value: false,
+                        onChanged: (value) {},
                       ),
-                      const Text(
-                        'JPEG',
-                        style: TextStyle(color: Color(0xFF7A7A7A)),
-                      ),
-                      const Text(
-                        '155 KB . 27/06/2002',
-                        style: TextStyle(color: Color(0xFFBEBEBE)),
-                      ),
-                      const Row(
-                        children: [
-                          Icon(
-                            Icons.pattern_sharp,
-                            color: Color(0xFF1672F3),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '5 version',
-                            style: TextStyle(
-                                color: Color(0xFF7A7A7A),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.mobile_screen_share,
-                            color: Color(0xFF566476),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      const Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 10,
-                            backgroundImage: NetworkImage(
-                                "https://source.unsplash.com/random"),
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'userName',
-                            style: TextStyle(color: Color(0xFF7A7A7A)),
-                          ),
-                        ],
+                      const Icon(
+                        Icons.more_vert,
+                        color: Color(0xFF7A7A7A),
                       ),
                     ],
                   ),
-                )
-              ],
+                  Container(
+                    height: 100,
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                    child:
+                    Image.network(
+                        "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget.fetchedfterlogin.fileList[index].contentId}/",
+                      headers: const {
+                        'Authorization': 'Token 1964569068594f476e89391f6bc86f5925e8c085',
+                        // 'Content-Type' : 'image/jpeg'
+                        'Content-Type' : 'application/json'
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: Text(
+                            widget.fetchedfterlogin.fileList[index].contentName.toString(),
+                            // fetchedfterlogin.ffetchDataafterLogin.result!.,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: Color(0xFF7A7A7A),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const Text(
+                          'JPEG',
+                          style: TextStyle(color: Color(0xFF7A7A7A)),
+                        ),
+                        const Text(
+                          '155 KB . 27/06/2002',
+                          style: TextStyle(color: Color(0xFFBEBEBE)),
+                        ),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.pattern_sharp,
+                              color: Color(0xFF1672F3),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '5 version',
+                              style: TextStyle(
+                                  color: Color(0xFF7A7A7A),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.mobile_screen_share,
+                              color: Color(0xFF566476),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        const Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 10,
+                              backgroundImage: NetworkImage(
+                                  "https://source.unsplash.com/random"),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              'userName',
+                              style: TextStyle(color: Color(0xFF7A7A7A)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           );
           // }
@@ -317,8 +340,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
       );
 
   /// FolderList
-  Widget buildFolderGrid() =>
-      GridView.builder(
+  Widget buildFolderGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.95,
           crossAxisCount: 3,
@@ -330,15 +352,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
             ? widget.fetchedfterlogin.folderList.length
             : 0,
         itemBuilder: (context, index) {
-          // if(!fetchedfterlogin.ffetchDataafterLogin.result![index].isFile)
-          // }
-
           bool isSelected = selectedFolderItems?.contains(
-              widget.fetchedfterlogin.folderList[index].contentId) ??
+                  widget.fetchedfterlogin.folderList[index].contentId) ??
               false;
-
-          // bool isSelected = selectedFolderItems?.contains(index) ??
-          //     false;
 
           return GestureDetector(
             // onLongPress: () {
@@ -400,7 +416,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                             } else if (value == 'rename') {
                               print('rename selected');
                             }
-                          },
+                          }, offset: Offset(-20, 20),
                           itemBuilder: (BuildContext context) {
                             return [
                               const PopupMenuItem<String>(
@@ -488,9 +504,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
 
   int get selectedItemCount {
     int fileCount =
-    selectedFileItems!.isNotEmpty ? selectedFileItems!.length : 0;
+        selectedFileItems!.isNotEmpty ? selectedFileItems!.length : 0;
     int folderCount =
-    selectedFolderItems!.isNotEmpty ? selectedFolderItems!.length : 0;
+        selectedFolderItems!.isNotEmpty ? selectedFolderItems!.length : 0;
     int itemCount = fileCount + folderCount;
     return itemCount;
   }
@@ -552,24 +568,24 @@ class _MyFilesTabState extends State<MyFilesTab> {
                     children: [
                       selectedItemCount > 0
                           ? GestureDetector(
-                        onTap: () {
-                          widget.fetchedfterlogin.deleteFolder(
-                            context: context,
-                            fileId: selectedFileItems,
-                            folderId: selectedFolderItems,
-                          );
-                        },
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                      )
+                              onTap: () {
+                                widget.fetchedfterlogin.deleteFolder(
+                                  context: context,
+                                  fileId: selectedFileItems,
+                                  folderId: selectedFolderItems,
+                                );
+                              },
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            )
                           : SizedBox.shrink(),
                       selectedItemCount > 0
                           ? Text(
-                        '$selectedItemCount selected',
-                        style: TextStyle(fontSize: 16),
-                      )
+                              '$selectedItemCount selected',
+                              style: TextStyle(fontSize: 16),
+                            )
                           : SizedBox.shrink(),
                       Checkbox(
                         value: isSelectable,
@@ -627,18 +643,18 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   ),
                   widget.fetchedfterlogin.deleteLoading
                       ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                          child: CircularProgressIndicator(),
+                        )
                       : SizedBox(
-                    width: double.infinity,
-                    height: 350,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, right: 10, top: 8.0, bottom: 8.0),
-                      child: buildFolderGrid(),
-                      // child: isList ? buildFolderList() : buildFolderGrid(),
-                    ),
-                  ),
+                          width: double.infinity,
+                          height: 350,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10.0, right: 10, top: 8.0, bottom: 8.0),
+                            child: buildFolderGrid(),
+                            // child: isList ? buildFolderList() : buildFolderGrid(),
+                          ),
+                        ),
                 ],
               );
             },
