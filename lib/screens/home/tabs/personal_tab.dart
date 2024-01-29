@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/services/service.dart';
@@ -188,8 +189,15 @@ class _MyFilesTabState extends State<MyFilesTab> {
   bool isSelectable = false;
   List<int>? selectedFolderItems = [];
   List<int>? selectedFileItems = [];
+  String? tokenData;
 
   Widget buildScroll() => const SingleChildScrollView();
+
+  ///
+  void getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tokenData = prefs.getString('token');
+  }
 
   /// Upper Image List
   Widget buildGrid() => GridView.builder(
@@ -258,8 +266,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                     child:
                     Image.network(
                         "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget.fetchedfterlogin.fileList[index].contentId}/",
-                      headers: const {
-                        'Authorization': 'Token 1964569068594f476e89391f6bc86f5925e8c085',
+                      headers: {
+                        'Authorization': 'Token $tokenData',
                         // 'Content-Type' : 'image/jpeg'
                         'Content-Type' : 'application/json'
                       },
@@ -512,6 +520,13 @@ class _MyFilesTabState extends State<MyFilesTab> {
   }
 
   String dropDownList = 'Date';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getToken();
+    super.initState();
+  }
 
 //fetched file and folders
   @override
