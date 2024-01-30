@@ -130,9 +130,6 @@ class ApiService with ChangeNotifier {
         },
         body: body,
       );
-      // print("-------------------------------------------");
-      // print(response.statusCode);
-      // print(response.body);
 
       if (response.statusCode == 200) {
         /// dataStored In Object
@@ -152,7 +149,7 @@ class ApiService with ChangeNotifier {
     return Model();
   }
 
-  /// #######################ListContent for the contentPath
+  /// ----------------------- listContent for the ## contentPath ##
   Future<Model> fetchListContent() async {
     String? token = await getTokenFromPrefs();
 
@@ -244,7 +241,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  /// ######################## Log-Out
+  /// ######################## Log-Out & Auto-logIn
   Future<void> logout() async {
     _tokenKey = null;
     final prefs = await SharedPreferences.getInstance();
@@ -335,35 +332,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  /// removeFolder
-// Payload :--------- {files: [], folders: [37295]}
-//   Future<void> removeFolder({int? files, int? folders,required ValueSetter onSuccess,
-//     required ValueSetter onError,}) async {
-//     String? token = await getTokenFromPrefs();
-//     String removeServerpayload =
-//         json.encode({"files": files, "folders": folders});
-//     try {
-//       Response response = await post(
-//           Uri.parse(
-//               'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
-//           body: removeServerpayload,
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Token $token',
-//           });
-//
-//       if (response.statusCode == 200) {
-//         print(response.body);
-//       } else {
-//         print(response.statusCode);
-//         print('------------------');
-//         print(response.body);
-//       }
-//     } catch (e) {
-//       print('Folder error!');
-//     }
-//   }
-
+  /// -------------deleteFolder
   Future<void> removeFolder({
     List<int>? files,
     List<int>? folders,
@@ -372,9 +341,11 @@ class ApiService with ChangeNotifier {
   }) async {
     String? token = await getTokenFromPrefs();
     String removeServerpayload = json.encode({
-      "files": [files],
-      "folders": [folders]
+      "files": files,
+      "folders": folders
     });
+    // print('-+++++++++++++++++++++++++++++++++++++-----------------------------------');
+    // print(removeServerpayload);
     try {
       Response response = await post(
           Uri.parse(
@@ -465,25 +436,5 @@ class ApiService with ChangeNotifier {
     }
   }
 
-  Future<void> thumbNail() async {
-    String? userToken = await getTokenFromPrefs();
-    try {
-      Response response = await http.get(
-        Uri.parse(
-            "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/195914/"),
-        headers: {
-          'Content-Type': 'image/jpeg',
-          'Authorization': 'Token $userToken',
-        },
-      );
-      if (response.statusCode == 200) {
-        print(response.body);
-      } else {
-        throw Exception(
-            'Failed to load images, status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      throw Exception('an error occurred: $error');
-    }
-  }
+
 }

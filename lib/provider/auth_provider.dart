@@ -199,8 +199,5 @@ class AuthProvider with ChangeNotifier {
     );
   }
 
-  Future<void> thumNail()async{
 
-    ApiService().thumbNail();
-}
 }

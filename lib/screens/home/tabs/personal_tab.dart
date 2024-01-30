@@ -262,14 +262,17 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   Container(
                     height: 100,
                     width: double.infinity,
-                    margin: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                    child:
-                    Image.network(
-                        "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget.fetchedfterlogin.fileList[index].contentId}/",
+                    margin:
+                        const EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                    child: Image.network(
+                      "http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/thumbnail/v1/get/256px/${widget.fetchedfterlogin.fileList[index].contentId}/",
                       headers: {
                         'Authorization': 'Token $tokenData',
                         // 'Content-Type' : 'image/jpeg'
-                        'Content-Type' : 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-Group-Id': '',
+                        'X-In-Group': 'false',
+                        'X-Is-Shared': 'false',
                       },
                     ),
                   ),
@@ -281,7 +284,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         SizedBox(
                           width: 80,
                           child: Text(
-                            widget.fetchedfterlogin.fileList[index].contentName.toString(),
+                            widget.fetchedfterlogin.fileList[index].contentName
+                                .toString(),
                             // fetchedfterlogin.ffetchDataafterLogin.result!.,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -424,7 +428,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                             } else if (value == 'rename') {
                               print('rename selected');
                             }
-                          }, offset: Offset(-20, 20),
+                          },
+                          offset: Offset(-20, 20),
                           itemBuilder: (BuildContext context) {
                             return [
                               const PopupMenuItem<String>(
