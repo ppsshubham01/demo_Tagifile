@@ -187,8 +187,8 @@ class MyFilesTab extends StatefulWidget {
 class _MyFilesTabState extends State<MyFilesTab> {
   bool isList = false;
   bool isSelectable = false;
-  List<int>? selectedFolderItems = [];
-  List<int>? selectedFileItems = [];
+  List<int>? selectedFolderItems;
+  List<int>? selectedFileItems;
   String? tokenData;
 
   Widget buildScroll() => const SingleChildScrollView();
@@ -365,16 +365,6 @@ class _MyFilesTabState extends State<MyFilesTab> {
               false;
 
           return GestureDetector(
-            // onLongPress: () {
-            //   setState(() {
-            //     isSelectable = true;
-            //     if (isSelected) {
-            //       selectedFolderItems?.remove(index);
-            //     } else {
-            //       selectedFolderItems?.add(index);
-            //     }
-            //   });
-            // },
             onTap: () {
               if (isSelectable) {
                 if (isSelected) {
@@ -447,7 +437,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                           widget.fetchedfterlogin
                                               .folderList[index].contentId!
                                               .toInt()
-                                        ]);
+                                        ],
+                                    fileId: [],
+                                    );
                                     // Navigator.of(context).pop();
                                   },
                                   child: const Row(
@@ -490,10 +482,11 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           ),
                         ),
                         const Spacer(),
+                        widget.fetchedfterlogin.ffetchDataafterLogin.sharingData![widget.fetchedfterlogin.folderList[index].contentId.toString()]!.users ?? false ?
                         const Icon(
                           Icons.mobile_screen_share,
                           color: Color(0xFF566476),
-                        )
+                        ) : const SizedBox.shrink()
                       ],
                     ),
                   ),
@@ -586,8 +579,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                               onTap: () {
                                 widget.fetchedfterlogin.deleteFolder(
                                   context: context,
-                                  fileId: selectedFileItems,
-                                  folderId: selectedFolderItems,
+                                  fileId: selectedFileItems ?? [],
+                                  folderId: selectedFolderItems ?? [],
                                 );
                               },
                               child: const Icon(
