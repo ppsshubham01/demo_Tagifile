@@ -112,6 +112,8 @@ class _PersonalPageState extends State<PersonalPage>
       body: DefaultTabController(
         length: 2,
         child: Column(
+
+
           children: [
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -193,7 +195,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
 
   Widget buildScroll() => const SingleChildScrollView();
 
-  ///
+  ///Store the Token
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     tokenData = prefs.getString('token');
@@ -359,7 +361,6 @@ class _MyFilesTabState extends State<MyFilesTab> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        // itemCount: 5,
         itemCount: widget.fetchedfterlogin.ffetchDataafterLogin.result != null
             ? widget.fetchedfterlogin.folderList.length
             : 0,
@@ -487,7 +488,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           ),
                         ),
                         const Spacer(),
-                        widget.fetchedfterlogin.ffetchDataafterLogin.sharingData![widget.fetchedfterlogin.folderList[index].contentId.toString()]!.users ?? false ?
+                        widget.fetchedfterlogin.ffetchDataafterLogin.sharingData?[widget.fetchedfterlogin.folderList[index].contentId.toString()]?.users ?? false ?
                         const Icon(
                           Icons.mobile_screen_share,
                           color: Color(0xFF566476),
@@ -508,11 +509,17 @@ class _MyFilesTabState extends State<MyFilesTab> {
         },
       );
 
+  // int get selectedItemCount {
+  //   int fileCount =
+  //       selectedFileItems!.isNotEmpty ? selectedFileItems!.length : 0;
+  //   int folderCount =
+  //       selectedFolderItems!.isNotEmpty ? selectedFolderItems!.length : 0;
+  //   int itemCount = fileCount + folderCount;
+  //   return itemCount;
+  // }
   int get selectedItemCount {
-    int fileCount =
-        selectedFileItems!.isNotEmpty ? selectedFileItems!.length : 0;
-    int folderCount =
-        selectedFolderItems!.isNotEmpty ? selectedFolderItems!.length : 0;
+    int fileCount = selectedFileItems?.isNotEmpty ?? false ? selectedFileItems!.length : 0;
+    int folderCount = selectedFolderItems?.isNotEmpty ?? false ? selectedFolderItems!.length : 0;
     int itemCount = fileCount + folderCount;
     return itemCount;
   }
@@ -543,8 +550,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                height: 30, // Set your desired height
-                width: 100, // Set your desired width
+                height: 30,
+                width: 100,
                 child: DropdownButton<String>(
                   value: dropDownList,
                   icon: const Icon(Icons.keyboard_arrow_down_rounded),
@@ -552,7 +559,6 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
                   underline: const SizedBox(),
-                  // Hide the default underline
                   onChanged: (String? newValue) {
                     if (newValue != null) {
                       dropDownList = newValue;
@@ -593,13 +599,13 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                 color: Colors.red,
                               ),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       selectedItemCount > 0
                           ? Text(
                               '$selectedItemCount selected',
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       Checkbox(
                         value: isSelectable,
                         onChanged: (value) {
