@@ -220,4 +220,31 @@ class PopDialog {
     );
   }
 
+
+  // For UserProfilePic in Collaborte
+  void showProfilePictureDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Profile Picture'),
+          content: const CircleAvatar(
+            radius: 80,
+            backgroundImage: NetworkImage(
+              'https://source.unsplash.com/random',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

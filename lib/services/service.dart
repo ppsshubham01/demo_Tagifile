@@ -356,11 +356,14 @@ class ApiService with ChangeNotifier {
             'Authorization': 'Token $token',
           });
 
+      print(response.statusCode);
       if (response.statusCode == 200) {
         print(response.body);
+        onSuccess.call('');
       } else {
         print(response.statusCode);
         print('--------------- ---');
+        onError.call('');
         print(response.body);
       }
     } catch (e) {

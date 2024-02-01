@@ -113,7 +113,6 @@ class _PersonalPageState extends State<PersonalPage>
         length: 2,
         child: Column(
 
-
           children: [
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -189,8 +188,8 @@ class MyFilesTab extends StatefulWidget {
 class _MyFilesTabState extends State<MyFilesTab> {
   bool isList = false;
   bool isSelectable = false;
-  List<int>? selectedFolderItems;
-  List<int>? selectedFileItems;
+  List<int>? selectedFolderItems = [];
+  List<int>? selectedFileItems = [];
   String? tokenData;
 
   Widget buildScroll() => const SingleChildScrollView();
@@ -228,15 +227,17 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         .toInt());
                   });
                 } else {
-                  selectedFileItems?.add(widget
-                      .fetchedfterlogin.fileList[index].contentId!
-                      .toInt());
+                  setState(() {
+                    selectedFileItems?.add(widget
+                        .fetchedfterlogin.fileList[index].contentId!
+                        .toInt());
+                  });
                 }
               }
             },
             child: Container(
-              height: 150,
-              width: 50,
+              // height: 40,
+              // width: 50,
               padding:
                   const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
               decoration: BoxDecoration(
@@ -255,10 +256,70 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         value: false,
                         onChanged: (value) {},
                       ),
-                      const Icon(
-                        Icons.more_vert,
-                        color: Color(0xFF7A7A7A),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            if (value == 'details') {
+                              print('Detailes selected');
+                            } else if (value == 'delete') {
+                              print('Delete selected');
+                            } else if (value == 'rename') {
+                              print('rename selected');
+                            }
+                          },
+                          offset: Offset(-20, 20),
+                          itemBuilder: (BuildContext context) {
+                            return [
+                              const PopupMenuItem<String>(
+                                value: 'details',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.info_outline_rounded),
+                                    SizedBox(width: 8),
+                                    Text('Details'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'delete',
+                                child: GestureDetector(
+                                  onTap: () {
+                                    widget.fetchedfterlogin.deleteFolder(
+                                      context: context,
+                                      folderId: [
+                                        widget.fetchedfterlogin
+                                            .folderList[index].contentId!
+                                            .toInt()
+                                      ],
+                                      fileId: [],
+                                    );
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.delete),
+                                      SizedBox(width: 8),
+                                      Text('Delete'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'rename',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.edit),
+                                    SizedBox(width: 8),
+                                    Text('Rename'),
+                                  ],
+                                ),
+                              ),
+                            ];
+                          },
+                        ),
                       ),
+
                     ],
                   ),
                   Container(
@@ -303,26 +364,27 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           '155 KB . 27/06/2002',
                           style: TextStyle(color: Color(0xFFBEBEBE)),
                         ),
-                        const Row(
+                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.pattern_sharp,
                               color: Color(0xFF1672F3),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
-                            Text(
+                            const Text(
                               '5 version',
                               style: TextStyle(
                                   color: Color(0xFF7A7A7A),
                                   fontWeight: FontWeight.bold),
                             ),
-                            Spacer(),
-                            Icon(
+                            const Spacer(),
+                            widget.fetchedfterlogin.ffetchDataafterLogin.sharingData?[widget.fetchedfterlogin.fileList[index].contentId.toString()]?.users ?? false ?
+                            const Icon(
                               Icons.mobile_screen_share,
                               color: Color(0xFF566476),
-                            )
+                            ) : SizedBox.shrink()
                           ],
                         ),
                         const SizedBox(
@@ -368,10 +430,13 @@ class _MyFilesTabState extends State<MyFilesTab> {
           bool isSelected = selectedFolderItems?.contains(
                   widget.fetchedfterlogin.folderList[index].contentId) ??
               false;
+          // print('************************************');
+          // print(widget.fetchedfterlogin.folderList[index].contentId);
 
           return GestureDetector(
             onTap: () {
               if (isSelectable) {
+              print('tapped...........');
                 if (isSelected) {
                   setState(() {
                     selectedFolderItems?.remove(widget
@@ -381,9 +446,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                 } else {
                   // selectedFolderItems?.add(widget.fetchedfterlogin.folderList[index].contentId!.toInt());
                   setState(() {
-                    selectedFolderItems?.add(widget
-                        .fetchedfterlogin.folderList[index].contentId!
-                        .toInt());
+                    selectedFolderItems?.add(widget.fetchedfterlogin.folderList[index].contentId!.toInt());
                   });
                 }
               }
@@ -446,7 +509,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                         ],
                                     fileId: [],
                                     );
-                                    // Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Row(
                                     children: [
@@ -533,7 +596,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
     super.initState();
   }
 
-//fetched file and folders
+//fetched file and folders------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// final fetchedDataafterlogin = Provider.of<AuthProvider>(context);
@@ -581,6 +644,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                   }).toList(),
                 ),
               ),
+              //delete totalItems Line
               Row(
                 children: [
                   Row(
@@ -601,8 +665,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                             )
                           : const SizedBox.shrink(),
                       selectedItemCount > 0
-                          ? Text(
-                              '$selectedItemCount selected',
+                          ? Text('$selectedItemCount selected',
                               style: const TextStyle(fontSize: 16),
                             )
                           : const SizedBox.shrink(),
@@ -635,6 +698,13 @@ class _MyFilesTabState extends State<MyFilesTab> {
             ],
           ),
         ),
+
+
+
+        widget.fetchedfterlogin.deleteLoading
+            ? const Center(
+          child: Center(child: CircularProgressIndicator()),
+        ) :
         Expanded(
           child: ListView.builder(
             itemCount: 1,
@@ -642,9 +712,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
-                    height: 350,
+                    height: 380,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: buildGrid(),
@@ -660,11 +730,12 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           fontSize: 14),
                     ),
                   ),
-                  widget.fetchedfterlogin.deleteLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : SizedBox(
+                  // widget.fetchedfterlogin.deleteLoading
+                  //     ? const Center(
+                  //         child: CircularProgressIndicator(),
+                  //       )
+                  //     :
+                  SizedBox(
                           width: double.infinity,
                           height: 350,
                           child: Padding(

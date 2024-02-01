@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
 import 'package:tagifiles/screens/chats/chat_page.dart';
 
+import '../../../util/dialog_box.dart';
+
 class CollaboratePage extends StatefulWidget {
   const CollaboratePage({super.key
   });
@@ -257,10 +259,15 @@ class _CollaboratePageState extends State<CollaboratePage> {
                 //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
                 // ),),);
               },
-              child: CircleAvatar(
-                radius: 28,
-                backgroundImage: NetworkImage(
-                    'https://source.unsplash.com/random?sig=$index'),
+              child: GestureDetector(
+                onTap: (){
+                  PopDialog().showProfilePictureDialog(context);
+                },
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: NetworkImage(
+                      'https://source.unsplash.com/random?sig=$index'),
+                ),
               ),
             ),
             title: GestureDetector(

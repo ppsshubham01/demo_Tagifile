@@ -107,6 +107,7 @@ class AuthProvider with ChangeNotifier {
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
     ffetchDataafterLogin = fetchedDataAfterLogin;
+    print(ffetchDataafterLogin.sharingData);
     fileList.clear();
     folderList.clear();
     notifyListeners();
@@ -161,6 +162,7 @@ class AuthProvider with ChangeNotifier {
       destinationFolderId: ffetchDataafterLogin.currentParent ?? -1,
       onSuccess: (value) {
         print("folder create succesfully");
+        createfoldertext.clear();
         createFolderLoading = false;
         fetchDataaafterLogin();
         // notifyListeners();
@@ -190,6 +192,7 @@ class AuthProvider with ChangeNotifier {
         deleteLoading = false;
         // fileList.removeWhere((element) => element.contentId == fileId);
         // folderList.removeWhere((element) => element.contentId == fileId);
+        fetchDataaafterLogin();
         notifyListeners();
       },
       onError: (value) async {
