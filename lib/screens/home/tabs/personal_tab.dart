@@ -473,14 +473,14 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           iconColor: const Color(0xFFA5A5A5),
                           onSelected: (value) {
                             if (value == 'details') {
-                              print('Detailes selected');
+                              print('Details selected');
                             } else if (value == 'delete') {
                               print('Delete selected');
                             } else if (value == 'rename') {
                               print('rename selected');
                             }
                           },
-                          offset: Offset(-25, 30),
+                          offset: const Offset(-25, 30),
                           itemBuilder: (BuildContext context) {
                             return [
                               const PopupMenuItem<String>(

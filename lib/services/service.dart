@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
+import '../model/collaborateModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
@@ -426,10 +427,39 @@ class ApiService with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
+        // print(response.body);
+        // print(response.statusCode);
+        // print(response.headers);
+        return UserdetailsModel.fromJson(responseData);
+      } else {
+        throw Exception(
+            'Failed to load user details, status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('an error occurred: $error');
+    }
+  }
+
+
+  Future<CollaborateModel> CollaborateDetailsChat() async {
+    String? userToken = await getTokenFromPrefs();
+    try {
+      Response response = await http.get(
+        Uri.parse(
+            "http://192.168.1.142:8004/tf/core/api/service/dev/v1/chats/v1/collaborators/get/?"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $userToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        print("#################_______________-----------------------------------------------------------------------------------");
         print(response.body);
         print(response.statusCode);
         print(response.headers);
-        return UserdetailsModel.fromJson(responseData);
+        // return CollaborateModel().fromJson(responseData);
+        return CollaborateModel();
       } else {
         throw Exception(
             'Failed to load user details, status code: ${response.statusCode}');
