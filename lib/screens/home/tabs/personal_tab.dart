@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
+import 'package:tagifiles/screens/home/tabs/collaborate_tab.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/local_notification.dart';
 
@@ -20,29 +21,6 @@ class _PersonalPageState extends State<PersonalPage>
   // List<Note> searchedItems = [];
 
   List<Model> userdata = [Model()];
-
-  // searching element from toDoList2
-  void searchingElements(String text) {
-    setState(() {});
-    // searchedItems.clear();
-    // if (text.isEmpty) {
-    //   setState(() {});
-    //   return;
-    // } else {
-    //   for (var element in toDoList2) {
-    //     if (element.title.toLowerCase().contains(
-    //         text.toLowerCase().trim().replaceAll(RegExp(r'\b\s+\b'), ''))) {
-    //       // print(element.title);
-    //       searchedItems.add(element);
-    //     }
-    //   }
-    //   setState(() {});
-    // }
-    // setState(() {
-    // });
-    //print(text.trim());
-    // print(searchedItems.length);
-  }
 
   @override
   void initState() {
@@ -60,49 +38,51 @@ class _PersonalPageState extends State<PersonalPage>
     print(temp.result);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
+      backgroundColor: const Color(0xFF1C1C1C),
 
       /// APPBAR Start
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: 50,
         automaticallyImplyLeading: false,
         title: Container(
           // height: 45,
           margin: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-          child: Center(
-            child: SizedBox(
-              width: double.infinity,
-              height: 50.0,
-              child: TextField(
-                // maxLines: 1,
-                //maxLength: 100,
-                onChanged: (value) => searchingElements(value),
-                style: const TextStyle(overflow: TextOverflow.fade),
-                decoration: InputDecoration(
-                    hintText: 'Search..',
-                    fillColor: Colors.white,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0))),
-                expands: false,
-              ),
-            ),
+          child: const Text(
+            "Personal",
+            style: TextStyle(color: Color(0xFFFFFFFF)),
           ),
         ),
-        backgroundColor: const Color(0xFF1D55A4),
+        backgroundColor: const Color(0xFF262626),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () {
-                // LocalNotificationService.display('titleText', 'bodyText');
-              },
-              child: const Icon(
-                Icons.notifications_none,
-                color: Colors.white,
-              ),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // LocalNotificationService.display('titleText', 'bodyText');
+                  },
+                  child: const Icon(
+                    Icons.notifications_none,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const CollaboratePage()));
+                  },
+                  child: const Icon(
+                    Icons.forum_outlined,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           )
         ],
@@ -112,7 +92,6 @@ class _PersonalPageState extends State<PersonalPage>
       body: DefaultTabController(
         length: 2,
         child: Column(
-
           children: [
             Container(
               margin: const EdgeInsets.only(top: 10),
@@ -191,8 +170,16 @@ class _MyFilesTabState extends State<MyFilesTab> {
   List<int>? selectedFolderItems = [];
   List<int>? selectedFileItems = [];
   String? tokenData;
+  bool _islodingDataPersonal = false;
+  bool _isLoadMorePersonal = false;
 
-  Widget buildScroll() => const SingleChildScrollView();
+  void _loadMoreDataPersonal() {
+    setState(() {
+      _isLoadMorePersonal = !_isLoadMorePersonal;
+    });
+  }
+
+  // Widget buildScroll() => const SingleChildScrollView();
 
   ///Store the Token
   void getToken() async {
@@ -241,8 +228,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
               padding:
                   const EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 5),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.blueAccent : Colors.white,
-                border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                color: isSelected ? Colors.blueAccent : const Color(0xFF707070),
+                // border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -258,7 +245,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: PopupMenuButton<String>(
+                        child: PopupMenuButton<String>(iconColor: Colors.white,
                           onSelected: (value) {
                             if (value == 'details') {
                               print('Detailes selected');
@@ -319,11 +306,11 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           },
                         ),
                       ),
-
                     ],
                   ),
                   Container(
                     height: 100,
+                    color: Colors.black,
                     width: double.infinity,
                     margin:
                         const EdgeInsets.only(bottom: 5, left: 10, right: 10),
@@ -364,7 +351,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                           '155 KB . 27/06/2002',
                           style: TextStyle(color: Color(0xFFBEBEBE)),
                         ),
-                         Row(
+                        Row(
                           children: [
                             const Icon(
                               Icons.pattern_sharp,
@@ -380,11 +367,19 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                   fontWeight: FontWeight.bold),
                             ),
                             const Spacer(),
-                            widget.fetchedfterlogin.ffetchDataafterLogin.sharingData?[widget.fetchedfterlogin.fileList[index].contentId.toString()]?.users ?? false ?
-                            const Icon(
-                              Icons.mobile_screen_share,
-                              color: Color(0xFF566476),
-                            ) : SizedBox.shrink()
+                            widget
+                                        .fetchedfterlogin
+                                        .ffetchDataafterLogin
+                                        .sharingData?[widget.fetchedfterlogin
+                                            .fileList[index].contentId
+                                            .toString()]
+                                        ?.users ??
+                                    false
+                                ? const Icon(
+                                    Icons.mobile_screen_share,
+                                    color: Color(0xFF566476),
+                                  )
+                                : SizedBox.shrink()
                           ],
                         ),
                         const SizedBox(
@@ -418,8 +413,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
   /// FolderList
   Widget buildFolderGrid() => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 0.95,
-          crossAxisCount: 3,
+          childAspectRatio:(1 / .75),
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
@@ -436,7 +431,6 @@ class _MyFilesTabState extends State<MyFilesTab> {
           return GestureDetector(
             onTap: () {
               if (isSelectable) {
-              print('tapped...........');
                 if (isSelected) {
                   setState(() {
                     selectedFolderItems?.remove(widget
@@ -446,16 +440,18 @@ class _MyFilesTabState extends State<MyFilesTab> {
                 } else {
                   // selectedFolderItems?.add(widget.fetchedfterlogin.folderList[index].contentId!.toInt());
                   setState(() {
-                    selectedFolderItems?.add(widget.fetchedfterlogin.folderList[index].contentId!.toInt());
+                    selectedFolderItems?.add(widget
+                        .fetchedfterlogin.folderList[index].contentId!
+                        .toInt());
                   });
                 }
               }
             },
             child: Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.blueAccent : Colors.white,
-                border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
+                color: isSelected ? Colors.blueAccent : const Color(0xFF262626),
+                // border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -474,6 +470,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: PopupMenuButton<String>(
+                          iconColor: const Color(0xFFA5A5A5),
                           onSelected: (value) {
                             if (value == 'details') {
                               print('Detailes selected');
@@ -483,7 +480,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                               print('rename selected');
                             }
                           },
-                          offset: Offset(-20, 20),
+                          offset: Offset(-25, 30),
                           itemBuilder: (BuildContext context) {
                             return [
                               const PopupMenuItem<String>(
@@ -501,13 +498,13 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                 child: GestureDetector(
                                   onTap: () {
                                     widget.fetchedfterlogin.deleteFolder(
-                                        context: context,
-                                        folderId: [
-                                          widget.fetchedfterlogin
-                                              .folderList[index].contentId!
-                                              .toInt()
-                                        ],
-                                    fileId: [],
+                                      context: context,
+                                      folderId: [
+                                        widget.fetchedfterlogin
+                                            .folderList[index].contentId!
+                                            .toInt()
+                                      ],
+                                      fileId: [],
                                     );
                                     Navigator.of(context).pop();
                                   },
@@ -547,15 +544,23 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                 .toString(),
                             style: const TextStyle(
                                 overflow: TextOverflow.ellipsis,
-                                color: Color(0xFF7A7A7A)),
+                                color: Color(0xFFFFFFFF)),
                           ),
                         ),
                         const Spacer(),
-                        widget.fetchedfterlogin.ffetchDataafterLogin.sharingData?[widget.fetchedfterlogin.folderList[index].contentId.toString()]?.users ?? false ?
-                        const Icon(
-                          Icons.mobile_screen_share,
-                          color: Color(0xFF566476),
-                        ) : const SizedBox.shrink()
+                        widget
+                                    .fetchedfterlogin
+                                    .ffetchDataafterLogin
+                                    .sharingData?[widget.fetchedfterlogin
+                                        .folderList[index].contentId
+                                        .toString()]
+                                    ?.users ??
+                                false
+                            ? const Icon(
+                                Icons.mobile_screen_share,
+                                color: Color(0xFF566476),
+                              )
+                            : const SizedBox.shrink()
                       ],
                     ),
                   ),
@@ -563,7 +568,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                       padding: EdgeInsets.only(left: 10),
                       child: Text(
                         '27/06/2002',
-                        style: TextStyle(color: Color(0xFFBEBEBE)),
+                        style: TextStyle(color: Color(0xFFA5A5A5)),
                       )),
                 ],
               ),
@@ -581,8 +586,11 @@ class _MyFilesTabState extends State<MyFilesTab> {
   //   return itemCount;
   // }
   int get selectedItemCount {
-    int fileCount = selectedFileItems?.isNotEmpty ?? false ? selectedFileItems!.length : 0;
-    int folderCount = selectedFolderItems?.isNotEmpty ?? false ? selectedFolderItems!.length : 0;
+    int fileCount =
+        selectedFileItems?.isNotEmpty ?? false ? selectedFileItems!.length : 0;
+    int folderCount = selectedFolderItems?.isNotEmpty ?? false
+        ? selectedFolderItems!.length
+        : 0;
     int itemCount = fileCount + folderCount;
     return itemCount;
   }
@@ -606,44 +614,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
         Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFFBEBEBE), width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                height: 30,
-                width: 100,
-                child: DropdownButton<String>(
-                  value: dropDownList,
-                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
-                  underline: const SizedBox(),
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      dropDownList = newValue;
-                    }
-                  },
-                  items: <String>['Date', 'Name'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.sort,
-                            color: Color(0xFF566476),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(value),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
               //delete totalItems Line
               Row(
                 children: [
@@ -665,11 +637,15 @@ class _MyFilesTabState extends State<MyFilesTab> {
                             )
                           : const SizedBox.shrink(),
                       selectedItemCount > 0
-                          ? Text('$selectedItemCount selected',
-                              style: const TextStyle(fontSize: 16),
+                          ? Text(
+                              '$selectedItemCount selected',
+                              style: const TextStyle(
+                                  fontSize: 16, color: Color(0xFFA5A5A5)),
                             )
                           : const SizedBox.shrink(),
                       Checkbox(
+                        checkColor: Colors.black,
+                        activeColor: const Color(0xFF1672F3),
                         value: isSelectable,
                         onChanged: (value) {
                           setState(() {
@@ -690,54 +666,80 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         });
                       },
                       icon: const Icon(
-                        Icons.grid_view_rounded,
-                        color: Color(0xFF1672F3),
+                        Icons.grid_view,
+                        color: Color(0xFF565656),
                       )),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF262626),
+                      border:
+                          Border.all(color: const Color(0xFF565656), width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    height: 30,
+                    width: 100,
+                    child: DropdownButton<String>(
+                      dropdownColor: const Color(0xFF262626),
+                      value: dropDownList,
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: Color(0xFFA5A5A5),
+                      ),
+                      iconSize: 24,
+                      // elevation: 5,
+                      style: const TextStyle(color: Colors.white),
+                      underline: const SizedBox(),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          dropDownList = newValue;
+                        }
+                      },
+                      items: <String>['Date', 'Name'].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.sort,
+                                color: Color(0xFFA5A5A5),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(value),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ],
               )
             ],
           ),
         ),
-
-
-
         widget.fetchedfterlogin.deleteLoading
             ? const Center(
-          child: Center(child: CircularProgressIndicator()),
-        ) :
-        Expanded(
-          child: ListView.builder(
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 380,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: buildGrid(),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 13),
-                    child: Text(
-                      'Folders',
-                      style: TextStyle(
-                          color: Color(0xFF414141),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                  ),
-                  // widget.fetchedfterlogin.deleteLoading
-                  //     ? const Center(
-                  //         child: CircularProgressIndicator(),
-                  //       )
-                  //     :
-                  SizedBox(
+                child: Center(child: CircularProgressIndicator()),
+              )
+            : Expanded(
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 13.0),
+                          child: Text(
+                            "Folders",
+                            style: TextStyle(
+                                color: Color(0xFFA5A5A5),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
+                        SizedBox(
                           width: double.infinity,
-                          height: 350,
+                          height: 356,
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10.0, right: 10, top: 8.0, bottom: 8.0),
@@ -745,11 +747,53 @@ class _MyFilesTabState extends State<MyFilesTab> {
                             // child: isList ? buildFolderList() : buildFolderGrid(),
                           ),
                         ),
-                ],
-              );
-            },
-          ),
-        ),
+                        !_islodingDataPersonal
+                            ? Center(
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    _loadMoreDataPersonal();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color((0xFF1D55A4)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0)),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 10.0),
+                                    fixedSize: const Size(200, 25),
+                                  ),
+                                  child: Text(_isLoadMorePersonal ? 'Load less' : 'Load More',style: const TextStyle(color: Colors.white),),
+                                ),
+                            )
+                            : const SizedBox.shrink(),
+
+                        const Padding(
+                          padding: EdgeInsets.only(left: 13),
+                          child: Text(
+                            'Files',
+                            style: TextStyle(
+                                color: Color(0xFFA5A5A5),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
+                        // widget.fetchedfterlogin.deleteLoading
+                        //     ? const Center(
+                        //         child: CircularProgressIndicator(),
+                        //       )
+                        //     :
+                        SizedBox(
+                          width: double.infinity,
+                          height: 380,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: buildGrid(),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
       ],
     );
   }
