@@ -3,6 +3,7 @@ import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
+import 'package:tagifiles/screens/home/tabs/personal_tab.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/dialog_box.dart';
 
@@ -168,6 +169,7 @@ class AuthProvider with ChangeNotifier {
         // notifyListeners();
         Navigator.of(context).pop();
         Navigator.of(context).pop();
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const HomePage()));
         notifyListeners();
       },
       onError: (value) async {
