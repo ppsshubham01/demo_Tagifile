@@ -11,7 +11,7 @@ import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
 
-  String? _tokenKey;
+  String? _tokenKey = 'jaimin';
 
   bool get isToken {
     return _tokenKey != null;
@@ -440,7 +440,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-
+/// CollaborateChat
   Future<CollaborateModel> CollaborateDetailsChat() async {
     String? userToken = await getTokenFromPrefs();
     try {
@@ -455,11 +455,11 @@ class ApiService with ChangeNotifier {
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         print("#################_______________-----------------------------------------------------------------------------------");
-        print(response.body);
-        print(response.statusCode);
-        print(response.headers);
+        print(responseData.body);
+        print(responseData.statusCode);
+        print(responseData.headers);
         // return CollaborateModel().fromJson(responseData);
-        return CollaborateModel();
+        return CollaborateModel.fromJson(responseData);
       } else {
         throw Exception(
             'Failed to load user details, status code: ${response.statusCode}');

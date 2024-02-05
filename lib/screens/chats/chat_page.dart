@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tagifiles/model/chatMessageModel.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
 import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/util/dialog_box.dart';
+
+import '../../provider/auth_provider.dart';
 
 class ChatPage extends StatefulWidget {
  String networkImageLink;
@@ -17,7 +20,6 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
 
   final TextEditingController _chattypeTextController = TextEditingController();
-
   final popDialog = PopDialog();
 
   String  title= "selectedmore";
@@ -46,11 +48,15 @@ class _ChatPageState extends State<ChatPage> {
   ];
 
 
+
+
   @override
   Widget build(BuildContext context) {
+    final authChatProvider = Provider.of<AuthProvider>(context);
+
     return SafeArea(
       child: Scaffold(
-      
+
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF1D55A4),
@@ -74,7 +80,7 @@ class _ChatPageState extends State<ChatPage> {
                 ,),
             ),
              const SizedBox(width: 5,),
-      
+
              Flexible(child: Padding(padding: const EdgeInsets.only(top: 10.0,bottom: 8.0),
                child: GestureDetector(
                  onTap: (){
@@ -91,7 +97,7 @@ class _ChatPageState extends State<ChatPage> {
                ),
              ),
              ),
-      
+
           ],
         ),
           actions: [
@@ -141,7 +147,7 @@ class _ChatPageState extends State<ChatPage> {
 
           ],
         ),
-      
+
         body: SingleChildScrollView(
           child: Container(
             color: const Color(0xFDFEDEFF3),
@@ -173,7 +179,7 @@ class _ChatPageState extends State<ChatPage> {
                           ),
                         ),
                       );
-                
+
                   })
                 ],
               ),
@@ -225,7 +231,7 @@ class _ChatPageState extends State<ChatPage> {
             ],
           ),
         ),
-      
+
       ),
     );
   }

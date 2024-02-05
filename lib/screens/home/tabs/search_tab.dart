@@ -48,7 +48,10 @@ class _SearchPageState extends State<SearchPage> {
                 // maxLines: 1,
                 //maxLength: 100,
                 controller: searchTextController,
-                onChanged: (value) => searchingElements(value),
+                onChanged: (value){
+                  searchingElements(value);
+                  
+                },
                 style: const TextStyle(overflow: TextOverflow.fade),
                 decoration: InputDecoration(
                   hintText: 'Search..',

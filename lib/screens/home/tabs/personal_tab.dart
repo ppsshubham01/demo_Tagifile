@@ -551,9 +551,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         widget
                                     .fetchedfterlogin
                                     .ffetchDataafterLogin
-                                    .sharingData?[widget.fetchedfterlogin
-                                        .folderList[index].contentId
-                                        .toString()]
+                                    .sharingData?["D${widget.fetchedfterlogin.folderList[index].contentId.toString()}"]
                                     ?.users ??
                                 false
                             ? const Icon(

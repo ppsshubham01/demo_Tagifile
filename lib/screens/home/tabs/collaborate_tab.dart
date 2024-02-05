@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
+import 'package:tagifiles/model/collaborateModel.dart';
 import 'package:tagifiles/screens/chats/chat_page.dart';
 
+import '../../../provider/auth_provider.dart';
 import '../../../util/dialog_box.dart';
 
 class CollaboratePage extends StatefulWidget {
@@ -57,8 +60,17 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
   final TextEditingController searchTextController = TextEditingController();
 
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context,listen: false).collaborateModelProvider();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final finalCollaborateData = Provider.of<AuthProvider>(context).collaborateData;
+
     return Scaffold(
       appBar:  AppBar(
         toolbarHeight: 70,
@@ -109,13 +121,13 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
       body: SafeArea(
           child: Scaffold(
-            body: chatList(),
+            body: chatList(finalCollaborateData),
           )),
     );
   }
 
   // ChatList
-  Widget chatList() {
+  Widget chatList(CollaborateModel finalData) {
     return searchChatUserList.isEmpty ? ListView.builder(
       itemCount: chatUsers.length,
       itemBuilder: (BuildContext context,int index) {
@@ -190,7 +202,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
                     networkImageLink: 'https://source.unsplash.com/random?sig=$index',
                   ),),);
                 },
-                child: Text(chatUsers[index].name)),
+                child: Text(finalData.data!.individuals[index].firstName)),
             subtitle: Text("subtitle ${chatUsers[index].messageText}"),
             trailing: Column(
               children: [

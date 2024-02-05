@@ -7,6 +7,8 @@ import 'package:tagifiles/screens/home/tabs/personal_tab.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/dialog_box.dart';
 
+import '../model/collaborateModel.dart';
+
 class AuthProvider with ChangeNotifier {
   /// for signUp
   final TextEditingController firstNameController = TextEditingController();
@@ -39,6 +41,8 @@ class AuthProvider with ChangeNotifier {
   ///
   List<Result> fileList = [];
   List<Result> folderList = [];
+
+  CollaborateModel collaborateData = CollaborateModel();
 
   /// for signUp method
   void signUpUser(BuildContext context) {
@@ -202,6 +206,11 @@ class AuthProvider with ChangeNotifier {
         notifyListeners();
       },
     );
+  }
+
+  Future<void> collaborateModelProvider() async {
+    collaborateData = await ApiService().CollaborateDetailsChat();
+    notifyListeners();
   }
 
 
