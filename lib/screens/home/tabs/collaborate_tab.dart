@@ -60,6 +60,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
   final TextEditingController searchTextController = TextEditingController();
 
+  @override
   void initState() {
     // TODO: implement initState
     Provider.of<AuthProvider>(context,listen: false).collaborateModelProvider();
@@ -69,7 +70,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
   @override
   Widget build(BuildContext context) {
-    final finalCollaborateData = Provider.of<AuthProvider>(context).collaborateData;
+    final finalCollaborateData = Provider.of<AuthProvider>(context).fetchedCollaborateData;
+    // print(finalCollaborateData);
 
     return Scaffold(
       appBar:  AppBar(
@@ -122,17 +124,26 @@ class _CollaboratePageState extends State<CollaboratePage> {
       body: SafeArea(
           child: Scaffold(
             body: chatList(finalCollaborateData),
+              // The argument type 'Map<String, dynamic>' can't be assigned to the parameter type 'CollaborateModel'.// goted this type of errot how to handle this Learn
           )),
     );
   }
 
+//   CollaborateModel createCollaborateModel(Map<String, dynamic> data) {
+//     return CollaborateModel.fromJson(data);
+//
+// // Your chatList function
+//   Widget chatList(CollaborateModel collaborateModel) {
+//   body: chatList(createCollaborateModel(fetchedCollaborateData)),
+
+
   // ChatList
-  Widget chatList(CollaborateModel finalData) {
+  Widget chatList(AuthProvider finalData) {
     return searchChatUserList.isEmpty ? ListView.builder(
-      itemCount: chatUsers.length,
+      itemCount: finalData.data?.individuals.length,
       itemBuilder: (BuildContext context,int index) {
         return Dismissible(
-          key: ValueKey(chatUsers[index]),
+          key: ValueKey(finalData.data?.individuals[index]),
           background: Container(
             color: Colors.red,
             child: const Icon(CupertinoIcons.delete),
@@ -202,11 +213,11 @@ class _CollaboratePageState extends State<CollaboratePage> {
                     networkImageLink: 'https://source.unsplash.com/random?sig=$index',
                   ),),);
                 },
-                child: Text(finalData.data!.individuals[index].firstName)),
-            subtitle: Text("subtitle ${chatUsers[index].messageText}"),
+                child: Text(finalData.data?.individuals[index] .firstName ?? 'nullData')),
+            subtitle: Text("subtitle ${finalData.data?.individuals[index].username}"),
             trailing: Column(
               children: [
-                Text("12.00${chatUsers[index].time}"),
+                Text("12.00${finalData.data?.individuals[index].lastMessageActivity}"),
                 const Icon(Icons.timelapse_rounded),
               ],
             ),
@@ -214,7 +225,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
           ),
         );
       },
-    ) : ListView.builder(
+    ) :// for serachView
+    ListView.builder(
       itemCount: searchChatUserList.length,
       itemBuilder: (BuildContext context,int index) {
         return Dismissible(

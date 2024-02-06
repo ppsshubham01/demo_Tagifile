@@ -7,7 +7,9 @@ class CollaborateModel {
 
   factory CollaborateModel.fromJson(Map<String, dynamic> json) {
     return CollaborateModel(
-      data: json['data'] != null ? Data.fromJson(json['data']) : null,
+      data: json.containsKey('data') && json['data'] != null
+          ? Data.fromJson(json['data'])
+          : null,
     );
   }
 

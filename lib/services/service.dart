@@ -53,14 +53,13 @@ class ApiService with ChangeNotifier {
         // print("+++++++++++++++++++++++++++");
         // print(token);
         await saveTokenToPrefs(token);
-        print("Login successfully ${response.statusCode} + ${response.body}");
+        // print("Login successfully ${response.statusCode} + ${response.body}");
         onSuccess.call(response.body);
         return token;
       } else {
         // await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
         // const SnackBar(content: Text("Error....", style: TextStyle(fontSize: 15.0),),backgroundColor: Colors.redAccent,);
-        print(
-            'Login Failed with state code: ${response.statusCode} ${response.body}');
+        // print('Login Failed with state code: ${response.statusCode} ${response.body}');
         return null;
       }
     } catch (e) {
@@ -136,13 +135,12 @@ class ApiService with ChangeNotifier {
         /// dataStored In Object
         final jsonData = jsonDecode(response.body);
         Model resultData = Model.fromJson(jsonData);
-        print(resultData);
+        // print(resultData);
         await saveModelObjectToPrefs(resultData);
-        print('Fetched data after login: $jsonData');
+        // print('Fetched data after login: $jsonData');
         return resultData;
       } else {
-        print(
-            'Failed to fetch data after login with status: ${response.statusCode}');
+        print('Failed to fetch data after login with status: ${response.statusCode}');
       }
     } else {
       print('Token not found. User not logged in.');
@@ -186,9 +184,9 @@ class ApiService with ChangeNotifier {
         /// dataStored In Object
         final jsonData = jsonDecode(response.body);
         Model resultData = Model.fromJson(jsonData);
-        print(resultData);
+        // print(resultData);
         await saveModelObjectToPrefs(resultData);
-        print('Fetched data after login: $jsonData');
+        // print('Fetched data after login: $jsonData');
         return resultData;
       } else {
         print(
@@ -226,14 +224,14 @@ class ApiService with ChangeNotifier {
         headers: {"Content-Type": "application/json"},
       );
       // print("++++++++++++++++++++++++++++++++++++++");
-      print(response.body);
-      print(response.statusCode);
+      // print(response.body);
+      // print(response.statusCode);
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         onSuccess.call(response.body);
       } else if (response.statusCode == 400){
-        print(response.body);
-        print(response.statusCode);
+        // print(response.body);
+        // print(response.statusCode);
         onError.call("");
       }
     } catch (e) {
@@ -277,13 +275,13 @@ class ApiService with ChangeNotifier {
           headers: {'Content-Type': 'application/json;charset=utf-8'});
 
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
       } else {
-        print(response.statusCode);
-        print(response.headers);
+        // print(response.statusCode);
+        // print(response.headers);
       }
     } catch (e) {
-      print('forgot Password error'!);
+      print('forgot Password error');
     }
   }
 
@@ -319,12 +317,12 @@ class ApiService with ChangeNotifier {
           });
 
       if (response.statusCode == 201) {
-        print(response.body);
+        // print(response.body);
         onSuccess.call('');
       } else {
-        print(response.statusCode);
-        print('--------------------------------------------------------------');
-        print(response.body);
+        // print(response.statusCode);
+        // print('--------------------------------------------------------------');
+        // print(response.body);
         onError.call("");
       }
     } catch (e) {
@@ -357,30 +355,22 @@ class ApiService with ChangeNotifier {
             'Authorization': 'Token $token',
           });
 
-      print(response.statusCode);
+      // print(response.statusCode);
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         onSuccess.call('');
       } else {
-        print(response.statusCode);
-        print('--------------- ---');
+        // print(response.statusCode);
+        // print('--------------- ---');
         onError.call('');
-        print(response.body);
+        // print(response.body);
       }
     } catch (e) {
       print('Folder error!');
     }
   }
 
-  // name: krishna.jpg
-  // B_size: 70008
-  // upload_to: 36206
-  // type: image/jpeg
-  // directory_path:
-  // file: (binary)
-  // org_id:
-  // org_owner_id:
-  // Response:--- {"data":195689,"message":"OK","status":200}
+  ///Upload
   Future<void> fileUpload({
     required String name,
     int? bsize,
@@ -441,7 +431,7 @@ class ApiService with ChangeNotifier {
   }
 
 /// CollaborateChat
-  Future<CollaborateModel> CollaborateDetailsChat() async {
+  Future<Map<String, dynamic>> CollaborateDetailsChat() async {
     String? userToken = await getTokenFromPrefs();
     try {
       Response response = await http.get(
@@ -454,12 +444,11 @@ class ApiService with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        print("#################_______________-----------------------------------------------------------------------------------");
-        print(responseData.body);
-        print(responseData.statusCode);
-        print(responseData.headers);
+        // print("#################_______________-----------------------------------------------------------------------------------");
+        // print("sevice response Data: $responseData");
+        // print(response.statusCode);
         // return CollaborateModel().fromJson(responseData);
-        return CollaborateModel.fromJson(responseData);
+        return responseData['data'];
       } else {
         throw Exception(
             'Failed to load user details, status code: ${response.statusCode}');
@@ -469,5 +458,11 @@ class ApiService with ChangeNotifier {
     }
   }
 
+  ///GlobalSearch
+  Future<void> GlobalSearch(
+  ) async {
+
+
+  }
 
 }

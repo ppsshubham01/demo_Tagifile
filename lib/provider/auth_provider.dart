@@ -42,8 +42,6 @@ class AuthProvider with ChangeNotifier {
   List<Result> fileList = [];
   List<Result> folderList = [];
 
-  CollaborateModel collaborateData = CollaborateModel();
-
   /// for signUp method
   void signUpUser(BuildContext context) {
     signUpLoading = true;
@@ -173,7 +171,8 @@ class AuthProvider with ChangeNotifier {
         // notifyListeners();
         Navigator.of(context).pop();
         Navigator.of(context).pop();
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const HomePage()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const HomePage()));
         notifyListeners();
       },
       onError: (value) async {
@@ -208,10 +207,20 @@ class AuthProvider with ChangeNotifier {
     );
   }
 
+  /// CollaborateChat
+  CollaborateModel collaborateData = CollaborateModel(); // why we use model for here!
+  Map<String, dynamic> fetchedCollaborateData = {};
+
   Future<void> collaborateModelProvider() async {
-    collaborateData = await ApiService().CollaborateDetailsChat();
+    // collaborateData = await ApiService().CollaborateDetailsChat();
+    fetchedCollaborateData = await ApiService().CollaborateDetailsChat();
+    // print(fetchedCollaborateData);
     notifyListeners();
   }
 
+  /// GlobalSearch
+  Future<void> GlobalSearch() async {
+    ApiService().GlobalSearch();
 
+  }
 }
