@@ -17,6 +17,13 @@ class _SearchPageState extends State<SearchPage> {
 
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context,listen: false).globalSearch();
+    super.initState();
+
+  }
   final TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
                 //maxLength: 100,
                 controller: searchTextController,
                 onChanged: (value){
-                  globalProvider.globalSearch(value);
+                  globalProvider.globalSearch();
                   // searchingElements(value);
                   
                 },

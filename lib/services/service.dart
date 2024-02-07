@@ -10,7 +10,6 @@ import '../model/collaborateModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
-
   String? _tokenKey = 'jaimin';
 
   bool get isToken {
@@ -140,7 +139,8 @@ class ApiService with ChangeNotifier {
         // print('Fetched data after login: $jsonData');
         return resultData;
       } else {
-        print('Failed to fetch data after login with status: ${response.statusCode}');
+        print(
+            'Failed to fetch data after login with status: ${response.statusCode}');
       }
     } else {
       print('Token not found. User not logged in.');
@@ -229,7 +229,7 @@ class ApiService with ChangeNotifier {
       if (response.statusCode == 200) {
         // print(response.body);
         onSuccess.call(response.body);
-      } else if (response.statusCode == 400){
+      } else if (response.statusCode == 400) {
         // print(response.body);
         // print(response.statusCode);
         onError.call("");
@@ -339,10 +339,8 @@ class ApiService with ChangeNotifier {
     required ValueSetter onError,
   }) async {
     String? token = await getTokenFromPrefs();
-    String removeServerpayload = json.encode({
-      "files": files,
-      "folders": folders
-    });
+    String removeServerpayload =
+        json.encode({"files": files, "folders": folders});
     // print('-+++++++++++++++++++++++++++++++++++++-----------------------------------');
     // print(removeServerpayload);
     try {
@@ -430,7 +428,7 @@ class ApiService with ChangeNotifier {
     }
   }
 
-/// CollaborateChat
+  /// CollaborateChat
   Future<Map<String, dynamic>> CollaborateDetailsChat() async {
     String? userToken = await getTokenFromPrefs();
     try {
@@ -459,26 +457,134 @@ class ApiService with ChangeNotifier {
   }
 
   ///GlobalSearch
-  Future<void> GlobalSearch({
-    String? keyword,
+  Future<void> globalSearch({
+    List<String>? keyword,
+    List<dynamic>? tags,
+    List<String>? types,
+    List<String>? from,
+    List<String>? to,
+    List<String>? iN,
+    bool? searchInChats,
+    String? orgId,
+    String? viewMore,
+    bool? content,
+    bool? groups,
+    bool? people,
+    bool? organisations,
+    bool? chat,
+    String? nonContentPageData,
+    int? rangeFrom,
+    int? rangeTo,
+    String? sortKey,
+    String? sortOrder,
+    String? contentPagination,
+    String? values,
+    int? nextFilesFrom,
+    int? nextFilesTill,
+    int? nextFoldersFrom,
+    int? nextFoldersTill,
+    bool? nextFilesOnly,
+    bool? nextFoldersOnly,
+    String? fileSortKey,
+    String? fileSortOrder,
+    String? folderSortKey,
+    String? folderSortOrder,
+    bool? isPersonal,
   }) async {
     String? token = await getTokenFromPrefs();
 
     String globalSearchPayload = json.encode({
-
+      "keywords": ["$keyword"],
+      "tags": [tags],
+      "types": [types],
+      "from": [from],
+      "to": [to],
+      "in": [iN],
+      "search_in_chats": searchInChats,
+      "org_id": orgId,
+      "view_more": {
+        "content": content,
+        "groups": groups,
+        "people": people,
+        "organisations": organisations,
+        "chats": chat,
+        "non_content_page_data": {
+          "range_from": rangeFrom,
+          "range_to": rangeTo,
+          "sort_key": sortKey,
+          "sort_order": sortOrder
+        },
+        "content_pagination": {
+          "next_files_from": nextFilesFrom,
+          "next_files_till": nextFilesTill,
+          "next_folders_from": nextFoldersFrom,
+          "next_folders_till": nextFoldersTill,
+          "next_files_only": nextFilesOnly,
+          "next_folders_only": nextFoldersOnly,
+          "file_sort_key": fileSortKey,
+          "file_sort_order": fileSortOrder,
+          "folder_sort_key": folderSortKey,
+          "folder_sort_order": folderSortOrder
+        }
+      },
+      "is_personal": isPersonal
     });
+
+    // {"keywords":["a"],"tags":[],"types":[],"from":[],"to":[],"in":[],"search_in_chats":false,"org_id":null,"view_more":{"content":false,"groups":false,"people":false,"organisations":false,"chats":false,"non_content_page_data":{"range_from":0,"range_to":20,"sort_key":null,"sort_order":null},"content_pagination":{"next_files_from":0,"next_files_till":20,"next_folders_from":0,"next_folders_till":20,"next_files_only":false,"next_folders_only":false,"file_sort_key":null,"file_sort_order":null,"folder_sort_key":null,"folder_sort_order":null}},"is_personal":false}
+    // json.encode({
+    //
+    //   "keywords"  :  keyword,
+    //   "tags" :  tags,
+    //   "types" :  types,
+    //   "from" :  from,
+    //   "to"  :  to,
+    //   "in"  :  iN,
+    //   "search_in_chats" : searchInChats ,
+    //   "org_id":  orgId,
+    //   "view_more"   : viewMore ,
+    //   "content"  :  content,
+    //   "groups"  :  groups,
+    //   "people"  :  people,
+    //   "organisations" :  organisations,
+    //   "chats"  :  chat,
+    //   "non_content_page_data" : nonContentPageData ,
+    //   "range_from"  :  rangeFrom,
+    //   "range_to" :  rangeTo,
+    //   "sort_key"  :  sortKey,
+    //   "sort_order"  :  sortOrder,
+    //   "content_pagination" :  contentPagination,
+    //   "next_files_from"  :  nextFilesFrom,
+    //   "next_files_till" :  nextFilesTill,
+    //   "next_folders_from" :  nextFoldersFrom,
+    //   "next_folders_till" :  nextFoldersTill,
+    //   "next_files_only"  :  nextFilesOnly,
+    //   "next_folders_only"  :  nextFoldersOnly,
+    //   "file_sort_key"  :  fileSortKey,
+    //   "file_sort_order"  :  fileSortOrder,
+    //   "folder_sort_key"  :  folderSortKey,
+    //   "folder_sort_order"  :  folderSortOrder,
+    //   "is_personal" :  isPersonal,
+    // });
 
     Response response = await post(
         Uri.parse(
-            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
+            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/search/global/'),
         body: globalSearchPayload,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Token $token',
         });
 
-
-
+    try {
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print(response.statusCode);
+        print(response.headers);
+        print("Failled to get globalData");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
-
 }

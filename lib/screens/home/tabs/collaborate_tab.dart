@@ -140,7 +140,8 @@ class _CollaboratePageState extends State<CollaboratePage> {
   // ChatList
   Widget chatList(AuthProvider finalData) {
     return searchChatUserList.isEmpty ? ListView.builder(
-      itemCount: finalData.collaborateData.data?.individuals.length,
+      // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
+      itemCount: finalData.fetchedCollaborateData.length,
       itemBuilder: (BuildContext context,int index) {
         return Dismissible(
           key: ValueKey(finalData.collaborateData.data?.individuals[index]),
