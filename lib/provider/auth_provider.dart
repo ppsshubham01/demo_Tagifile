@@ -218,9 +218,9 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
   /// GlobalSearch
   Future<void> globalSearch() async {
-    ApiService().globalSearch();
-
-  }
+    await ApiService().globalSearch();
+     }
 }

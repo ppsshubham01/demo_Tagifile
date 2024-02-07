@@ -89,57 +89,7 @@ class _PersonalPageState extends State<PersonalPage>
       ),
 
       /// tabBar Controller
-      body: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              width: 250,
-              height: 35,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 2, color: const Color(0xFFCBCBCB))),
-              child: TabBar(
-                // controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicator: BoxDecoration(
-                    // color: const Color(0xFF1D55A4),
-                    color: const Color(0xFF1D55A4),
-                    borderRadius: BorderRadius.circular(5.0)),
-                tabs: const [
-                  Tab(
-                      child: Text(
-                    "My Files",
-                  )),
-                  Tab(
-                    child: Text(
-                      "Shared Files",
-                    ),
-                  ),
-                ],
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.black,
-                unselectedLabelStyle: const TextStyle(
-                    color: Colors.black, backgroundColor: Colors.white),
-                onTap: (index) {
-                  // _tabController.animateTo(index);
-                },
-              ),
-            ),
-            Expanded(
-              child: TabBarView(
-                // controller: _tabController,
-                children: [
-                  MyFilesTab(fetchedfterlogin: fetchedDafterlogin),
-                  const Icon(Icons.directions_transit),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: MyFilesTab(fetchedfterlogin: fetchedDafterlogin),
 
       floatingActionButton: FloatingActionButton(
         mini: true,
