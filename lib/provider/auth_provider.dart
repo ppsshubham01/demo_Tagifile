@@ -219,8 +219,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// GlobalSearch
-  Future<void> GlobalSearch() async {
-    ApiService().GlobalSearch();
+  Future<void> globalSearch(String value) async {
+    ApiService().GlobalSearch(keyword: value);
 
   }
 }

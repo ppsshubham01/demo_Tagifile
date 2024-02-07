@@ -70,7 +70,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
 
   @override
   Widget build(BuildContext context) {
-    final finalCollaborateData = Provider.of<AuthProvider>(context).fetchedCollaborateData;
+    final finalCollaborateData = Provider.of<AuthProvider>(context);
     // print(finalCollaborateData);
 
     return Scaffold(
@@ -140,10 +140,10 @@ class _CollaboratePageState extends State<CollaboratePage> {
   // ChatList
   Widget chatList(AuthProvider finalData) {
     return searchChatUserList.isEmpty ? ListView.builder(
-      itemCount: finalData.data?.individuals.length,
+      itemCount: finalData.collaborateData.data?.individuals.length,
       itemBuilder: (BuildContext context,int index) {
         return Dismissible(
-          key: ValueKey(finalData.data?.individuals[index]),
+          key: ValueKey(finalData.collaborateData.data?.individuals[index]),
           background: Container(
             color: Colors.red,
             child: const Icon(CupertinoIcons.delete),
@@ -213,11 +213,11 @@ class _CollaboratePageState extends State<CollaboratePage> {
                     networkImageLink: 'https://source.unsplash.com/random?sig=$index',
                   ),),);
                 },
-                child: Text(finalData.data?.individuals[index] .firstName ?? 'nullData')),
-            subtitle: Text("subtitle ${finalData.data?.individuals[index].username}"),
+                child: Text(finalData.collaborateData.data?.individuals[index] .firstName ?? 'nullData')),
+            subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
             trailing: Column(
               children: [
-                Text("12.00${finalData.data?.individuals[index].lastMessageActivity}"),
+                Text("12.00${finalData.collaborateData.data?.individuals[index].lastMessageActivity}"),
                 const Icon(Icons.timelapse_rounded),
               ],
             ),

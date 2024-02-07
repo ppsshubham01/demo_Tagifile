@@ -459,8 +459,24 @@ class ApiService with ChangeNotifier {
   }
 
   ///GlobalSearch
-  Future<void> GlobalSearch(
-  ) async {
+  Future<void> GlobalSearch({
+    String? keyword,
+  }) async {
+    String? token = await getTokenFromPrefs();
+
+    String globalSearchPayload = json.encode({
+
+    });
+
+    Response response = await post(
+        Uri.parse(
+            'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/personal/content/folder/v1/remove/'),
+        body: globalSearchPayload,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $token',
+        });
+
 
 
   }

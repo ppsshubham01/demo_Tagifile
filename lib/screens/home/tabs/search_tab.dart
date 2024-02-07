@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tagifiles/provider/auth_provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,27 +14,14 @@ class _SearchPageState extends State<SearchPage> {
 
   void searchingElements(String text) {
 
-    // setState(() {
-    //   searchChatUserList.clear();
-    // });
-    //
-    // if (text.isNotEmpty || text != '') {
-    //   for (var element in chatUsers) {
-    //     if (element.name.toLowerCase().contains(
-    //         text.toLowerCase().trim().replaceAll(RegExp(r'\b\s+\b'), ''))) {
-    //       // print(element.title);
-    //       searchChatUserList.add(element);
-    //     }
-    //   }
-    //   setState(() {});
-    //
-    // }
-    //print(text.trim());
-    // print(searchedItems.length);
+
   }
+
   final TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final globalProvider = Provider.of<AuthProvider>(context);
+
     return  Scaffold(
       appBar:  AppBar(
         toolbarHeight: 70,
@@ -49,7 +38,8 @@ class _SearchPageState extends State<SearchPage> {
                 //maxLength: 100,
                 controller: searchTextController,
                 onChanged: (value){
-                  searchingElements(value);
+                  globalProvider.globalSearch(value);
+                  // searchingElements(value);
                   
                 },
                 style: const TextStyle(overflow: TextOverflow.fade),
