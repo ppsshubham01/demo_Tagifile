@@ -10,14 +10,11 @@ import '../model/collaborateModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
-  String? _tokenKey = 'jaimin';
+  String? _tokenKey ;
 
   bool get isToken {
     return _tokenKey != null;
   }
-
-  // flutter_launcher_icons: ^0.13.1
-  //
 
   /// ########################  Login
   Future<void> login({
@@ -581,7 +578,7 @@ class ApiService with ChangeNotifier {
       } else {
         print(response.statusCode);
         print(response.headers);
-        print("Failled to get globalData");
+        print("Failed to get globalData");
       }
     } catch (e) {
       print(e.toString());
