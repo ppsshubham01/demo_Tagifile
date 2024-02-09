@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tagifiles/model/chatUsersModel.dart';
 
 class SingleUserProfile extends StatefulWidget {
@@ -106,28 +105,30 @@ class _SingleUserProfileState extends State<SingleUserProfile> {
                 color: Colors.white,
                 height: 200,
                 width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 18.0,left: 20,bottom: 5,right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Media",style: TextStyle(color: Color(0xFFFFA8A7A7),fontSize: 14),),
-                          Icon(CupertinoIcons.chevron_right,size: 18,)
+                child: DefaultTabController(
+                  length: 2,
+                  child: Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: Colors.green,
+                      bottom: const TabBar(
+                        tabs: [
+                          Tab(text: "Media",),
+                          Tab(text: "Files",),
                         ],
                       ),
-                      const SizedBox(height: 5,),
-                      // Logic for Media
-                  Container(
-                      height: 150,
-                      width: double.infinity,
-                      child: media()),
-                    ],
+                    ),
+                    body: TabBarView(
+                      children: <Widget>[
+                        Center(child: media()),
+                        const Center(child: Text("Files Tab"),),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              )
+              ,
+
+
               const SizedBox(height: 5,),
               Flexible(
                 child: Container(

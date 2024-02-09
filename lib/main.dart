@@ -7,7 +7,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/loading_screen.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
-import 'package:tagifiles/provider/createFolder_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/services/service.dart';
@@ -23,7 +22,7 @@ void main() async {
 
   // String? tokenKey = await ApiService().getTokenFromPrefs();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 Future initialization(BuildContext? context) async {
@@ -34,7 +33,7 @@ Future initialization(BuildContext? context) async {
 class MyApp extends StatefulWidget {
   // String? tokenKey;
 
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();

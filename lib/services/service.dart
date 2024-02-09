@@ -7,6 +7,7 @@ import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
 import '../model/collaborateModel.dart';
+import '../model/global_SearchModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
@@ -454,7 +455,7 @@ class ApiService with ChangeNotifier {
   }
 
   ///GlobalSearch
-  Future<void> globalSearch({
+  Future<GlobalSearch?> globalSearch({
     List<String>? keyword,
     List<dynamic>? tags,
     List<String>? types,
@@ -490,8 +491,9 @@ class ApiService with ChangeNotifier {
   }) async {
     String? token = await getTokenFromPrefs();
 
-    String globalSearchPayload = json.encode({
-      "keywords": ["$keyword"],
+    String globalSearchPayload = json.encode(
+        {
+      "keywords": ["a"],
       "tags": [tags],
       "types": [types],
       "from": [from],
@@ -525,43 +527,18 @@ class ApiService with ChangeNotifier {
         }
       },
       "is_personal": isPersonal
-    });
-
-    // {"keywords":["a"],"tags":[],"types":[],"from":[],"to":[],"in":[],"search_in_chats":false,"org_id":null,"view_more":{"content":false,"groups":false,"people":false,"organisations":false,"chats":false,"non_content_page_data":{"range_from":0,"range_to":20,"sort_key":null,"sort_order":null},"content_pagination":{"next_files_from":0,"next_files_till":20,"next_folders_from":0,"next_folders_till":20,"next_files_only":false,"next_folders_only":false,"file_sort_key":null,"file_sort_order":null,"folder_sort_key":null,"folder_sort_order":null}},"is_personal":false}
-    // json.encode({
-    //
-    //   "keywords"  :  keyword,
-    //   "tags" :  tags,
-    //   "types" :  types,
-    //   "from" :  from,
-    //   "to"  :  to,
-    //   "in"  :  iN,
-    //   "search_in_chats" : searchInChats ,
-    //   "org_id":  orgId,
-    //   "view_more"   : viewMore ,
-    //   "content"  :  content,
-    //   "groups"  :  groups,
-    //   "people"  :  people,
-    //   "organisations" :  organisations,
-    //   "chats"  :  chat,
-    //   "non_content_page_data" : nonContentPageData ,
-    //   "range_from"  :  rangeFrom,
-    //   "range_to" :  rangeTo,
-    //   "sort_key"  :  sortKey,
-    //   "sort_order"  :  sortOrder,
-    //   "content_pagination" :  contentPagination,
-    //   "next_files_from"  :  nextFilesFrom,
-    //   "next_files_till" :  nextFilesTill,
-    //   "next_folders_from" :  nextFoldersFrom,
-    //   "next_folders_till" :  nextFoldersTill,
-    //   "next_files_only"  :  nextFilesOnly,
-    //   "next_folders_only"  :  nextFoldersOnly,
-    //   "file_sort_key"  :  fileSortKey,
-    //   "file_sort_order"  :  fileSortOrder,
-    //   "folder_sort_key"  :  folderSortKey,
-    //   "folder_sort_order"  :  folderSortOrder,
-    //   "is_personal" :  isPersonal,
-    // });
+    }
+    );
+    print(globalSearchPayload);
+    print("------------------------THIS IS sEARCH #################_________----------------");
+    // {"keywords":["a"],"tags":[],"types":[],"from":[],"to":[],"in":[],
+    // "search_in_chats":false,"org_id":null,
+    // "view_more":{"content":false,"groups":false,"people":false,"organisations":false,"chats":false,
+    // "non_content_page_data":{"range_from":0,"range_to":20,"sort_key":null,"sort_order":null},
+    // "content_pagination":{"next_files_from":0,"next_files_till":20,
+    // "next_folders_from":0,"next_folders_till":20,"next_files_only":false,
+    // "next_folders_only":false,"file_sort_key":null,"file_sort_order":null,
+    // "folder_sort_key":null,"folder_sort_order":null}},"is_personal":false}
 
     Response response = await post(
         Uri.parse(
@@ -574,7 +551,13 @@ class ApiService with ChangeNotifier {
 
     try {
       if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
         print(response.body);
+        print("responseData: $responseData");
+        // return responseData[];
+        // return GlobalSearch.fromJson(responseData);
+        GlobalSearch resultData = GlobalSearch.fromJson(responseData);
+        return resultData;
       } else {
         print(response.statusCode);
         print(response.headers);

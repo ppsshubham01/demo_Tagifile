@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tagifiles/model/global_SearchModel.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
@@ -220,7 +221,9 @@ class AuthProvider with ChangeNotifier {
 
 
   /// GlobalSearch
-  Future<void> globalSearch() async {
-    await ApiService().globalSearch();
-     }
+  GlobalSearch globalSearch = GlobalSearch();
+
+  Future<void> globalSearchProvider() async {
+    globalSearch = (await ApiService().globalSearch())!;
+  }
 }

@@ -41,7 +41,7 @@ class Data {
       individuals: (json['individuals'] as List)
           .map((individual) => Individual.fromJson(individual))
           .toList(),
-      selfId: json['selfId'],
+      selfId: json['self_id'],
     );
   }
 
@@ -49,7 +49,7 @@ class Data {
     return {
       'groups': groups.map((group) => group.toJson()).toList(),
       'individuals': individuals.map((individual) => individual.toJson()).toList(),
-      'selfId': selfId,
+      'self_id': selfId,
     };
   }
 }
@@ -83,15 +83,15 @@ class Group {
 
   factory Group.fromJson(Map<String, dynamic> json) {
     return Group(
-      groupName: json['groupName'],
-      groupCategoryName: json['groupCategoryName'],
-      groupDesc: json['groupDesc'],
-      groupRemark: json['groupRemark'],
-      id: json['id'],
+      groupName: json['group_name'],
+      groupCategoryName: json['group_category_name'],
+      groupDesc: json['group_desc'],
+      groupRemark: json['group_remark'],
+      id: json['_id'],
       username: json['username'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      lastMessageActivity: DateTime.parse(json['lastMessageActivity']),
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      lastMessageActivity: DateTime.parse(json['last_message_activity']),
       members: (json['members'] as List).map((member) => member as int).toList(),
       unread: json['unread'],
     );
@@ -99,15 +99,15 @@ class Group {
 
   Map<String, dynamic> toJson() {
     return {
-      'groupName': groupName,
-      'groupCategoryName': groupCategoryName,
-      'groupDesc': groupDesc,
-      'groupRemark': groupRemark,
+      'group_name': groupName,
+      'group_category_name': groupCategoryName,
+      'group_desc': groupDesc,
+      'group_remark': groupRemark,
       'id': id,
       'username': username,
-      'firstName': firstName,
-      'lastName': lastName,
-      'lastMessageActivity': lastMessageActivity.toIso8601String(),
+      'first_name': firstName,
+      'last_name': lastName,
+      'last_message_activity': lastMessageActivity.toIso8601String(),
       'members': members,
       'unread': unread,
     };
@@ -133,22 +133,22 @@ class Individual {
 
   factory Individual.fromJson(Map<String, dynamic> json) {
     return Individual(
-      firstName: json['firstName'],
-      lastMessageActivity: DateTime.parse(json['lastMessageActivity']),
-      lastName: json['lastName'],
+      firstName: json['first_name'],
+      lastMessageActivity: DateTime.parse(json['last_message_activity']),
+      lastName: json['last_name'],
       username: json['username'],
-      id: json['id'],
+      id: json['_id'],
       unread: json['unread'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'firstName': firstName,
-      'lastMessageActivity': lastMessageActivity.toIso8601String(),
-      'lastName': lastName,
+      'first_name': firstName,
+      'last_message_activity': lastMessageActivity.toIso8601String(),
+      'last_name': lastName,
       'username': username,
-      'id': id,
+      '_id': id,
       'unread': unread,
     };
   }

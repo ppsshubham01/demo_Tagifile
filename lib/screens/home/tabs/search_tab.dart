@@ -20,7 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuthProvider>(context,listen: false).globalSearch();
+    Provider.of<AuthProvider>(context,listen: false).globalSearchProvider();
     super.initState();
 
   }
@@ -45,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
                 //maxLength: 100,
                 controller: searchTextController,
                 onChanged: (value){
-                  globalProvider.globalSearch();
+                  globalProvider.globalSearchProvider();
                   // searchingElements(value);
                   
                 },

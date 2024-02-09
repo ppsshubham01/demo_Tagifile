@@ -83,6 +83,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
         image: "images/userImage7.jpeg",
         time: "24 Feb"),
   ];
+  List<CollaborateModel> collaborateLiat=[];
 
   List<ChatUsers> searchChatUserList = [];
 
@@ -124,6 +125,10 @@ class _CollaboratePageState extends State<CollaboratePage> {
       appBar: AppBar(
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
+        leading:  IconButton(
+            icon:  const Icon(Icons.arrow_back,color: Colors.white,),
+            onPressed: (){Navigator.pop(context,true);}
+        ),
         title: Container(
           // height: 45,
           margin: const EdgeInsets.only(top: 5.0, bottom: 10.0),
@@ -301,17 +306,25 @@ class _CollaboratePageState extends State<CollaboratePage> {
                               ),
                             );
                           },
-                          child: Text("${finalData.fetchedCollaborateData['individuals'][index]['firstName'] }")),
+                          child: Row(
+                            children: [
+                              Text("${finalData.fetchedCollaborateData['individuals'][index]['first_name']}"),
+                              const SizedBox(width: 2,),
+                              Text("${finalData.fetchedCollaborateData['individuals'][index]['last_name']}",style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                            ],
+                          )),
                       // child: Text(finalData.collaborateData.data?.individuals[index] .f\rstName ?? 'nullData')),
-                      subtitle: Text("${finalData.fetchedCollaborateData['individuals'][index]['username']}"),
+                      subtitle: Text("${finalData.fetchedCollaborateData['individuals'][index]['username']}",style: const TextStyle(overflow: TextOverflow.ellipsis),),
                       // subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
                       trailing: Column(
                         children: [
-                          Text("${finalData.collaborateData.data?.individuals[index].lastMessageActivity}"),
-                          const Icon(
-                            Icons.timelapse_rounded,
-                            color: Colors.green,
-                          ),
+                          Text("${finalData.fetchedCollaborateData['individuals'][index]['last_message_activity']}"),
+                          // "last_message_activity": "2023-11-04T04:39:45.404317Z",
+                          Text("${finalData.fetchedCollaborateData['individuals'][index]['unread']}",style: const TextStyle(color: CupertinoColors.systemGreen),),
+                          // const Icon(
+                          //   Icons.timelapse_rounded,
+                          //   color: Colors.green,
+                          // ),
                         ],
                       ),
                       // onTap: () => _selectedItem(item),
