@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/loading_screen.dart';
+import 'package:tagifiles/model/chatUsersModel.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
+import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/local_notification.dart';
@@ -131,15 +133,16 @@ class _MyAppState extends State<MyApp> {
                 MaterialApp(
                     debugShowCheckedModeBanner: false,
                     // theme: ThemeData(fontFamily: 'Helvetica'),
-                    home: apiServiceInstanceProvider.isToken
-                        ? const HomePage()
-                        : FutureBuilder(
-                      future: apiServiceInstanceProvider.tryAutoLogin(),
-                      builder: (context, snapshot) =>
-                      snapshot.connectionState == ConnectionState.waiting
-                          ? const LoadingScreen()
-                          : const WelcomeScreen(),
-                    )
+                    // home: apiServiceInstanceProvider.isToken
+                    //     ? const HomePage()
+                    //     : FutureBuilder(
+                    //   future: apiServiceInstanceProvider.tryAutoLogin(),
+                    //   builder: (context, snapshot) =>
+                    //   snapshot.connectionState == ConnectionState.waiting
+                    //       ? const LoadingScreen()
+                    //       : const WelcomeScreen(),
+                    // )
+                  home: SingleUserProfile(userItem:{}, userNetworkImage: ''),
                   // const WelcomeScreen(),
                 ),
           );

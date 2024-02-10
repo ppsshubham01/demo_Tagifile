@@ -11,7 +11,7 @@ import '../model/global_SearchModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
-  String? _tokenKey ;
+  String? _tokenKey ='shubham';
 
   bool get isToken {
     return _tokenKey != null;
@@ -494,39 +494,39 @@ class ApiService with ChangeNotifier {
     String globalSearchPayload = json.encode(
         {
       "keywords": ["a"],
-      "tags": [tags],
-      "types": [types],
-      "from": [from],
-      "to": [to],
-      "in": [iN],
-      "search_in_chats": searchInChats,
+      "tags": tags ?? [],
+      "types": types ?? [],
+      "from": from ?? [],
+      "to": to ?? [],
+      "in": iN ?? [],
+      "search_in_chats": searchInChats ?? false,
       "org_id": orgId,
       "view_more": {
-        "content": content,
-        "groups": groups,
-        "people": people,
-        "organisations": organisations,
-        "chats": chat,
+        "content": content ?? false,
+        "groups": groups ?? false,
+        "people": people ?? false,
+        "organisations": organisations ?? false,
+        "chats": chat ?? false,
         "non_content_page_data": {
-          "range_from": rangeFrom,
-          "range_to": rangeTo,
+          "range_from": rangeFrom ?? 0,
+          "range_to": rangeTo ?? 0,
           "sort_key": sortKey,
           "sort_order": sortOrder
         },
         "content_pagination": {
-          "next_files_from": nextFilesFrom,
-          "next_files_till": nextFilesTill,
-          "next_folders_from": nextFoldersFrom,
-          "next_folders_till": nextFoldersTill,
-          "next_files_only": nextFilesOnly,
-          "next_folders_only": nextFoldersOnly,
+          "next_files_from": nextFilesFrom ?? 0,
+          "next_files_till": nextFilesTill ?? 0,
+          "next_folders_from": nextFoldersFrom ?? 0,
+          "next_folders_till": nextFoldersTill ?? 0,
+          "next_files_only": nextFilesOnly ?? false,
+          "next_folders_only": nextFoldersOnly ?? false,
           "file_sort_key": fileSortKey,
           "file_sort_order": fileSortOrder,
           "folder_sort_key": folderSortKey,
           "folder_sort_order": folderSortOrder
         }
       },
-      "is_personal": isPersonal
+      "is_personal": isPersonal ?? false
     }
     );
     print(globalSearchPayload);

@@ -10,7 +10,8 @@ import '../../provider/auth_provider.dart';
 
 class ChatPage extends StatefulWidget {
  String networkImageLink;
-  ChatUsers userItem;
+  // ChatUsers userItem;
+  Map<String, dynamic> userItem;
    ChatPage({super.key, required this.userItem, required this.networkImageLink});
 
   @override
@@ -90,12 +91,12 @@ class _ChatPageState extends State<ChatPage> {
                    mainAxisAlignment: MainAxisAlignment.center,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text(widget.userItem.name,style: const TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
+                     Text(widget.userItem['first_name'],style: const TextStyle(color: Colors.white,overflow: TextOverflow.ellipsis,fontSize: 18.5),),
                      // Text("Online",style: TextStyle(color: Colors.grey, fontSize: 13),),
                    ],
                  ),
                ),
-             ),
+              ),
              ),
 
           ],
