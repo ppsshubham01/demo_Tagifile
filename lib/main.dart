@@ -133,16 +133,16 @@ class _MyAppState extends State<MyApp> {
                 MaterialApp(
                     debugShowCheckedModeBanner: false,
                     // theme: ThemeData(fontFamily: 'Helvetica'),
-                    // home: apiServiceInstanceProvider.isToken
-                    //     ? const HomePage()
-                    //     : FutureBuilder(
-                    //   future: apiServiceInstanceProvider.tryAutoLogin(),
-                    //   builder: (context, snapshot) =>
-                    //   snapshot.connectionState == ConnectionState.waiting
-                    //       ? const LoadingScreen()
-                    //       : const WelcomeScreen(),
-                    // )
-                  home: SingleUserProfile(userItem:{}, userNetworkImage: ''),
+                    home: apiServiceInstanceProvider.isToken
+                        ? const HomePage()
+                        : FutureBuilder(
+                      future: apiServiceInstanceProvider.tryAutoLogin(),
+                      builder: (context, snapshot) =>
+                      snapshot.connectionState == ConnectionState.waiting
+                          ? const LoadingScreen()
+                          : const WelcomeScreen(),
+                    )
+                  // home: SingleUserProfile(userItem:{}, userNetworkImage: ''),
                   // const WelcomeScreen(),
                 ),
           );

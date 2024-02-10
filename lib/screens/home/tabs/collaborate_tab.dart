@@ -183,122 +183,292 @@ class _CollaboratePageState extends State<CollaboratePage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Flexible(
-            flex: 0,
-            child: chatList(finalCollaborateData),
-          ),
-          Flexible(
-            flex: 0,
-            child: groupChatList(finalCollaborateData),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            mergedChatList(finalCollaborateData),
+            // chatList(finalCollaborateData),
+            // groupChatList(finalCollaborateData),
+          ],
+        ),
       ),
     );
   }
 
-//   CollaborateModel createCollaborateModel(Map<String, dynamic> data) {
-//     return CollaborateModel.fromJson(data);
-//
-// // Your chatList function
-//   Widget chatList(CollaborateModel collaborateModel) {
-//   body: chatList(createCollaborateModel(fetchedCollaborateData)),
+
+  Widget mergedChatList(AuthProvider finalData) {
+    List<dynamic> allChats = [];
+    allChats.addAll(finalData.fetchedCollaborateData['individuals'] ?? []);
+    allChats.addAll(finalData.fetchedCollaborateData['groups'] ?? []);
+
+    allChats.sort((a, b) {
+      DateTime aTime = a['last_message_time'] ?? DateTime(0);
+      DateTime bTime = b['last_message_time'] ?? DateTime(0);
+      return bTime.compareTo(aTime);
+    });
+
+    return ListView.builder(
+      itemCount: allChats.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+
+        );
+      },
+    );
+  }
 
   // ChatList
   Widget chatList(AuthProvider finalData) {
-    return searchChatUserList.isEmpty
-        ? finalData.fetchedCollaborateData['individuals'] == null
-            ? const SizedBox.shrink()
-            : ListView.builder(
-                // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
-                itemCount:
-                    (finalData.fetchedCollaborateData['individuals']).length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Dismissible(
-                    key: ValueKey(
-                        finalData.fetchedCollaborateData['individuals'][index]),
-                    background: Container(
-                      color: Colors.red,
-                      child: const Icon(CupertinoIcons.delete),
-                    ),
-                    secondaryBackground: Container(
-                      color: Colors.green,
-                      child: const Icon(Icons.archive),
-                    ),
-                    onDismissed: (DismissDirection direction) {
-                      setState(() {
-                        Container();
-                        chatUsers.removeAt(index);
-                      });
-                    },
-                    confirmDismiss: (DismissDirection direction) async {
-                      return showDialog(
-                          context: context,
-                          useRootNavigator: true,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              alignment: Alignment.center,
-                              backgroundColor: Colors.white,
-                              title: const Center(
-                                  child: Text(
-                                "Delete this chat?",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              )),
-                              content: const Text(
-                                "Are you sure you want to permanently delete this message?",
-                                style: TextStyle(
-                                    color: Color(0xFF7A7A7A),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              actions: <Widget>[
-                                const Divider(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, true);
-                                      },
-                                      style: const ButtonStyle(),
-                                      child: const Text(
-                                        'Yes, Delete',
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 50,
-                                      child: VerticalDivider(
-                                        endIndent: 0,
-                                      ),
-                                    ),
-                                    TextButton(
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: searchChatUserList.isEmpty
+          ? finalData.fetchedCollaborateData['individuals'] == null
+              ? const SizedBox.shrink()
+              : ListView.builder(
+                  // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
+                  itemCount:
+                      (finalData.fetchedCollaborateData['individuals']).length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Dismissible(
+                      key: ValueKey(
+                          finalData.fetchedCollaborateData['individuals'][index]),
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(CupertinoIcons.delete),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.green,
+                        child: const Icon(Icons.archive),
+                      ),
+                      onDismissed: (DismissDirection direction) {
+                        setState(() {
+                          Container();
+                          chatUsers.removeAt(index);
+                        });
+                      },
+                      confirmDismiss: (DismissDirection direction) async {
+                        return showDialog(
+                            context: context,
+                            useRootNavigator: true,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                alignment: Alignment.center,
+                                backgroundColor: Colors.white,
+                                title: const Center(
+                                    child: Text(
+                                  "Delete this chat?",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 16),
+                                )),
+                                content: const Text(
+                                  "Are you sure you want to permanently delete this message?",
+                                  style: TextStyle(
+                                      color: Color(0xFF7A7A7A),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                actions: <Widget>[
+                                  const Divider(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context, false);
+                                          Navigator.pop(context, true);
                                         },
+                                        style: const ButtonStyle(),
                                         child: const Text(
-                                          'No',
-                                          style: TextStyle(
-                                              color: Color(0xFF566476)),
-                                        )),
-                                  ],
-                                )
+                                          'Yes, Delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 50,
+                                        child: VerticalDivider(
+                                          endIndent: 0,
+                                        ),
+                                      ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, false);
+                                          },
+                                          child: const Text(
+                                            'No',
+                                            style: TextStyle(
+                                                color: Color(0xFF566476)),
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                      child: ListTile(
+                        leading: GestureDetector(
+                          onTap: () {
+                            // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                            //   userItem: chatUsers[index],
+                            //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                            // ),),);
+                          },
+                          child: CircleAvatar(
+                            radius: 28,
+                            backgroundImage: NetworkImage(
+                                'https://source.unsplash.com/random?sig=$index'),
+                          ),
+                        ),
+                        title: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // searchChatUserList.clear();
+                                searchTextController.clear();
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(
+                                    userItem: finalData.fetchedCollaborateData['individuals'][index],
+                                    networkImageLink:
+                                        'https://source.unsplash.com/random?sig=$index',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                    "${finalData.fetchedCollaborateData['individuals'][index]['first_name']}"),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  "${finalData.fetchedCollaborateData['individuals'][index]['last_name']}",
+                                  style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis),
+                                ),
                               ],
-                            );
-                          });
-                    },
-                    child: ListTile(
-                      leading: GestureDetector(
+                            )),
+                        // child: Text(finalData.collaborateData.data?.individuals[index] .f\rstName ?? 'nullData')),
+                        subtitle: Text(
+                          "${finalData.fetchedCollaborateData['individuals'][index]['username']}",
+                          style: const TextStyle(overflow: TextOverflow.ellipsis),
+                        ),
+                        // subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
+                        trailing: Column(
+                          children: [
+                            // Text("${finalData.fetchedCollaborateData['individuals'][index]['last_message_activity']}"),
+                            Text(formattedTime(finalData.fetchedCollaborateData['individuals']
+                                    [index]['last_message_activity'])),
+                            // "last_message_activity": "2023-11-04T04:39:45.404317Z",
+                            Text(
+                              "${finalData.fetchedCollaborateData['individuals'][index]['unread']}",
+                              style: const TextStyle(
+                                  color: CupertinoColors.systemGreen),
+                            ),
+                            // const Icon(
+                            //   Icons.timelapse_rounded,
+                            //   color: Colors.green,
+                            // ),
+                          ],
+                        ),
+                        // onTap: () => _selectedItem(item),
+                      ),
+                    );
+                  },
+                )
+          : // for serachView
+          ListView.builder(
+              itemCount: searchChatUserList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                  key: ValueKey(searchChatUserList[index]),
+                  background: Container(
+                    color: Colors.red,
+                    child: const Icon(CupertinoIcons.delete),
+                  ),
+                  secondaryBackground: Container(
+                    color: Colors.green,
+                    child: const Icon(Icons.archive),
+                  ),
+                  onDismissed: (DismissDirection direction) {
+                    setState(() {
+                      Container();
+                      searchChatUserList.removeAt(index);
+                    });
+                  },
+                  confirmDismiss: (DismissDirection direction) async {
+                    return showDialog(
+                        context: context,
+                        useRootNavigator: true,
+                        barrierDismissible: true,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            alignment: Alignment.center,
+                            backgroundColor: Colors.white,
+                            title: const Center(
+                                child: Text(
+                              "Delete this chat?",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            )),
+                            content: const Text(
+                              "Are you sure you want to permanently delete this message?",
+                              style: TextStyle(
+                                  color: Color(0xFF7A7A7A),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            actions: <Widget>[
+                              const Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, true);
+                                    },
+                                    style: const ButtonStyle(),
+                                    child: const Text(
+                                      'Yes, Delete',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                    child: VerticalDivider(
+                                      endIndent: 0,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, false);
+                                      },
+                                      child: const Text(
+                                        'No',
+                                        style:
+                                            TextStyle(color: Color(0xFF566476)),
+                                      )),
+                                ],
+                              )
+                            ],
+                          );
+                        });
+                  },
+                  child: ListTile(
+                    leading: GestureDetector(
+                      onTap: () {
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                        //   userItem: searchChatUserList[index],
+                        //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                        // ),),);
+                      },
+                      child: GestureDetector(
                         onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                          //   userItem: chatUsers[index],
-                          //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                          // ),),);
+                          PopDialog().showProfilePictureDialog(context);
                         },
                         child: CircleAvatar(
                           radius: 28,
@@ -306,295 +476,283 @@ class _CollaboratePageState extends State<CollaboratePage> {
                               'https://source.unsplash.com/random?sig=$index'),
                         ),
                       ),
-                      title: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              // searchChatUserList.clear();
-                              searchTextController.clear();
-                            });
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPage(
-                                  userItem: finalData.fetchedCollaborateData['individuals'][index],
-                                  networkImageLink:
-                                      'https://source.unsplash.com/random?sig=$index',
-                                ),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                  "${finalData.fetchedCollaborateData['individuals'][index]['first_name']}"),
-                              const SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                "${finalData.fetchedCollaborateData['individuals'][index]['last_name']}",
-                                style: const TextStyle(
-                                    overflow: TextOverflow.ellipsis),
-                              ),
-                            ],
-                          )),
-                      // child: Text(finalData.collaborateData.data?.individuals[index] .f\rstName ?? 'nullData')),
-                      subtitle: Text(
-                        "${finalData.fetchedCollaborateData['individuals'][index]['username']}",
-                        style: const TextStyle(overflow: TextOverflow.ellipsis),
-                      ),
-                      // subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
-                      trailing: Column(
-                        children: [
-                          // Text("${finalData.fetchedCollaborateData['individuals'][index]['last_message_activity']}"),
-                          Text(formattedTime(
-                              finalData.fetchedCollaborateData['individuals']
-                                  [index]['last_message_activity'])),
-                          // "last_message_activity": "2023-11-04T04:39:45.404317Z",
-                          Text(
-                            "${finalData.fetchedCollaborateData['individuals'][index]['unread']}",
-                            style: const TextStyle(
-                                color: CupertinoColors.systemGreen),
-                          ),
-                          // const Icon(
-                          //   Icons.timelapse_rounded,
-                          //   color: Colors.green,
-                          // ),
-                        ],
-                      ),
-                      // onTap: () => _selectedItem(item),
                     ),
-                  );
-                },
-              )
-        : // for serachView
-        ListView.builder(
-            itemCount: searchChatUserList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Dismissible(
-                key: ValueKey(searchChatUserList[index]),
-                background: Container(
-                  color: Colors.red,
-                  child: const Icon(CupertinoIcons.delete),
-                ),
-                secondaryBackground: Container(
-                  color: Colors.green,
-                  child: const Icon(Icons.archive),
-                ),
-                onDismissed: (DismissDirection direction) {
-                  setState(() {
-                    Container();
-                    searchChatUserList.removeAt(index);
-                  });
-                },
-                confirmDismiss: (DismissDirection direction) async {
-                  return showDialog(
-                      context: context,
-                      useRootNavigator: true,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          alignment: Alignment.center,
-                          backgroundColor: Colors.white,
-                          title: const Center(
-                              child: Text(
-                            "Delete this chat?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          )),
-                          content: const Text(
-                            "Are you sure you want to permanently delete this message?",
-                            style: TextStyle(
-                                color: Color(0xFF7A7A7A),
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          actions: <Widget>[
-                            const Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context, true);
-                                  },
-                                  style: const ButtonStyle(),
-                                  child: const Text(
-                                    'Yes, Delete',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                  child: VerticalDivider(
-                                    endIndent: 0,
-                                  ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, false);
-                                    },
-                                    child: const Text(
-                                      'No',
-                                      style:
-                                          TextStyle(color: Color(0xFF566476)),
-                                    )),
-                              ],
-                            )
-                          ],
-                        );
-                      });
-                },
-                child: ListTile(
-                  leading: GestureDetector(
-                    onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                      //   userItem: searchChatUserList[index],
-                      //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                      // ),),);
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        PopDialog().showProfilePictureDialog(context);
-                      },
-                      child: CircleAvatar(
-                        radius: 28,
-                        backgroundImage: NetworkImage(
-                            'https://source.unsplash.com/random?sig=$index'),
-                      ),
-                    ),
-                  ),
-                  title: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // searchChatUserList.clear();
-                          searchTextController.clear();
-                        });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              userItem: {},
-                              networkImageLink:
-                                  'https://source.unsplash.com/random?sig=$index',
+                    title: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            // searchChatUserList.clear();
+                            searchTextController.clear();
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                userItem: {},
+                                networkImageLink:
+                                    'https://source.unsplash.com/random?sig=$index',
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: Text(searchChatUserList[index].name)),
-                  subtitle:
-                      Text("subtitle ${searchChatUserList[index].messageText}"),
-                  trailing: Column(
-                    children: [
-                      Text(
-                        "12.00${searchChatUserList[index].time}",
-                        style: const TextStyle(color: Color(0xFFA8A7A7)),
-                      ),
-                      const Icon(
-                        Icons.timelapse_rounded,
-                        color: Colors.lightGreenAccent,
-                      ),
-                    ],
+                          );
+                        },
+                        child: Text(searchChatUserList[index].name)),
+                    subtitle:
+                        Text("subtitle ${searchChatUserList[index].messageText}"),
+                    trailing: Column(
+                      children: [
+                        Text(
+                          "12.00${searchChatUserList[index].time}",
+                          style: const TextStyle(color: Color(0xFFA8A7A7)),
+                        ),
+                        const Icon(
+                          Icons.timelapse_rounded,
+                          color: Colors.lightGreenAccent,
+                        ),
+                      ],
+                    ),
+                    // onTap: () => _selectedItem(item),
                   ),
-                  // onTap: () => _selectedItem(item),
-                ),
-              );
-            },
-          );
+                );
+              },
+            ),
+    );
   }
 
   Widget groupChatList(AuthProvider finalData) {
-    return searchChatUserList.isEmpty
-        ? finalData.fetchedCollaborateData['groups'] == null
-            ? const SizedBox.shrink()
-            : ListView.builder(
-                // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
-                itemCount: (finalData.fetchedCollaborateData['groups']).length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Dismissible(
-                    key: ValueKey(
-                        finalData.fetchedCollaborateData['groups'][index]),
-                    background: Container(
-                      color: Colors.red,
-                      child: const Icon(CupertinoIcons.delete),
-                    ),
-                    secondaryBackground: Container(
-                      color: Colors.green,
-                      child: const Icon(Icons.archive),
-                    ),
-                    onDismissed: (DismissDirection direction) {
-                      setState(() {
-                        Container();
-                        chatUsers.removeAt(index);
-                      });
-                    },
-                    confirmDismiss: (DismissDirection direction) async {
-                      return showDialog(
-                          context: context,
-                          useRootNavigator: true,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              alignment: Alignment.center,
-                              backgroundColor: Colors.white,
-                              title: const Center(
-                                  child: Text(
-                                "Delete this chat?",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              )),
-                              content: const Text(
-                                "Are you sure you want to permanently delete this message?",
-                                style: TextStyle(
-                                    color: Color(0xFF7A7A7A),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              actions: <Widget>[
-                                const Divider(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, true);
-                                      },
-                                      style: const ButtonStyle(),
-                                      child: const Text(
-                                        'Yes, Delete',
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 50,
-                                      child: VerticalDivider(
-                                        endIndent: 0,
-                                      ),
-                                    ),
-                                    TextButton(
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: searchChatUserList.isEmpty
+          ? finalData.fetchedCollaborateData['groups'] == null
+              ? const SizedBox.shrink()
+              : ListView.builder(
+                  // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
+                  itemCount: (finalData.fetchedCollaborateData['groups']).length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Dismissible(
+                      key: ValueKey(
+                          finalData.fetchedCollaborateData['groups'][index]),
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(CupertinoIcons.delete),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.green,
+                        child: const Icon(Icons.archive),
+                      ),
+                      onDismissed: (DismissDirection direction) {
+                        setState(() {
+                          Container();
+                          chatUsers.removeAt(index);
+                        });
+                      },
+                      confirmDismiss: (DismissDirection direction) async {
+                        return showDialog(
+                            context: context,
+                            useRootNavigator: true,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                alignment: Alignment.center,
+                                backgroundColor: Colors.white,
+                                title: const Center(
+                                    child: Text(
+                                  "Delete this chat?",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 16),
+                                )),
+                                content: const Text(
+                                  "Are you sure you want to permanently delete this message?",
+                                  style: TextStyle(
+                                      color: Color(0xFF7A7A7A),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                actions: <Widget>[
+                                  const Divider(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      TextButton(
                                         onPressed: () {
-                                          Navigator.pop(context, false);
+                                          Navigator.pop(context, true);
                                         },
+                                        style: const ButtonStyle(),
                                         child: const Text(
-                                          'No',
-                                          style: TextStyle(
-                                              color: Color(0xFF566476)),
-                                        )),
-                                  ],
-                                )
-                              ],
-                            );
-                          });
-                    },
-                    child: ListTile(
-                      leading: GestureDetector(
+                                          'Yes, Delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 50,
+                                        child: VerticalDivider(
+                                          endIndent: 0,
+                                        ),
+                                      ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, false);
+                                          },
+                                          child: const Text(
+                                            'No',
+                                            style: TextStyle(
+                                                color: Color(0xFF566476)),
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                      child: ListTile(
+                        leading: GestureDetector(
+                          onTap: () {
+                            // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                            //   userItem: chatUsers[index],
+                            //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                            // ),),);
+                          },
+                          child: CircleAvatar(
+                            radius: 28,
+                            backgroundImage: NetworkImage(
+                                'https://source.unsplash.com/random?sig=$index'),
+                          ),
+                        ),
+                        title: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // searchChatUserList.clear();
+                                searchTextController.clear();
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(
+                                    userItem: finalData.fetchedCollaborateData['groups'][index],
+                                    networkImageLink:
+                                        'https://source.unsplash.com/random?sig=$index',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text("${finalData.fetchedCollaborateData['groups'][index]['group_name']}"),
+                        ),
+                        // child: Text(finalData.collaborateData.data?.individuals[index] .f\rstName ?? 'nullData')),
+                        subtitle: Text(
+                          "${finalData.fetchedCollaborateData['groups'][index]['username']}",
+                          style: const TextStyle(overflow: TextOverflow.ellipsis),
+                        ),
+                        // subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
+                        trailing: Column(
+                          children: [
+                            // Text(
+                            //     "${finalData.fetchedCollaborateData['groups'][index]['last_message_activity']}"),
+                            Text(formattedTime(finalData.fetchedCollaborateData['groups'][index]['last_message_activity'])),
+                            Text("${finalData.fetchedCollaborateData['groups'][index]['unread']}",
+                              style: const TextStyle(
+                                  color: CupertinoColors.systemGreen),
+                            ),
+                            // const Icon(
+                            //   Icons.timelapse_rounded,
+                            //   color: Colors.green,
+                            // ),
+                          ],
+                        ),
+                        // onTap: () => _selectedItem(item),
+                      ),
+                    );
+                  },
+                )
+          : // for serachView
+          ListView.builder(
+              itemCount: searchChatUserList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                  key: ValueKey(searchChatUserList[index]),
+                  background: Container(
+                    color: Colors.red,
+                    child: const Icon(CupertinoIcons.delete),
+                  ),
+                  secondaryBackground: Container(
+                    color: Colors.green,
+                    child: const Icon(Icons.archive),
+                  ),
+                  onDismissed: (DismissDirection direction) {
+                    setState(() {
+                      Container();
+                      searchChatUserList.removeAt(index);
+                    });
+                  },
+                  confirmDismiss: (DismissDirection direction) async {
+                    return showDialog(
+                        context: context,
+                        useRootNavigator: true,
+                        barrierDismissible: true,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            alignment: Alignment.center,
+                            backgroundColor: Colors.white,
+                            title: const Center(
+                                child: Text(
+                              "Delete this chat?",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            )),
+                            content: const Text(
+                              "Are you sure you want to permanently delete this message?",
+                              style: TextStyle(
+                                  color: Color(0xFF7A7A7A),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            actions: <Widget>[
+                              const Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, true);
+                                    },
+                                    style: const ButtonStyle(),
+                                    child: const Text(
+                                      'Yes, Delete',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                    child: VerticalDivider(
+                                      endIndent: 0,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, false);
+                                      },
+                                      child: const Text(
+                                        'No',
+                                        style:
+                                            TextStyle(color: Color(0xFF566476)),
+                                      )),
+                                ],
+                              )
+                            ],
+                          );
+                        });
+                  },
+                  child: ListTile(
+                    leading: GestureDetector(
+                      onTap: () {
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
+                        //   userItem: searchChatUserList[index],
+                        //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
+                        // ),),);
+                      },
+                      child: GestureDetector(
                         onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                          //   userItem: chatUsers[index],
-                          //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                          // ),),);
+                          PopDialog().showProfilePictureDialog(context);
                         },
                         child: CircleAvatar(
                           radius: 28,
@@ -602,199 +760,45 @@ class _CollaboratePageState extends State<CollaboratePage> {
                               'https://source.unsplash.com/random?sig=$index'),
                         ),
                       ),
-                      title: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              // searchChatUserList.clear();
-                              searchTextController.clear();
-                            });
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPage(
-                                  userItem: finalData.fetchedCollaborateData['groups'][index],
-                                  networkImageLink:
-                                      'https://source.unsplash.com/random?sig=$index',
-                                ),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                  "${finalData.fetchedCollaborateData['groups'][index]['first_name']}"),
-                              const SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                "${finalData.fetchedCollaborateData['groups'][index]['last_name']}",
-                                style: const TextStyle(
-                                    overflow: TextOverflow.ellipsis),
-                              ),
-                            ],
-                          )),
-                      // child: Text(finalData.collaborateData.data?.individuals[index] .f\rstName ?? 'nullData')),
-                      subtitle: Text(
-                        "${finalData.fetchedCollaborateData['groups'][index]['username']}",
-                        style: const TextStyle(overflow: TextOverflow.ellipsis),
-                      ),
-                      // subtitle: Text("subtitle ${finalData.collaborateData.data?.individuals[index].username}"),
-                      trailing: Column(
-                        children: [
-                          Text(
-                              "${finalData.fetchedCollaborateData['groups'][index]['last_message_activity']}"),
-                          // "last_message_activity": "2023-11-04T04:39:45.404317Z",
-                          Text(
-                            "${finalData.fetchedCollaborateData['groups'][index]['unread']}",
-                            style: const TextStyle(
-                                color: CupertinoColors.systemGreen),
-                          ),
-                          // const Icon(
-                          //   Icons.timelapse_rounded,
-                          //   color: Colors.green,
-                          // ),
-                        ],
-                      ),
-                      // onTap: () => _selectedItem(item),
                     ),
-                  );
-                },
-              )
-        : // for serachView
-        ListView.builder(
-            itemCount: searchChatUserList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Dismissible(
-                key: ValueKey(searchChatUserList[index]),
-                background: Container(
-                  color: Colors.red,
-                  child: const Icon(CupertinoIcons.delete),
-                ),
-                secondaryBackground: Container(
-                  color: Colors.green,
-                  child: const Icon(Icons.archive),
-                ),
-                onDismissed: (DismissDirection direction) {
-                  setState(() {
-                    Container();
-                    searchChatUserList.removeAt(index);
-                  });
-                },
-                confirmDismiss: (DismissDirection direction) async {
-                  return showDialog(
-                      context: context,
-                      useRootNavigator: true,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          alignment: Alignment.center,
-                          backgroundColor: Colors.white,
-                          title: const Center(
-                              child: Text(
-                            "Delete this chat?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          )),
-                          content: const Text(
-                            "Are you sure you want to permanently delete this message?",
-                            style: TextStyle(
-                                color: Color(0xFF7A7A7A),
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          actions: <Widget>[
-                            const Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context, true);
-                                  },
-                                  style: const ButtonStyle(),
-                                  child: const Text(
-                                    'Yes, Delete',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                  child: VerticalDivider(
-                                    endIndent: 0,
-                                  ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, false);
-                                    },
-                                    child: const Text(
-                                      'No',
-                                      style:
-                                          TextStyle(color: Color(0xFF566476)),
-                                    )),
-                              ],
-                            )
-                          ],
-                        );
-                      });
-                },
-                child: ListTile(
-                  leading: GestureDetector(
-                    onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(
-                      //   userItem: searchChatUserList[index],
-                      //   networkImageLink: 'https://source.unsplash.com/random?sig=$index',
-                      // ),),);
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        PopDialog().showProfilePictureDialog(context);
-                      },
-                      child: CircleAvatar(
-                        radius: 28,
-                        backgroundImage: NetworkImage(
-                            'https://source.unsplash.com/random?sig=$index'),
-                      ),
-                    ),
-                  ),
-                  title: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // searchChatUserList.clear();
-                          searchTextController.clear();
-                        });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatPage(
-                              userItem: {},
-                              networkImageLink:
-                                  'https://source.unsplash.com/random?sig=$index',
+                    title: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            // searchChatUserList.clear();
+                            searchTextController.clear();
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                userItem: {},
+                                networkImageLink:
+                                    'https://source.unsplash.com/random?sig=$index',
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: Text(searchChatUserList[index].name)),
-                  subtitle:
-                      Text("subtitle ${searchChatUserList[index].messageText}"),
-                  trailing: Column(
-                    children: [
-                      Text(
-                        "12.00${searchChatUserList[index].time}",
-                        style: const TextStyle(color: Color(0xFFA8A7A7)),
-                      ),
-                      const Icon(
-                        Icons.timelapse_rounded,
-                        color: Colors.lightGreenAccent,
-                      ),
-                    ],
+                          );
+                        },
+                        child: Text(searchChatUserList[index].name)),
+                    subtitle:
+                        Text("subtitle ${searchChatUserList[index].messageText}"),
+                    trailing: Column(
+                      children: [
+                        Text(
+                          "12.00${searchChatUserList[index].time}",
+                          style: const TextStyle(color: Color(0xFFA8A7A7)),
+                        ),
+                        const Icon(
+                          Icons.timelapse_rounded,
+                          color: Colors.lightGreenAccent,
+                        ),
+                      ],
+                    ),
+                    // onTap: () => _selectedItem(item),
                   ),
-                  // onTap: () => _selectedItem(item),
-                ),
-              );
-            },
-          );
+                );
+              },
+            ),
+    );
   }
 
   void doNothing(BuildContext context) {}

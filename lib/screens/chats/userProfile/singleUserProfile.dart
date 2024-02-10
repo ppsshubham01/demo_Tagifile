@@ -108,18 +108,26 @@ class _SingleUserProfileState extends State<SingleUserProfile> with SingleTicker
                   ],
                 ),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(height: 10,),
 
-              TabBar(
-                controller: _tabController,
-                tabs: [
-                  Tab(text: "Media",),
-                  Tab(text: "Files",),
-                ],
+              Container(
+                color: const Color(0xFF1D55A4),
+                child: TabBar(
+                  indicatorColor: Colors.white,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: const Color(0xFF87A7D4),
+                  controller: _tabController,
+                  tabs: const [
+                    Tab(text: "Media",),
+                    Tab(text: "Files",),
+                  ],
+                ),
               ),
 
               Expanded(
                 child: Container(
+                  color: Colors.white,
                   height: 150,
                   width: double.infinity,
                   child: TabBarView(
@@ -163,19 +171,44 @@ class _SingleUserProfileState extends State<SingleUserProfile> with SingleTicker
     );
   }
 
-  Widget media() => GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,crossAxisSpacing: 10,mainAxisSpacing: 10),
-        itemCount: 3,
-        itemBuilder: (context,index){
+  Widget media() => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,crossAxisSpacing: 10,mainAxisSpacing: 10),
+          itemCount: 8,
+          itemBuilder: (context,index){
 
-          return  Container(
-              alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: Image.network(widget.userNetworkImage,),);
-        });
+            return  Container(
+                alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF5F6F9),
+                    // border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Image.network(widget.userNetworkImage,),
+                  ),);
+          }),
+  );
+
+  Widget files() => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ListView.builder(
+      itemCount: 3,
+        itemBuilder: (context, index){
+        return ListTile(
+          // leading:
+          // ,
+          //
+          // ,
+          // title: ,
+          // trailing: ,
+        );
+
+        })
+  );
 
   popupmenubtn(BuildContext context)=> PopupMenuButton(
     color: Colors.white,

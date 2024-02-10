@@ -455,13 +455,14 @@ class ApiService with ChangeNotifier {
   }
 
   ///GlobalSearch
+  /// NOte -PAggination parames not validated from server(range still Pass from 0)
   Future<GlobalSearch?> globalSearch({
     List<String>? keyword,
     List<dynamic>? tags,
     List<String>? types,
-    List<String>? from,
-    List<String>? to,
-    List<String>? iN,
+    List<int>? from,
+    List<int>? to,
+    List<int>? iN,
     bool? searchInChats,
     String? orgId,
     String? viewMore,
@@ -490,10 +491,11 @@ class ApiService with ChangeNotifier {
     bool? isPersonal,
   }) async {
     String? token = await getTokenFromPrefs();
+    print(token);
 
     String globalSearchPayload = json.encode(
         {
-      "keywords": ["a"],
+      "keywords": keyword ?? [],
       "tags": tags ?? [],
       "types": types ?? [],
       "from": from ?? [],
@@ -509,15 +511,15 @@ class ApiService with ChangeNotifier {
         "chats": chat ?? false,
         "non_content_page_data": {
           "range_from": rangeFrom ?? 0,
-          "range_to": rangeTo ?? 0,
+          "range_to": rangeTo ?? 20,
           "sort_key": sortKey,
           "sort_order": sortOrder
         },
         "content_pagination": {
           "next_files_from": nextFilesFrom ?? 0,
-          "next_files_till": nextFilesTill ?? 0,
+          "next_files_till": nextFilesTill ?? 20,
           "next_folders_from": nextFoldersFrom ?? 0,
-          "next_folders_till": nextFoldersTill ?? 0,
+          "next_folders_till": nextFoldersTill ?? 20,
           "next_files_only": nextFilesOnly ?? false,
           "next_folders_only": nextFoldersOnly ?? false,
           "file_sort_key": fileSortKey,

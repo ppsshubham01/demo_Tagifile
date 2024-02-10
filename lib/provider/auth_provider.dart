@@ -209,7 +209,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// CollaborateChat
-  CollaborateModel collaborateData = CollaborateModel(); // why we use model for here!
+  CollaborateModel collaborateData = CollaborateModel();
   Map<String, dynamic> fetchedCollaborateData = {};
 
   Future<void> collaborateModelProvider() async {
