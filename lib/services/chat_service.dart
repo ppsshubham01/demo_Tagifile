@@ -16,13 +16,13 @@
 // //
 // // {
 // // "status": 200,
-// // "message": "Obtained users and groups.",
-// // "data": {
-// // "groups": [
-// // {
-// // "group_name": "vegetables",
+// // "message": "Obtained uses",
 // // "group_category_name": "USER_PRIVATE",
-// // "group_desc": "User Group",
+// // "group_desc": "User Group",ers and groups.",
+// // // "data": {
+// // // "groups": [
+// // // {
+// // // "group_name": "vegetabl
 // // "group_remark": "None",
 // // "id": 634,
 // // "username": "My_brownsugar",
@@ -74,7 +74,11 @@
 // // }
 // // }
 //
-//
+
+
+
+
+// ------------------------------------------
 //
 // // ChatMessages
 //

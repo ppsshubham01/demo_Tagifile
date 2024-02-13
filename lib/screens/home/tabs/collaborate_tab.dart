@@ -364,8 +364,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         userItem: item,
-                        networkImageLink:
-                        'https://source.unsplash.com/random?sig=$index',
+                        networkImageLink:'https://source.unsplash.com/random?sig=$index',
                       ),
                     ),
                   );

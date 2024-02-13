@@ -1,13 +1,13 @@
-class ChatPage {
+class ChatPageData {
   List<Datum>? data;
   Other? other;
 
-  ChatPage({
+  ChatPageData({
     this.data,
     this.other,
   });
 
-  factory ChatPage.fromJson(Map<String, dynamic> json) => ChatPage(
+  factory ChatPageData.fromJson(Map<String, dynamic> json) => ChatPageData(
         data: json['data'] != null
             ? List<Datum>.from(json['data'].map((x) => Datum.fromJson(x)))
             : null,

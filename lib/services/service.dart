@@ -457,7 +457,7 @@ class ApiService with ChangeNotifier {
   }
 
   /// CharPage
-  Future<ChatPage?> chatPageDetails({
+  Future<ChatPageData> chatPageDetails({
     int? messageToId,
     bool? inGroup,
     int? rangeFrom,
@@ -465,25 +465,26 @@ class ApiService with ChangeNotifier {
     String? tfName,
     String? orgId,
     String? messageId,
+    required Map<String,dynamic> userItemData
   }) async {
     String? token = await getTokenFromPrefs();
     String chatPageserverpayload = json.encode({
-      'message_to_id': messageId,
+      'message_to_id': 582,
       'in_group': inGroup ?? false,
       'range_from': rangeFrom ?? 0,
       'range_to': rangeTo ?? 20,
-      'tf_name': tfName,
+      'tf_name': 'mystifyingmestorf',
       'org_id': orgId,
       'message_id': messageId
     });
 
     Response response = await post(
         Uri.parse(
-            'http://192.168.1.142:8004/tf/core/api/service/dev/v1/chats/v1/messages/get/'),
+            'https://kong.tagifiles.io/tf/private/api/service/dev/v1/chats/v1/messages/get/'),
         body: chatPageserverpayload,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token $token',
+          'Authorization': 'Token 1938157ea06eae6a70567e31a10c2fbb287bca5b',
         });
 
     try {
@@ -491,7 +492,7 @@ class ApiService with ChangeNotifier {
         final responseData = json.decode(response.body);
         print(response.body);
         print("responseData: $responseData");
-        ChatPage resultData = ChatPage.fromJson(responseData);
+        ChatPageData resultData = ChatPageData.fromJson(responseData);
         return resultData;
       } else {
         print(response.statusCode);
@@ -502,7 +503,7 @@ class ApiService with ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
-    return null;
+    return ChatPageData();
   }
 
   ///GlobalSearch

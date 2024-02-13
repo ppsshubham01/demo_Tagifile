@@ -29,6 +29,7 @@ class _PersonalPageState extends State<PersonalPage>
     // AuthProvider().fetchDataaafterLogin();
     //AuthProvider().ffetchDataafterLogin();
     // Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
+    // Provider.of<AuthProvider>(context,listen: false).chatPageProvider({});
     super.initState();
   }
 

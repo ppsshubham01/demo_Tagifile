@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/model/chatMessageModel.dart';
+import 'package:tagifiles/model/chat_PageModel.dart';
 import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/util/dialog_box.dart';
 
@@ -9,11 +10,10 @@ import '../../provider/auth_provider.dart';
 
 class ChatPage extends StatefulWidget {
  String networkImageLink;
- AuthProvider fetchDataChatPage;
 
   // ChatUsers userItem;
   Map<String, dynamic> userItem;
-   ChatPage({super.key, required this.userItem, required this.networkImageLink , required this.fetchDataChatPage});
+   ChatPage({super.key, required this.userItem, required this.networkImageLink});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -52,7 +52,12 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuthProvider>(context,listen: false).chatPageProvider();
+    Provider.of<AuthProvider>(context,listen: false).chatPageProvider(widget.userItem);
+    ///
+    ///
+    ///
+    ///
+    ///
     super.initState();
   }
   // void initState() {
@@ -67,7 +72,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     // final authChatProvider = Provider.of<AuthProvider>(context);
-    ChatPage chatpagedtail =  await widget.fetchDataChatPage.chatpage;
+    ChatPageData chatPageDetail = Provider.of<AuthProvider>(context).chatPage;
 
 
     return SafeArea(

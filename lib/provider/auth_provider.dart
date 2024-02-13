@@ -221,11 +221,11 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// ChatPage
-  ChatPage chatpage = ChatPage();
+  ChatPageData chatPage = ChatPageData();
 
-  Future<void> chatPageProvider() async {
-    chatpage = (await ApiService().chatPageDetails())!;
-    print(chatpage);
+  Future<void> chatPageProvider(Map<String,dynamic> userItemData) async {
+    chatPage = await ApiService().chatPageDetails(userItemData: userItemData);
+    print(chatPage);
     print("hhhhhhhhhhhhhhhhhhhhhhhhhh----------------------------------------------------eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }
 
