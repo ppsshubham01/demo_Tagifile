@@ -27,11 +27,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-Future initialization(BuildContext? context) async {
-//  Load reasources
-  await Future.delayed(const Duration(seconds: 1));
-}
-
 class MyApp extends StatefulWidget {
   // String? tokenKey;
 

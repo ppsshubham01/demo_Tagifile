@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -138,6 +140,8 @@ class _MyFilesTabState extends State<MyFilesTab> {
 
   /// Upper Image List
   Widget buildGrid() => GridView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 0.7,
           crossAxisCount: 2,
@@ -359,8 +363,11 @@ class _MyFilesTabState extends State<MyFilesTab> {
         },
       );
 
+
   /// FolderList
   Widget buildFolderGrid() => GridView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio:(1 / .75),
           crossAxisCount: 2,
@@ -368,7 +375,7 @@ class _MyFilesTabState extends State<MyFilesTab> {
           mainAxisSpacing: 10,
         ),
         itemCount: widget.fetchedfterlogin.ffetchDataafterLogin.result != null
-            ? widget.fetchedfterlogin.folderList.length
+            ?  min(_isLoadMorePersonal ? widget.fetchedfterlogin.folderList.length : 4, widget.fetchedfterlogin.folderList.length)
             : 0,
         itemBuilder: (context, index) {
           bool isSelected = selectedFolderItems?.contains(
@@ -684,15 +691,11 @@ class _MyFilesTabState extends State<MyFilesTab> {
                                 fontSize: 14),
                           ),
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 356,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10.0, right: 10, top: 8.0, bottom: 8.0),
-                            child: buildFolderGrid(),
-                            // child: isList ? buildFolderList() : buildFolderGrid(),
-                          ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10.0, right: 10, top: 8.0, bottom: 8.0),
+                          child: buildFolderGrid(),
+                          // child: isList ? buildFolderList() : buildFolderGrid(),
                         ),
                         !_islodingDataPersonal
                             ? Center(
@@ -728,13 +731,9 @@ class _MyFilesTabState extends State<MyFilesTab> {
                         //         child: CircularProgressIndicator(),
                         //       )
                         //     :
-                        SizedBox(
-                          width: double.infinity,
-                          height: 380,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: buildGrid(),
-                          ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: buildGrid(),
                         ),
                       ],
                     );
