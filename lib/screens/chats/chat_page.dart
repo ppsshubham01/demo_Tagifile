@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tagifiles/model/chatMessageModel.dart';
-import 'package:tagifiles/model/chatUsersModel.dart';
 import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/util/dialog_box.dart';
 
@@ -10,9 +9,11 @@ import '../../provider/auth_provider.dart';
 
 class ChatPage extends StatefulWidget {
  String networkImageLink;
+ AuthProvider fetchDataChatPage;
+
   // ChatUsers userItem;
   Map<String, dynamic> userItem;
-   ChatPage({super.key, required this.userItem, required this.networkImageLink});
+   ChatPage({super.key, required this.userItem, required this.networkImageLink , required this.fetchDataChatPage});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -48,12 +49,26 @@ class _ChatPageState extends State<ChatPage> {
     ChatMessage(messageContent: "Progress Color using gradients😛😂😂", messageType: "sender"),
   ];
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context,listen: false).chatPageProvider();
+    super.initState();
+  }
+  // void initState() {
+  //   super.initState();
+  //
+  //   Future.microtask(() {
+  //     Provider.of<AuthProvider>(context).chatPageProvider();
+  //   });
+  // }
 
 
   @override
   Widget build(BuildContext context) {
-    final authChatProvider = Provider.of<AuthProvider>(context);
+    // final authChatProvider = Provider.of<AuthProvider>(context);
+    ChatPage chatpagedtail =  await widget.fetchDataChatPage.chatpage;
+
 
     return SafeArea(
       child: Scaffold(
@@ -115,8 +130,8 @@ class _ChatPageState extends State<ChatPage> {
                 onPressed: () {
                   showMenu(
                     context: context, // Assuming context is available
-                    position: RelativeRect.fromLTRB(80, 75, 0, 0), // Position below the button
-                    items: [
+                    position: const RelativeRect.fromLTRB(80, 75, 0, 0), // Position below the button
+                    items: const [
                       PopupMenuItem(
                         value: 'Preview',
                         child: Text('Preview'),

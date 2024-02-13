@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tagifiles/model/chat_PageModel.dart';
 import 'package:tagifiles/model/global_SearchModel.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
@@ -214,11 +215,19 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> collaborateModelProvider() async {
     // collaborateData = await ApiService().CollaborateDetailsChat();
-    fetchedCollaborateData = await ApiService().CollaborateDetailsChat();
+    fetchedCollaborateData = await ApiService().collaborateDetailsChat();
     // print(fetchedCollaborateData);
     notifyListeners();
   }
 
+  /// ChatPage
+  ChatPage chatpage = ChatPage();
+
+  Future<void> chatPageProvider() async {
+    chatpage = (await ApiService().chatPageDetails())!;
+    print(chatpage);
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhh----------------------------------------------------eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+  }
 
   /// GlobalSearch
   GlobalSearch globalSearch = GlobalSearch();

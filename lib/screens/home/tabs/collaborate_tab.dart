@@ -118,8 +118,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuthProvider>(context, listen: false)
-        .collaborateModelProvider();
+    Provider.of<AuthProvider>(context, listen: false).collaborateModelProvider();  // ahya km nakhye logic!
     super.initState();
   }
 
@@ -261,7 +260,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: combinedList.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (BuildContext context, index) {
         Map<String, dynamic> item = combinedList[index];
 
         return Dismissible(
@@ -382,7 +381,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
                 // Text("${finalData.fetchedCollaborateData['individuals'][index]['last_message_activity']}"),
                 Text(item['last_message_activity']),
                 // "last_message_activity": "2023-11-04T04:39:45.404317Z",
-                Text(item['unread'],
+                Text(item['unread'].toString(),
                   style: const TextStyle(
                       color: CupertinoColors.systemGreen),
                 ),
@@ -394,7 +393,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
             ),
             // onTap: () => _selectedItem(item),
           ),
-        );;
+        );
       },
     );
   }
@@ -409,7 +408,7 @@ class _CollaboratePageState extends State<CollaboratePage> {
               ? const SizedBox.shrink()
               : ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
                   // itemCount: finalData.fetchedCollaborateData.data?.individuals.length,
                   itemCount:
                       (finalData.fetchedCollaborateData['individuals']).length,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tagifiles/model/chat_PageModel.dart';
 import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/model/user_data.dart';
 
@@ -11,7 +12,7 @@ import '../model/global_SearchModel.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
-  String? _tokenKey = 'jaimin';
+  String? _tokenKey;
 
   bool get isToken {
     return _tokenKey != null;
@@ -380,6 +381,7 @@ class ApiService with ChangeNotifier {
     String uploadServerpayload = json.encode({
       'name': name,
       'B_size': bsize,
+
       'upload_to': uploadTo,
       'type': type,
       'directory_path': directoryPath,
@@ -427,7 +429,7 @@ class ApiService with ChangeNotifier {
   }
 
   /// CollaborateChat
-  Future<Map<String, dynamic>> CollaborateDetailsChat() async {
+  Future<Map<String, dynamic>> collaborateDetailsChat() async {
     String? userToken = await getTokenFromPrefs();
     try {
       Response response = await http.get(
@@ -452,6 +454,55 @@ class ApiService with ChangeNotifier {
     } catch (error) {
       throw Exception('an error occurred: $error');
     }
+  }
+
+  /// CharPage
+  Future<ChatPage?> chatPageDetails({
+    int? messageToId,
+    bool? inGroup,
+    int? rangeFrom,
+    int? rangeTo,
+    String? tfName,
+    String? orgId,
+    String? messageId,
+  }) async {
+    String? token = await getTokenFromPrefs();
+    String chatPageserverpayload = json.encode({
+      'message_to_id': messageId,
+      'in_group': inGroup ?? false,
+      'range_from': rangeFrom ?? 0,
+      'range_to': rangeTo ?? 20,
+      'tf_name': tfName,
+      'org_id': orgId,
+      'message_id': messageId
+    });
+
+    Response response = await post(
+        Uri.parse(
+            'http://192.168.1.142:8004/tf/core/api/service/dev/v1/chats/v1/messages/get/'),
+        body: chatPageserverpayload,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $token',
+        });
+
+    try {
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        print(response.body);
+        print("responseData: $responseData");
+        ChatPage resultData = ChatPage.fromJson(responseData);
+        return resultData;
+      } else {
+        print(response.statusCode);
+        print(response.headers);
+        print("Failed to get chatingPage ChatData");
+      }
+
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
   }
 
   ///GlobalSearch
@@ -529,8 +580,8 @@ class ApiService with ChangeNotifier {
         }
       },
       "is_personal": isPersonal ?? false
-    }
-    );
+    });
+
     print(globalSearchPayload);
     print("------------------------THIS IS sEARCH #################_________----------------");
     // {"keywords":["a"],"tags":[],"types":[],"from":[],"to":[],"in":[],
