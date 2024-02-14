@@ -37,7 +37,8 @@ class ApiService with ChangeNotifier {
     try {
       Response response = await post(Uri.parse(
               // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
-              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'),
+              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'
+      ),
           body: serverPayload,
           headers: {
             "Content-Type": "application/json",
@@ -468,19 +469,14 @@ class ApiService with ChangeNotifier {
     required Map<String,dynamic> userItemData
   }) async {
     String? token = await getTokenFromPrefs();
-    String chatPageserverpayload = json.encode({
-      'message_to_id': 582,
-      'in_group': inGroup ?? false,
-      'range_from': rangeFrom ?? 0,
-      'range_to': rangeTo ?? 20,
-      'tf_name': 'mystifyingmestorf',
-      'org_id': orgId,
-      'message_id': messageId
-    });
+    String chatPageserverpayload = json.encode(
+        {"message_to_id":582,"in_group":false,"range_from":0,"range_to":20,"tf_name":"mystifyingmestorf","org_id":null,"message_id":null}
+    );
 
     Response response = await post(
         Uri.parse(
-            'https://kong.tagifiles.io/tf/private/api/service/dev/v1/chats/v1/messages/get/'),
+            // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/chats/v1/messages/get/'),
+            'http://192.168.1.142:8004/tf/core/api/service/dev/v1/chats/v1/messages/get/'),
         body: chatPageserverpayload,
         headers: {
           'Content-Type': 'application/json',

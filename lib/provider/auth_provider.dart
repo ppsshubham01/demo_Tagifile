@@ -20,6 +20,7 @@ class AuthProvider with ChangeNotifier {
 
   /// for signIn
   final TextEditingController emailController2 = TextEditingController();
+  final TextEditingController usernameController2 = TextEditingController();
   final TextEditingController passwordController2 = TextEditingController();
 
   /// for handling loadingIndigator
@@ -225,6 +226,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> chatPageProvider(Map<String,dynamic> userItemData) async {
     chatPage = await ApiService().chatPageDetails(userItemData: userItemData);
+    print("-----------------------hhhhhhhhhhhhhhhhhhhhhhhhhhhhheeeeeeeeeeeeeeeeeeeeeeeeeee----------------------------");
     print(chatPage);
     print("hhhhhhhhhhhhhhhhhhhhhhhhhh----------------------------------------------------eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }

@@ -171,18 +171,18 @@ class _ChatPageState extends State<ChatPage> {
 
         body: SingleChildScrollView(
           child: Container(
-            color: const Color(0xFDFEDEFF3),
+            color: const Color(0xFFFEDEFF3),
             child: SingleChildScrollView(
               child: Stack(
                 children: <Widget>[
                   ListView.builder(
                     itemCount: messages.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.only(top: 10,bottom: 10),
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(top: 10,bottom: 10),
                       itemBuilder: (context, index){
                       return Container(
-                        padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
+                        padding: const EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
                         child: GestureDetector(
                           onLongPress: (){
                             popDialog.showPopupMenu(context);
@@ -192,10 +192,10 @@ class _ChatPageState extends State<ChatPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                  color: (messages[index].messageType=="receiver"?Colors.white:Color(0xFFE1E5EE))
+                                  color: (messages[index].messageType=="receiver"?Colors.white:const Color(0xFFE1E5EE))
                               ),
-                              padding: EdgeInsets.all(16),
-                              child: Text(messages[index].messageContent,style: TextStyle(fontSize: 15),),
+                              padding: const EdgeInsets.all(16),
+                              child: Text(messages[index].messageContent,style: const TextStyle(fontSize: 15),),
                             ),
                           ),
                         ),

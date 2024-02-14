@@ -118,11 +118,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               autovalidateMode: AutovalidateMode.onUserInteraction,
                               controller: authProviderInstance.emailController2,
                               decoration: InputDecoration(
-                                labelText: 'Email',
+                                labelText: 'Email/Username',
                                 labelStyle: const TextStyle(
                                   color: Color(0xFF414141),
                                 ),
-                                hintText: 'Enter your email address',
+                                hintText: 'Enter your email/userName',
                                 prefixIcon: Icon(Icons.email,
                                     color: _emailFocusNode.hasFocus
                                         ? const Color(0xFF1672F3)
@@ -206,16 +206,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               focusNode: _passwordFocusNode,
                               onTap: _onPasswordTap,
                               validator: (value) {
-                                return Validation.passwordValidate(value);
-                                // if (value!.isEmpty) {
-                                //   return "Password is required";
-                                // } else if (value.length < 8) {
-                                //   return ('length should be at-least 8 character');
-                                // } else if(!value.contains(RegExp(r'[A-Z]'))){
-                                //   return "Password not contain at-least one capital letter";
-                                // } else if(!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))){
-                                //   return "Password not contain at-least one special character";
-                                // }
+                                // return Validation.passwordValidate(value);
+                                if (value!.isEmpty) {
+                                  return "Password is required";
+                                } else if (value.length < 8) {
+                                  return ('length should be at-least 8 character');
+                                }
                               },
                             ),
                           ),
