@@ -73,7 +73,7 @@ class AuthProvider with ChangeNotifier {
     loginLoading = true;
     notifyListeners();
     ApiService().login(
-      email: emailController2.text,
+      email_userName: emailController2.text,
       password: passwordController2.text,
       context: context,
       onSuccess: (value) {

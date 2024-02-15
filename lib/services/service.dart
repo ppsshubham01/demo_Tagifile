@@ -20,24 +20,32 @@ class ApiService with ChangeNotifier {
 
   /// ########################  Login
   Future<void> login({
-    required String email,
+    required String email_userName,
     required String password,
     required BuildContext context,
     required ValueSetter onSuccess,
     required ValueSetter onError,
   }) async {
+    String email = '';
+    String userName = '';
+    if(email_userName.contains('@')){
+      email = email_userName;
+    } else {
+      userName = email_userName;
+    }
     String serverPayload = json.encode({
       'email': email,
       'password': password,
       "sub_domain": "",
-      "tf_name": "",
+      "tf_name": userName,
       'captcha': "xyz"
     });
 
     try {
       Response response = await post(Uri.parse(
               // 'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
-              'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'
+              // 'http://192.168.1.142:8080/tf/micro/api/service/dev/v1/user/v1/login/'
+              'https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/'
       ),
           body: serverPayload,
           headers: {
@@ -59,7 +67,8 @@ class ApiService with ChangeNotifier {
         // await Fluttertoast.showToast(msg: 'Something went wrong!', toastLength: Toast.LENGTH_SHORT);
         // const SnackBar(content: Text("Error....", style: TextStyle(fontSize: 15.0),),backgroundColor: Colors.redAccent,);
         // print('Login Failed with state code: ${response.statusCode} ${response.body}');
-        return null;
+        // return null;
+        onError.call("");
       }
     } catch (e) {
       onError.call("");

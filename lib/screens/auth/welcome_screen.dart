@@ -145,21 +145,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               focusNode: _emailFocusNode,
                               onTap: _onEmailTap,
                               // onTap: authProviderInstance.focusEmailTap(),
-                              validator: (value) {
-                                return Validation.emailValidate(value);
-                                // final RegExp emailRegex = RegExp(
-                                //     r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                                // bool validateEmail(String email) {
-                                //   return emailRegex.hasMatch(email);
-                                // }
-                                //
-                                // if (value!.isEmpty) {
-                                //   return 'Please enter the email';
-                                // } else if (!validateEmail(value)) {
-                                //   //print('Enter valid E-mail');
-                                //   return 'Enter valid E-mail';
-                                // }
-                              },
+                              // validator: (value) {
+                              //   return Validation.emailValidate(value);
+                              //   // final RegExp emailRegex = RegExp(
+                              //   //     r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                              //   // bool validateEmail(String email) {
+                              //   //   return emailRegex.hasMatch(email);
+                              //   // }
+                              //   //
+                              //   // if (value!.isEmpty) {
+                              //   //   return 'Please enter the email';
+                              //   // } else if (!validateEmail(value)) {
+                              //   //   //print('Enter valid E-mail');
+                              //   //   return 'Enter valid E-mail';
+                              //   // }
+                              // },
                             ),
                           ),
 
