@@ -211,7 +211,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// CollaborateChat
-  CollaborateModel collaborateData = CollaborateModel();
+  CollaborateModel collaborateData = CollaborateModel();// controller model var je bnayo che eno type che
   Map<String, dynamic> fetchedCollaborateData = {};
 
   Future<void> collaborateModelProvider() async {
@@ -228,7 +228,6 @@ class AuthProvider with ChangeNotifier {
     chatPage = await ApiService().chatPageDetails(userItemData: userItemData);
     print("-----------------------hhhhhhhhhhhhhhhhhhhhhhhhhhhhheeeeeeeeeeeeeeeeeeeeeeeeeee----------------------------");
     print(chatPage);
-    print("hhhhhhhhhhhhhhhhhhhhhhhhhh----------------------------------------------------eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }
 
   /// GlobalSearch

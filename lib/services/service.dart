@@ -87,6 +87,28 @@ class ApiService with ChangeNotifier {
     return prefs.getString('token');
   }
 
+  /// userSwitch
+  Future<void> userSwitch(UserdetailsModel modelData) async{
+    try{
+      var getuserswitch = await getUserSwitch();
+      print(getuserswitch);
+
+      getuserswitch.add(modelData);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('modelList',getuserswitch.map((e) => json.encode(e)).toList());
+      print("@@@@@@@@");
+    }catch(value,s){
+      print("33333");
+      print(value);print(s);
+    }
+
+  }
+
+  Future<List<UserdetailsModel>> getUserSwitch() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return (prefs.getStringList('modelList'))?.map((e) => UserdetailsModel.fromJson(json.decode(e))).toList() ?? [];
+  }
+
   /// ########################  model object
   Future<void> saveModelObjectToPrefs(Model modelData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -417,7 +439,10 @@ class ApiService with ChangeNotifier {
     try {
       Response response = await http.get(
         Uri.parse(
-            "http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/"),
+            // "http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/"
+            "https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/details/"
+
+        ),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Token $userToken',
@@ -425,6 +450,9 @@ class ApiService with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
+       await userSwitch(UserdetailsModel.fromJson(responseData));
+        // print(userSwitch(responseData));
+        // print("*********************************************");
         // print(response.body);
         // print(response.statusCode);
         // print(response.headers);

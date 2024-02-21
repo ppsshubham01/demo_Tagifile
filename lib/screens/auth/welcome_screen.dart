@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:tagifiles/model/userDetails.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/screens/auth/signup_screen.dart';
@@ -30,6 +31,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   // final serviceObject = ApiService();
 
+  String selectedShift = 'Account switch';
+
+
   void _onEmailTap() {
     setState(() {
       _emailFocusNode.requestFocus();
@@ -53,6 +57,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     /// creating provider instance
     final authProviderInstance = Provider.of<AuthProvider>(context);
+    authProviderInstance.fetchUserDetails();
+
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -298,6 +305,105 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                           ),
+
+                          FutureBuilder(
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Center(
+                                  child: Text('Error: ${snapshot.error}'),
+                                );
+                              } else if (!snapshot.hasData) {
+                                return const Center(
+                                  child: Text('No data available'),
+                                );
+                              } else {
+                                // Get the list of user details
+                                List<UserdetailsModel>? userList = snapshot.data;
+
+                                return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(18.0),
+                                    child: Container(
+                                      color: Colors.red,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: userList!.map((user) {
+                                          return ListTile(
+                                            title: Text('Email: ${user.data?.primary?.email}'),
+                                            subtitle: Text('TfName: ${user.data?.primary?.username}'),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            future: ApiService().getUserSwitch(),
+                          ),
+
+
+                          //comment for userSwitchData
+                          // FutureBuilder(
+                          //   builder: (context,snapshot)  {
+                          //     List<UserdetailsModel> userList=snapshot.data??[];
+                          //     if(!snapshot.hasData&&userList.isEmpty){
+                          //       return const SizedBox();
+                          //     }
+                          //     if(userList.isNotEmpty){
+                          //       print(userList);
+                          //       userList.forEach((element) {
+                          //         print(element.toJson());
+                          //         print("---------------------------------------------------------------------");
+                          //       });
+                          //     }
+                          //     return SingleChildScrollView(
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.all(18.0),
+                          //         child: Container(
+                          //           height: 300,
+                          //           width: 400,
+                          //           color: Colors.red,
+                          //           child: Text(userList.firstOrNull?.toJson().toString()?? "null"),
+                                    //   child: DropdownButton<String>(
+                                    //   value: selectedShift,
+                                    //   icon: const Icon(Icons.arrow_drop_down),
+                                    //   iconSize: 24,
+                                    //   elevation: 16,
+                                    //   style: const TextStyle(color: Colors.black, fontSize: 16),
+                                    //   onChanged: (String? newValue) {
+                                    //     setState(() {
+                                    //       selectedShift = newValue!;
+                                    //       shiftViceData(selectedShift);
+                                    //     });
+                                    //
+                                    //     // print('Selected Shift: $selectedShift');
+                                    //   },
+                                    //   items: [
+                                    //     'Account 1',
+                                    //     'Account 2',
+                                    //   ].map<DropdownMenuItem<String>>((String value) {
+                                    //     return DropdownMenuItem<String>(
+                                    //       value: value,
+                                    //       child: Container(
+                                    //         height: 80,
+                                    //         alignment: Alignment.center,
+                                    //         child: Text(value),
+                                    //       ),
+                                    //     );
+                                    //   }).toList(),
+                                    // )
+
+                          //         ),
+                          //       ),
+                          //     );
+                          //   }, future: ApiService().getUserSwitch(),
+                          // ),
+
 
                           /// Text or sign in with
                           Container(
