@@ -38,6 +38,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     Provider.of<AuthProvider>(context, listen: false).fetchDataaafterLogin();
+    Provider.of<AuthProvider>(context, listen: false).checkUserIdprovider();
+
     super.initState();
   }
 

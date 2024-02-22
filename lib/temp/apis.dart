@@ -300,5 +300,53 @@
 // Content-Type : application/json
 
 
+//method for storing Data
+// FutureBuilder(
+// builder: (context, snapshot) {
+// if (snapshot.connectionState == ConnectionState.waiting) {
+// return const Center(
+// child: CircularProgressIndicator(),
+// );
+// } else if (snapshot.hasError) {
+// return Center(
+// child: Text('Error: ${snapshot.error}'),
+// );
+// } else if (!snapshot.hasData) {
+// return const Center(
+// child: Text('No data available'),
+// );
+// } else {
+// // Get the list of user details
+// print(snapshot.data);
+// List<UserIdSuccess>? userList = [];
+// // List<UserIdSuccess>? userList = snapshot.data as List<UserIdSuccess>;// Got a null data
+// userList = snapshot.data; // Got a null data
+//
+// print(userList);
+// print("----------------useridlist");
+//
+// return SingleChildScrollView(
+// child: Padding(
+// padding: const EdgeInsets.all(18.0),
+// child: Container(
+// color: Colors.red,
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: userList!.map((user) {
+// return ListTile(
+// title:
+// Text('Email: ${user.data?.user.email}'),
+// subtitle:
+// Text('TfName: ${user.data?.token}'),
+// );
+// }).toList(),
+// ),
+// ),
+// ),
+// );
+// }
+// },
+// future: ApiService().getuserSwitchIdPrefs(),
+// ),
 
 

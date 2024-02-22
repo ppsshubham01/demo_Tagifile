@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tagifiles/model/chat_PageModel.dart';
 import 'package:tagifiles/model/global_SearchModel.dart';
 import 'package:tagifiles/model/userDetails.dart';
+import 'package:tagifiles/model/userID_success.dart';
 import 'package:tagifiles/model/user_data.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
-import 'package:tagifiles/screens/home/tabs/personal_tab.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/dialog_box.dart';
 
@@ -44,6 +44,23 @@ class AuthProvider with ChangeNotifier {
   ///
   List<Result> fileList = [];
   List<Result> folderList = [];
+  List<UserIdSuccess>? userList = [];
+
+  // void checkedUseridList(List<UserIdSuccess> checkuseridlist){
+  //   userList = checkuseridlist;
+  // }
+
+  static Future<List<UserIdSuccess>?> getUserSwitchIdPrefs() async {
+    try {
+      // Replace ApiService() with the appropriate instance or method to fetch user data
+      List<UserIdSuccess>? userList = await ApiService().getuserSwitchIdPrefs();
+      return userList;
+    } catch (error) {
+      print("Error fetching user data: $error");
+      return null;
+    }
+  }
+
 
   /// for signUp method
   void signUpUser(BuildContext context) {
@@ -110,10 +127,11 @@ class AuthProvider with ChangeNotifier {
         .forgotPassword(forgotPasswordEmailPhone: forgorPasswordText.text);
   }
 
+  ///---fetchDataAfterLogin
   void fetchDataaafterLogin() async {
     final fetchedDataAfterLogin = await ApiService().fetchDataAfterLogin();
     ffetchDataafterLogin = fetchedDataAfterLogin;
-    print(ffetchDataafterLogin.sharingData);
+    // print(ffetchDataafterLogin.sharingData);
     fileList.clear();
     folderList.clear();
     notifyListeners();
@@ -127,16 +145,34 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// checkUserID-Success verification
+  UserIdSuccess userId = UserIdSuccess();
+  UserIdSuccess get checkUserId => userId;
+
+  Future<void> checkUserIdprovider() async {
+    userId = await ApiService().checkUserId();
+  }
+
+  /// Switch account method
+  String _token = '';
+  String get token => _token;
+
+  void switchAccount(String accoutToken){
+    _token = accoutToken;
+    notifyListeners();
+  }
+
+
   void listContentData() async {
     final listContentData = await ApiService().fetchListContent();
     finalListContentData = listContentData;
     notifyListeners();
   }
 
-  /// UserDetailProvider
+  /// UserDetailProvider--- error
   UserdetailsModel userdetailsModel = UserdetailsModel();
 
-  UserdetailsModel? get details => userdetailsModel;
+  UserdetailsModel? get details => userdetailsModel; // for this
 
   Future<void> fetchUserDetails() async {
     userdetailsModel = await ApiService().serviceUserDetails();
@@ -167,7 +203,7 @@ class AuthProvider with ChangeNotifier {
       foldername: createfoldertext.text,
       destinationFolderId: ffetchDataafterLogin.currentParent ?? -1,
       onSuccess: (value) {
-        print("folder create succesfully");
+        // print("folder create succesfully");
         createfoldertext.clear();
         createFolderLoading = false;
         fetchDataaafterLogin();
@@ -211,7 +247,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// CollaborateChat
-  CollaborateModel collaborateData = CollaborateModel();// controller model var je bnayo che eno type che
+  CollaborateModel collaborateData = CollaborateModel();
   Map<String, dynamic> fetchedCollaborateData = {};
 
   Future<void> collaborateModelProvider() async {
@@ -226,8 +262,9 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> chatPageProvider(Map<String,dynamic> userItemData) async {
     chatPage = await ApiService().chatPageDetails(userItemData: userItemData);
-    print("-----------------------hhhhhhhhhhhhhhhhhhhhhhhhhhhhheeeeeeeeeeeeeeeeeeeeeeeeeee----------------------------");
-    print(chatPage);
+  //   print("-----------------------hhhhhhhhhhhhhhhhhhhhhhhhhhhhheeeeeeeeeeeeeeeeeeeeeeeeeee----------------------------");
+  //   print(chatPage);
+  //   print("hhhhhhhhhhhhhhhhhhhhhhhhhh----------------------------------------------------eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }
 
   /// GlobalSearch

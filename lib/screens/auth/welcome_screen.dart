@@ -49,7 +49,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    Provider.of<AuthProvider>(context,listen: false).signInDispose();
+    // Provider.of<AuthProvider>(context,listen: false).signInDispose();
     super.dispose();
   }
 
@@ -306,45 +306,45 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           ),
 
-                          FutureBuilder(
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (snapshot.hasError) {
-                                return Center(
-                                  child: Text('Error: ${snapshot.error}'),
-                                );
-                              } else if (!snapshot.hasData) {
-                                return const Center(
-                                  child: Text('No data available'),
-                                );
-                              } else {
-                                // Get the list of user details
-                                List<UserdetailsModel>? userList = snapshot.data;
-
-                                return SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: Container(
-                                      color: Colors.red,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: userList!.map((user) {
-                                          return ListTile(
-                                            title: Text('Email: ${user.data?.primary?.email}'),
-                                            subtitle: Text('TfName: ${user.data?.primary?.username}'),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            future: ApiService().getUserSwitch(),
-                          ),
+                          // FutureBuilder(
+                          //   builder: (context, snapshot) {
+                          //     if (snapshot.connectionState == ConnectionState.waiting) {
+                          //       return const Center(
+                          //         child: CircularProgressIndicator(),
+                          //       );
+                          //     } else if (snapshot.hasError) {
+                          //       return Center(
+                          //         child: Text('Error: ${snapshot.error}'),
+                          //       );
+                          //     } else if (!snapshot.hasData) {
+                          //       return const Center(
+                          //         child: Text('No data available'),
+                          //       );
+                          //     } else {
+                          //       // Get the list of user details
+                          //       List<UserdetailsModel>? userList = snapshot.data;
+                          //
+                          //       return SingleChildScrollView(
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.all(18.0),
+                          //           child: Container(
+                          //             color: Colors.red,
+                          //             child: Column(
+                          //               crossAxisAlignment: CrossAxisAlignment.start,
+                          //               children: userList!.map((user) {
+                          //                 return ListTile(
+                          //                   title: Text('Email: ${user.data?.primary?.email}'),
+                          //                   subtitle: Text('TfName: ${user.data?.primary?.username}'),
+                          //                 );
+                          //               }).toList(),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       );
+                          //     }
+                          //   },
+                          //   future: ApiService().getUserSwitch(),
+                          // ),
 
 
                           //comment for userSwitchData

@@ -9,6 +9,7 @@ import 'package:tagifiles/model/user_data.dart';
 
 import '../model/collaborateModel.dart';
 import '../model/global_SearchModel.dart';
+import '../model/userID_success.dart';
 import '../screens/auth/welcome_screen.dart';
 
 class ApiService with ChangeNotifier {
@@ -87,26 +88,27 @@ class ApiService with ChangeNotifier {
     return prefs.getString('token');
   }
 
-  /// userSwitch
-  Future<void> userSwitch(UserdetailsModel modelData) async{
+  /// ######################## userSwitch
+  Future<void> saveuserSwitchIdPrefs(UserIdSuccess userIdSuccess) async{
+
     try{
-      var getuserswitch = await getUserSwitch();
-      print(getuserswitch);
-
-      getuserswitch.add(modelData);
+      var getId = await  getuserSwitchIdPrefs();
+      print(getId);
+      if(!getId.map((e) => e.data?.user.email).toList().contains(userIdSuccess.data?.user.email)){
+      getId.add(userIdSuccess);
+      }
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setStringList('modelList',getuserswitch.map((e) => json.encode(e)).toList());
-      print("@@@@@@@@");
-    }catch(value,s){
-      print("33333");
-      print(value);print(s);
+      await prefs.setStringList('userIdModelList', getId.map((e) => json.encode(e)).toList());// Got Error here
     }
-
+    catch(e,s){
+      print("33333");
+      print(e);print(s);
+    }
   }
 
-  Future<List<UserdetailsModel>> getUserSwitch() async{
+  Future<List<UserIdSuccess>> getuserSwitchIdPrefs() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return (prefs.getStringList('modelList'))?.map((e) => UserdetailsModel.fromJson(json.decode(e))).toList() ?? [];
+    return (prefs.getStringList('userIdModelList'))?.map((e) => UserIdSuccess.fromJson(json.decode(e))).toList() ?? [];
   }
 
   /// ########################  model object
@@ -177,6 +179,40 @@ class ApiService with ChangeNotifier {
       print('Token not found. User not logged in.');
     }
     return Model();
+  }
+
+
+
+  ///---------------------checkUserID-Success verification
+  // Future<Map<String, dynamic>> checkUserId() async {
+  Future<UserIdSuccess> checkUserId() async {
+    String? userToken = await getTokenFromPrefs();
+
+    try {
+      Response response = await http.get(
+        Uri.parse(
+            "https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/info/check"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $userToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        await saveuserSwitchIdPrefs(UserIdSuccess.fromJson(responseData));
+        // print(saveuserSwitchIdPrefs(responseData));
+        print("#################xyzxyzxyzxyzzxyxyzxyzzy_______________-----------------");
+        // print("sevice response Data: $responseData");
+        // print(response.statusCode);
+        // return CollaborateModel().fromJson(responseData);
+        return responseData['data'];
+      } else {
+        throw Exception(
+            'Failed to load usersID and Success verification, status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('an error occurred: $error');
+    }
   }
 
   /// ----------------------- listContent for the ## contentPath ##
@@ -441,7 +477,6 @@ class ApiService with ChangeNotifier {
         Uri.parse(
             // "http://192.168.1.142:8000/tf/core/api/service/dev/v1/user/v1/details/"
             "https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/details/"
-
         ),
         headers: {
           'Content-Type': 'application/json',
@@ -450,16 +485,14 @@ class ApiService with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-       await userSwitch(UserdetailsModel.fromJson(responseData));
-        // print(userSwitch(responseData));
-        // print("*********************************************");
+        // await saveuserSwitchIdPrefs(UserIdSuccess.fromJson(responseData));
         // print(response.body);
         // print(response.statusCode);
         // print(response.headers);
         return UserdetailsModel.fromJson(responseData);
       } else {
         throw Exception(
-            'Failed to load user details, status code: ${response.statusCode}');
+            'Failed to load user-ID, status code: ${response.statusCode}');
       }
     } catch (error) {
       throw Exception('an error occurred: $error');

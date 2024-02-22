@@ -6,6 +6,8 @@ import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
 import 'package:tagifiles/services/service.dart';
 
+import '../../../model/userID_success.dart';
+
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
 
@@ -17,6 +19,7 @@ class _UserPageState extends State<UserPage> {
   @override
   void initState() {
     Provider.of<AuthProvider>(context, listen: false).fetchUserDetails();
+
     // TODO: implement initState
     super.initState();
   }
@@ -25,6 +28,11 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     final userDetailProvider = Provider.of<AuthProvider>(context).details;
     final ApiServiceProvider = Provider.of<ApiService>(context); // for logOut
+    final checkUserIdData = Provider.of<AuthProvider>(context)
+        .checkUserId; // variable for checkUserId and success Token
+
+    var auth = AuthProvider();
+
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -35,38 +43,33 @@ class _UserPageState extends State<UserPage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      drawer: Container(
-        width: 280,
-        color: const Color(0xFF1D55A4),
-        child: Column(
-          children: [
-            /// Header
-            DrawerHeader(
-                child: Row(
-              children: [
-                // const CircleAvatar(
-                //   radius: 30,
-                //   backgroundImage:
-                //       NetworkImage("https://source.unsplash.com/random"),
-                // ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
+      drawer: SafeArea(
+        child: Container(
+          width: 280,
+          color: const Color(0xFF1D55A4),
+          child: Column(
+            children: [
+              /// Header
+              Expanded(
+                child: Column(
+                  children: [
+                    Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
-                                  userDetailProvider?.data?.primary?.firstName ??
+                                  userDetailProvider
+                                          ?.data?.primary?.firstName ??
                                       '',
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(color: Colors.white),
                                 ),
-                              ),SizedBox(
+                              ),
+                              const SizedBox(
                                 width: 2,
                               ),
                               Text(
@@ -90,67 +93,55 @@ class _UserPageState extends State<UserPage> {
                           collapsedIconColor: Colors.white,
                           childrenPadding: const EdgeInsets.all(0),
                           // textColor: Colors.greenAccent,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(left: 20.0),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    leading: CircleAvatar(
-                                      radius: 18,
-                                      backgroundImage: NetworkImage(
-                                          "https://source.unsplash.com/random"),
-                                    ),
-                                    title: Text(
-                                      'P R O F I L E',
-                                      style:
-                                          TextStyle(color: Color(0xFF6395D9)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      // Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
-                    ],
-                  ),
+                          children: [
+                            FutureBuilder<List<UserIdSuccess>?>(
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text('Error: ${snapshot.error}'),
+                                  );
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data == null) {
+                                  return const Center(
+                                    child: Text('No data available'),
+                                  );
+                                } else {
+                                  List<UserIdSuccess> userList = snapshot.data!;
+
+                                  return Column(
+                                    children: userList.map((user) {
+                                      return ListTile(
+                                        leading: const CircleAvatar(
+                                          radius: 25,
+                                          backgroundImage: NetworkImage(
+                                              "https://source.unsplash.com/random"),
+                                        ),
+                                        title: Text(
+                                            'Email: ${user.data?.user.email}'),
+                                        subtitle:
+                                            Text('TfName: ${user.data?.user.username}'),
+                                      );
+                                    }).toList(),
+                                  );
+                                }
+                              },
+                              future: AuthProvider.getUserSwitchIdPrefs(),
+                            ),
+                          ]),
+                    ),
+                    // Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
+                  ],
                 ),
+              ),
+              // ListTile(),
 
-                // const SizedBox(
-                //   width: 10,
-                // ),
-                // SingleChildScrollView(
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         userDetailProvider?.data?.primary?.firstName ?? '',
-                //         style: const TextStyle(color: Colors.white),
-                //       ),
-                //        Text(
-                //         userDetailProvider?.data?.primary?.email ?? '',
-                //         style: const TextStyle(color: Color(0xFFA8A7A7)),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(
-                //   width: 25,
-                // ),
-                // Icon(
-                //   Icons.arrow_drop_down,
-                //   color: Colors.white,
-                //   size: 30,
-                // )
-              ],
-            )),
-            // ListTile(),
-
-            /// Home List
-            Expanded(
-              child: Column(
+              /// Home List
+              Column(
                 children: [
                   Theme(
                     data: Theme.of(context)
@@ -210,18 +201,18 @@ class _UserPageState extends State<UserPage> {
                   // Divider(thickness: 0.5,height: 2,indent: 20,endIndent: 20,),
                 ],
               ),
-            ),
 
-            /// Log-out
-            MyListTile(
-              icon: Icons.logout_outlined,
-              text: 'S I G N O U T',
-              onTap: () async {
-                ApiServiceProvider.logout();
-                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const WelcomeScreen()));
-              },
-            ),
-          ],
+              /// Log-out
+              MyListTile(
+                icon: Icons.logout_outlined,
+                text: 'S I G N O U T',
+                onTap: () async {
+                  ApiServiceProvider.logout();
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const WelcomeScreen()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -230,7 +221,7 @@ class _UserPageState extends State<UserPage> {
             Container(
               // alignment: Alignment.center,
               color: Colors.white,
-              height: 250,
+              height: 280,
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -258,7 +249,7 @@ class _UserPageState extends State<UserPage> {
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF566476)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 2,
                       ),
                       Text(
