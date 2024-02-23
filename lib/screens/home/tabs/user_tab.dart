@@ -16,6 +16,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+
+  //UserIdSuccess userIdSuccessModelData = UserIdSuccess();
+
   @override
   void initState() {
     Provider.of<AuthProvider>(context, listen: false).fetchUserDetails();
@@ -30,8 +33,8 @@ class _UserPageState extends State<UserPage> {
     final ApiServiceProvider = Provider.of<ApiService>(context); // for logOut
     final checkUserIdData = Provider.of<AuthProvider>(context)
         .checkUserId; // variable for checkUserId and success Token
+    final authProviderInstanceUserId = Provider.of<AuthProvider>(context);
 
-    var auth = AuthProvider();
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -62,8 +65,7 @@ class _UserPageState extends State<UserPage> {
                             children: [
                               Flexible(
                                 child: Text(
-                                  userDetailProvider
-                                          ?.data?.primary?.firstName ??
+                                  authProviderInstanceUserId.userIdSuccessModelData.data?.user.firstName ??
                                       '',
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(color: Colors.white),
@@ -73,7 +75,7 @@ class _UserPageState extends State<UserPage> {
                                 width: 2,
                               ),
                               Text(
-                                userDetailProvider?.data?.primary?.lastName ??
+                                authProviderInstanceUserId.userIdSuccessModelData.data?.user.lastName ??
                                     '',
                                 style: const TextStyle(color: Colors.white),
                               ),
@@ -81,7 +83,7 @@ class _UserPageState extends State<UserPage> {
                           ),
                           subtitle: Text(
                             maxLines: 1,
-                            userDetailProvider?.data?.primary?.email ?? '',
+                            authProviderInstanceUserId.userIdSuccessModelData.data?.user.email ?? '',
                             style: const TextStyle(color: Color(0xFFA8A7A7)),
                           ),
                           leading: const CircleAvatar(
@@ -115,16 +117,22 @@ class _UserPageState extends State<UserPage> {
 
                                   return Column(
                                     children: userList.map((user) {
-                                      return ListTile(
-                                        leading: const CircleAvatar(
-                                          radius: 25,
-                                          backgroundImage: NetworkImage(
-                                              "https://source.unsplash.com/random"),
+                                      return Container(
+                                        color: authProviderInstanceUserId.userIdSuccessModelData.data?.user.email == user.data?.user.email ? Colors.red : Colors.transparent,
+                                        child: ListTile(
+                                          onTap: () {
+                                            authProviderInstanceUserId.switchUserData(user);
+                                          },
+                                          leading: const CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(
+                                                "https://source.unsplash.com/random"),
+                                          ),
+                                          title: Text(
+                                              'Email: ${user.data?.user.email}'),
+                                          subtitle:
+                                              Text('TfName: ${user.data?.user.username}'),
                                         ),
-                                        title: Text(
-                                            'Email: ${user.data?.user.email}'),
-                                        subtitle:
-                                            Text('TfName: ${user.data?.user.username}'),
                                       );
                                     }).toList(),
                                   );

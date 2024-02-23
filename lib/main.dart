@@ -13,6 +13,7 @@ import 'package:tagifiles/screens/chats/userProfile/singleUserProfile.dart';
 import 'package:tagifiles/screens/home/home_screen.dart';
 import 'package:tagifiles/services/service.dart';
 import 'package:tagifiles/util/local_notification.dart';
+import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -128,6 +129,23 @@ class _MyAppState extends State<MyApp> {
                 MaterialApp(
                     debugShowCheckedModeBanner: false,
                     // theme: ThemeData(fontFamily: 'Helvetica'),
+
+                    // routerConfig:  GoRouter(routes: [
+                    //   GoRoute(
+                    //       path: "/",
+                    //     // builder: (context, state) => apiServiceInstanceProvider.isToken
+                    //     builder: (_,  __) => apiServiceInstanceProvider.isToken
+                    //         ? const HomePage()
+                    //         : FutureBuilder(
+                    //       future: apiServiceInstanceProvider. tryAutoLogin(),
+                    //       builder: (context, snapshot) =>
+                    //       snapshot.connectionState == ConnectionState.waiting
+                    //           ? const LoadingScreen()
+                    //           : const WelcomeScreen(),
+                    //     )
+                    //   ),
+                    // ]),
+
                     home: apiServiceInstanceProvider.isToken
                         ? const HomePage()
                         : FutureBuilder(

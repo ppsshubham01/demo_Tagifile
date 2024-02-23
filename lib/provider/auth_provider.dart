@@ -42,6 +42,8 @@ class AuthProvider with ChangeNotifier {
   var finalListContentData;
 
   ///
+
+  ///
   List<Result> fileList = [];
   List<Result> folderList = [];
   List<UserIdSuccess>? userList = [];
@@ -60,7 +62,6 @@ class AuthProvider with ChangeNotifier {
       return null;
     }
   }
-
 
   /// for signUp method
   void signUpUser(BuildContext context) {
@@ -108,6 +109,20 @@ class AuthProvider with ChangeNotifier {
     );
   }
 
+  signInDispose() {
+    emailController2.clear();
+    passwordController2.clear();
+    // notifyListeners();
+  }
+
+  signUpDispose() {
+    firstNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    // notifyListeners();
+  }
+
   void forgotPassword(BuildContext context) {
     /// Preview for the  save in object new created folder
     // {msg: "Created folder successfully!",…}
@@ -145,21 +160,12 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  /// checkUserID-Success verification
+  /// checkUserID-Success verification Api
   UserIdSuccess userId = UserIdSuccess();
   UserIdSuccess get checkUserId => userId;
 
   Future<void> checkUserIdprovider() async {
     userId = await ApiService().checkUserId();
-  }
-
-  /// Switch account method
-  String _token = '';
-  String get token => _token;
-
-  void switchAccount(String accoutToken){
-    _token = accoutToken;
-    notifyListeners();
   }
 
 
@@ -176,22 +182,39 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> fetchUserDetails() async {
     userdetailsModel = await ApiService().serviceUserDetails();
+    String? token = await ApiService().getTokenFromPrefs();// don't miss this anyTime to notify to return token
+    userIdSuccessModelData = UserIdSuccess(
+      data: UserIdData(
+        isAccountVerified: 1,
+        token: token.toString(),
+        user: UserIdUser(
+          id: 0,
+          lastLogin: '',
+          isSuperuser: false,
+          username: userdetailsModel.data!.primary!.username.toString(),
+          firstName: userdetailsModel.data!.primary!.firstName.toString(),
+          lastName: userdetailsModel.data!.primary!.lastName.toString(),
+          email: userdetailsModel.data!.primary!.email.toString(),
+          isStaff: false,
+          isActive: true,
+          dateJoined: DateTime.now(),
+        ),
+      ),
+    );
     notifyListeners();
   }
 
-  signInDispose() {
-    emailController2.clear();
-    passwordController2.clear();
-    // notifyListeners();
+  ///SwitchUserData
+  UserIdSuccess userIdSuccessModelData = UserIdSuccess();// this is for changing data on Tap
+
+  void switchUserData(UserIdSuccess userData) async {
+    userIdSuccessModelData = userData;
+    notifyListeners();
+    await ApiService().saveTokenToPrefs(userData.data!.token);
+    fetchUserDetails();
+    fetchDataaafterLogin();
   }
 
-  signUpDispose() {
-    firstNameController.clear();
-    lastNameController.clear();
-    emailController.clear();
-    passwordController.clear();
-    // notifyListeners();
-  }
 
   ///For the CreateNewFolder
   final TextEditingController createfoldertext = TextEditingController();

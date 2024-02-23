@@ -1,5 +1,5 @@
 class UserIdSuccess {
-  Data? data;
+  UserIdData? data;
 
   UserIdSuccess({
     this.data,
@@ -7,7 +7,7 @@ class UserIdSuccess {
 
   factory UserIdSuccess.fromJson(Map<String, dynamic> json) {
     return UserIdSuccess(
-      data: json['data'] != null ? Data.fromJson(json['data']) : null,
+      data: json['data'] != null ? UserIdData.fromJson(json['data']) : null,
     );
   }
 
@@ -20,21 +20,21 @@ class UserIdSuccess {
   }
 }
 
-class Data {
+class UserIdData {
   String token;
-  User user;
+  UserIdUser user;
   int isAccountVerified;
 
-  Data({
+  UserIdData({
     required this.token,
     required this.user,
     required this.isAccountVerified,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory UserIdData.fromJson(Map<String, dynamic> json) {
+    return UserIdData(
       token: json['token'],
-      user: User.fromJson(json['user']),
+      user: UserIdUser.fromJson(json['user']),
       isAccountVerified: json['is_account_verified'],
     );
   }
@@ -49,7 +49,7 @@ class Data {
   }
 }
 
-class User {
+class UserIdUser {
   int id;
   dynamic lastLogin;
   bool isSuperuser;
@@ -61,7 +61,7 @@ class User {
   bool isActive;
   DateTime dateJoined;
 
-  User({
+  UserIdUser({
     required this.id,
     required this.lastLogin,
     required this.isSuperuser,
@@ -74,8 +74,8 @@ class User {
     required this.dateJoined,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserIdUser.fromJson(Map<String, dynamic> json) {
+    return UserIdUser(
       id: json['id'],
       lastLogin: json['last_login'],
       isSuperuser: json['is_superuser'],

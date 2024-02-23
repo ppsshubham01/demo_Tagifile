@@ -129,7 +129,9 @@ class ApiService with ChangeNotifier {
     if (token != null) {
       // final url = Uri.parse('https://kong.tagifiles.io/tf/private/api/service/dev/v1/user/v1/login/with/tagifiles/');
       final url = Uri.parse(
-          'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/');
+          // 'http://192.168.1.142:8001/tf/core/api/service/dev/v1/personal/content/v1/list_content/'
+          'https://gateway-cs.tagifiles.io/tf/core/api/service/dev/v1/personal/content/v1/list_content/'
+      );
 
       final String body = json.encode({
         "parent_id": 0,
