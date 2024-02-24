@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tagifiles/provider/auth_provider.dart';
 import 'package:tagifiles/screens/auth/welcome_screen.dart';
 import 'package:tagifiles/util/my_list_tile.dart';
@@ -120,18 +123,33 @@ class _UserPageState extends State<UserPage> {
                                       return Container(
                                         color: authProviderInstanceUserId.userIdSuccessModelData.data?.user.email == user.data?.user.email ? Colors.red : Colors.transparent,
                                         child: ListTile(
-                                          onTap: () {
-                                            authProviderInstanceUserId.switchUserData(user);
-                                          },
+                                          // onTap: () {
+                                          //   authProviderInstanceUserId.switchUserData(user);
+                                          // },
                                           leading: const CircleAvatar(
-                                            radius: 25,
+                                            radius: 15,
                                             backgroundImage: NetworkImage(
                                                 "https://source.unsplash.com/random"),
                                           ),
-                                          title: Text(
-                                              'Email: ${user.data?.user.email}'),
+                                          title: InkWell(
+                                            onTap: () {
+                                              authProviderInstanceUserId.switchUserData(user);
+                                            },
+                                            child: Text(
+                                                'Email: ${user.data?.user.email}'),
+                                          ),
                                           subtitle:
                                               Text('TfName: ${user.data?.user.username}'),
+                                          trailing:  authProviderInstanceUserId.userIdSuccessModelData.data?.user.email != user.data?.user.email ? GestureDetector(
+                                              onTap: () async{
+                                                userList.remove(user);
+                                                List<UserIdSuccess> newUserList = userList;
+                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                await prefs.setStringList('userIdModelList', newUserList.map((e) => json.encode(e)).toList());
+                                                setState(() {
+                                                });
+                                              },
+                                              child: Icon(CupertinoIcons.minus_circle),) : null ,
                                         ),
                                       );
                                     }).toList(),
